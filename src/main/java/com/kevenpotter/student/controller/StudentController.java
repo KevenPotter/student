@@ -1,14 +1,12 @@
 package com.kevenpotter.student.controller;
 
-import com.kevenpotter.student.mapper.StudentEntity;
+import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.mapper.StudentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author KevenPotter
@@ -31,10 +29,25 @@ public class StudentController {
      * @description 根据[学生姓名]查询[学生实体]
      */
     @GetMapping("/student")
-    public ApiResult findByName(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {
+    public ApiResult getStudent(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {
         if (null == studentId && null == name) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.getStudent(studentId, name);
-        if (studentEntity == null) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到用户信息");
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到用户信息");
+        return ApiResult.buildSuccess(studentEntity);
+    }
+
+    /**
+     * @param studentDto 学生数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2019-11-22 13:34:21
+     * @description 根据[学生姓名]查询[学生实体]
+     */
+    @PostMapping("/student")
+    public ApiResult addStudent(@RequestBody StudentDto studentDto) {
+        if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        StudentEntity studentEntity = studentService.addStudent(studentDto);
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加数据");
         return ApiResult.buildSuccess(studentEntity);
     }
 }

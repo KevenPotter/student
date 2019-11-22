@@ -1,16 +1,14 @@
-package com.kevenpotter.student.mapper;
+package com.kevenpotter.student.domain.dto;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2019-11-22 11:23:23
- * @description 学生实体类
+ * @date 2019-11-22 13:33:44
+ * @description 学生数据传输类
  */
-public class StudentEntity implements Serializable {
+public class StudentDto {
 
     /*学生编号*/
     private Long id;
@@ -22,8 +20,6 @@ public class StudentEntity implements Serializable {
     private Integer age;
     /*学生家庭住址*/
     private String address;
-    /*学生记录添加时间*/
-    private LocalDateTime addTime;
     /*学生所属系别*/
     private String departmentId;
 
@@ -67,14 +63,6 @@ public class StudentEntity implements Serializable {
         this.address = address;
     }
 
-    public LocalDateTime getAddTime() {
-        return addTime;
-    }
-
-    public void setAddTime(LocalDateTime addTime) {
-        this.addTime = addTime;
-    }
-
     public String getDepartmentId() {
         return departmentId;
     }
@@ -85,13 +73,12 @@ public class StudentEntity implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", StudentEntity.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", StudentDto.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("sex='" + sex + "'")
                 .add("name='" + name + "'")
                 .add("age=" + age)
                 .add("address='" + address + "'")
-                .add("addTime=" + addTime)
                 .add("departmentId='" + departmentId + "'")
                 .toString();
     }

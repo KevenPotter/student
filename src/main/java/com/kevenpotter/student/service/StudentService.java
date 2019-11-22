@@ -1,7 +1,8 @@
 package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.StudentDao;
-import com.kevenpotter.student.mapper.StudentEntity;
+import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.mapper.StudentEntity;
 import com.kevenpotter.student.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,19 @@ public class StudentService {
         if (null == studentId) return studentDao.findUserByName(name);
         if (StringUtils.isEmpty(name)) return studentDao.findUserById(studentId);
         return studentDao.findUserByIdAndName(studentId, name);
+    }
+
+    /**
+     * @param studentDto 学生数据传输类
+     * @return 返回插入的学生实体
+     * @author KevenPotter
+     * @date 2019-11-22 15:37:30
+     * @description 插入一条新的[学生实体]并返回该[学生实体]
+     */
+    public StudentEntity addStudent(StudentDto studentDto) {
+        if (null == studentDto) return null;
+        studentDao.addStudent(studentDto);
+        return this.getStudent(studentDto.getId(), studentDto.getName());
     }
 
 }

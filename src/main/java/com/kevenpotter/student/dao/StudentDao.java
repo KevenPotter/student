@@ -1,6 +1,8 @@
 package com.kevenpotter.student.dao;
 
-import com.kevenpotter.student.mapper.StudentEntity;
+import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.mapper.StudentEntity;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -44,7 +46,16 @@ public interface StudentDao {
      * @date 2019-11-22 11:26:26
      * @description 根据[学生编号]和[学生姓名]查询[学生实体]
      */
-    @Select("SELECT * FROM student s WHERE s.id = #{studentId} AND s.name = #{name}")
+    @Select("SELECT * FROM student s WHERE s.id = #{studentId} AND s.name = #{name};")
     StudentEntity findUserByIdAndName(@Param("studentId") Long studentId, @Param("name") String name);
+
+    /**
+     * @param studentDto
+     * @author KevenPotter
+     * @date 2019-11-22 15:48:44
+     * @description 插入一条新的[学生实体]
+     */
+    @Insert("INSERT INTO `student`.`student` (`id`, `sex`, `name`, `age`, `address`, `addtime`, `department_id`) VALUES (#{studentDto.id}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now(), #{studentDto.departmentId});")
+    void addStudent(@Param("studentDto") StudentDto studentDto);
 }
 
