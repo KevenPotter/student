@@ -1,6 +1,7 @@
 package com.kevenpotter.student.controller;
 
 import com.kevenpotter.student.mapper.StudentEntity;
+import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,10 @@ public class StudentController {
      * @description 根据[学生姓名]查询[学生实体]
      */
     @GetMapping("/student")
-    public ApiResult findByName(@RequestParam(value = "name") String name) {
-        StudentEntity studentEntity = studentService.findByName(name);
+    public ApiResult findByName(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {
+        if (null == studentId && null == name) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        StudentEntity studentEntity = studentService.getStudent(studentId, name);
+        if (studentEntity == null) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到用户信息");
         return ApiResult.buildSuccess(studentEntity);
     }
 }

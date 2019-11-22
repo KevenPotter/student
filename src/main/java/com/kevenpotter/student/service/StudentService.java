@@ -19,14 +19,18 @@ public class StudentService {
     private StudentDao studentDao;
 
     /**
-     * @param name 学生姓名
+     * @param name      学生姓名
+     * @param studentId 学生编号
      * @return 返回一个[学生实体]
      * @author KevenPotter
      * @date 2019-11-22 11:34:13
-     * @description 根据[学生姓名]查询[学生实体]
+     * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public StudentEntity findByName(String name) {
-        if (StringUtils.isEmpty(name)) return null;
-        return studentDao.findUserByName(name);
+    public StudentEntity getStudent(Long studentId, String name) {
+        if (null == studentId && StringUtils.isEmpty(name)) return null;
+        if (null == studentId) return studentDao.findUserByName(name);
+        if (StringUtils.isEmpty(name)) return studentDao.findUserById(studentId);
+        return studentDao.findUserByIdAndName(studentId, name);
     }
+
 }
