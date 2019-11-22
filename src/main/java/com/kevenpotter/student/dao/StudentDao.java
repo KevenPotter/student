@@ -2,10 +2,7 @@ package com.kevenpotter.student.dao;
 
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.mapper.StudentEntity;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -50,12 +47,21 @@ public interface StudentDao {
     StudentEntity findUserByIdAndName(@Param("studentId") Long studentId, @Param("name") String name);
 
     /**
-     * @param studentDto
+     * @param studentDto 学生数据传输类
      * @author KevenPotter
      * @date 2019-11-22 15:48:44
      * @description 插入一条新的[学生实体]
      */
     @Insert("INSERT INTO `student`.`student` (`id`, `sex`, `name`, `age`, `address`, `addtime`, `department_id`) VALUES (#{studentDto.id}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now(), #{studentDto.departmentId});")
     void addStudent(@Param("studentDto") StudentDto studentDto);
+
+    /**
+     * @param studentDto 学生数据传输类
+     * @author KevenPotter
+     * @date 2019-11-22 16:05:38
+     * @description 更新[学生实体]
+     */
+    @Update("UPDATE `student`.`student` SET `id`=#{studentDto.id}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address}, `department_id`=#{studentDto.departmentId} WHERE (`id`=#{studentDto.id});")
+    void updateStudent(@Param("studentDto") StudentDto studentDto);
 }
 

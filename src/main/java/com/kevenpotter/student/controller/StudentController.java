@@ -41,13 +41,28 @@ public class StudentController {
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-22 13:34:21
-     * @description 根据[学生姓名]查询[学生实体]
+     * @description 插入一条新的[学生实体]并返回该[学生实体]
      */
     @PostMapping("/student")
     public ApiResult addStudent(@RequestBody StudentDto studentDto) {
         if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.addStudent(studentDto);
         if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加数据");
+        return ApiResult.buildSuccess(studentEntity);
+    }
+
+    /**
+     * @param studentDto 学生数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2019-11-22 16:07:38
+     * @description 更新[学生实体]并返回更新之前的[学生实体]
+     */
+    @PutMapping("/student")
+    public ApiResult updateStudent(@RequestBody StudentDto studentDto) {
+        if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        StudentEntity studentEntity = studentService.updateStudent(studentDto);
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功更新数据");
         return ApiResult.buildSuccess(studentEntity);
     }
 }

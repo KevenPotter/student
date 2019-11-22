@@ -47,4 +47,18 @@ public class StudentService {
         return this.getStudent(studentDto.getId(), studentDto.getName());
     }
 
+    /**
+     * @param studentDto 学生数据传输类
+     * @return 返回更新之前的学生实体
+     * @author KevenPotter
+     * @date 2019-11-22 16:05:38
+     * @description 更新[学生实体]并返回更新之前的[学生实体]
+     */
+    public StudentEntity updateStudent(StudentDto studentDto) {
+        if (null == studentDto) return null;
+        StudentEntity studentEntity = studentDao.findUserById(studentDto.getId());
+        studentDao.updateStudent(studentDto);
+        return studentEntity;
+    }
+
 }
