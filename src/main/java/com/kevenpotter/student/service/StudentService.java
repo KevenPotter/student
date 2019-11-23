@@ -20,8 +20,8 @@ public class StudentService {
     private StudentDao studentDao;
 
     /**
-     * @param name      学生姓名
      * @param studentId 学生编号
+     * @param name      学生姓名
      * @return 返回一个[学生实体]
      * @author KevenPotter
      * @date 2019-11-22 11:34:13

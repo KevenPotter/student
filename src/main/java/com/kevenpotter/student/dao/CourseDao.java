@@ -1,7 +1,7 @@
 package com.kevenpotter.student.dao;
 
 import com.kevenpotter.student.domain.dto.CourseDto;
-import com.kevenpotter.student.domain.entity.StudentEntity;
+import com.kevenpotter.student.domain.entity.CourseEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +23,7 @@ public interface CourseDao {
      * @description 根据[课程名称]查询[课程实体]
      */
     @Select("SELECT * FROM course c WHERE c.name = #{name}")
-    StudentEntity findCourseByName(@Param("name") String name);
+    CourseEntity findCourseByName(@Param("name") String name);
 
     /**
      * @param courseId 课程编号
@@ -33,7 +33,7 @@ public interface CourseDao {
      * @description 根据[课程编号]查询[课程实体]
      */
     @Select("SELECT * FROM course c WHERE c.id = #{courseId}")
-    StudentEntity findCourseById(@Param("courseId") Long courseId);
+    CourseEntity findCourseById(@Param("courseId") Long courseId);
 
     /**
      * @param courseId 课程编号
@@ -44,7 +44,7 @@ public interface CourseDao {
      * @description 根据[课程编号]和[课程名称]查询[课程实体]
      */
     @Select("SELECT * FROM course c WHERE c.id = #{courseId} AND c.name = #{name};")
-    StudentEntity findUserByIdAndName(@Param("courseId") Long courseId, @Param("name") String name);
+    CourseEntity findCourseByIdAndName(@Param("courseId") Long courseId, @Param("name") String name);
 
     /**
      * @param courseDto 课程数据传输类
@@ -53,7 +53,7 @@ public interface CourseDao {
      * @description 插入一条新的[课程实体]
      */
     @Insert("INSERT INTO `student`.`course` (`id`, `name`, `hour`, `credit`) VALUES (#{courseDto.id}, #{courseDto.name}, #{courseDto.hour}, #{courseDto.credit});")
-    void addStudent(@Param("courseDto") CourseDto courseDto);
+    void addCourse(@Param("courseDto") CourseDto courseDto);
 
     /**
      * @param courseDto 课程数据传输类
@@ -62,6 +62,6 @@ public interface CourseDao {
      * @description 更新[课程实体]
      */
     @Update("UPDATE `student`.`course` SET `id`=#{courseDto.id}, `name`=#{courseDto.name}, `hour`=#{courseDto.hour}, `credit`=#{courseDto.credit} WHERE (`id`=#{courseDto.id});")
-    void updateStudent(@Param("courseDto") CourseDto courseDto);
+    void updateCourse(@Param("courseDto") CourseDto courseDto);
 }
 

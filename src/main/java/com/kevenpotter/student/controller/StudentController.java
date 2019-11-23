@@ -22,7 +22,8 @@ public class StudentController {
     private StudentService studentService;
 
     /**
-     * @param name 学生姓名
+     * @param studentId 学生编号
+     * @param name      学生姓名
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-22 11:34:46
@@ -32,7 +33,7 @@ public class StudentController {
     public ApiResult getStudent(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {
         if (null == studentId && null == name) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.getStudent(studentId, name);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到用户信息");
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
         return ApiResult.buildSuccess(studentEntity);
     }
 
@@ -47,7 +48,7 @@ public class StudentController {
     public ApiResult addStudent(@RequestBody StudentDto studentDto) {
         if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.addStudent(studentDto);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加数据");
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加学生信息");
         return ApiResult.buildSuccess(studentEntity);
     }
 
@@ -62,7 +63,7 @@ public class StudentController {
     public ApiResult updateStudent(@RequestBody StudentDto studentDto) {
         if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.updateStudent(studentDto);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功更新数据");
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功更新学生信息");
         return ApiResult.buildSuccess(studentEntity);
     }
 }
