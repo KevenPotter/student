@@ -2,7 +2,7 @@ package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
-import com.kevenpotter.student.domain.mapper.StudentEntity;
+import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

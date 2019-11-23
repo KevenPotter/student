@@ -1,4 +1,4 @@
-package com.kevenpotter.student.domain.mapper;
+package com.kevenpotter.student.domain.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

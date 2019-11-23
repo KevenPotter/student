@@ -1,7 +1,7 @@
 package com.kevenpotter.student.controller;
 
 import com.kevenpotter.student.domain.dto.StudentDto;
-import com.kevenpotter.student.domain.mapper.StudentEntity;
+import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.StudentService;
