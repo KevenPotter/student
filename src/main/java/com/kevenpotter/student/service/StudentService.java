@@ -4,6 +4,8 @@ import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class StudentService {
+
+    /*定义日志记录器，用来记录必要信息*/
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private StudentDao studentDao;

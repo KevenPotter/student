@@ -4,6 +4,8 @@ import com.kevenpotter.student.dao.CourseDao;
 import com.kevenpotter.student.domain.dto.CourseDto;
 import com.kevenpotter.student.domain.entity.CourseEntity;
 import com.kevenpotter.student.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class CourseService {
+
+    /*定义日志记录器，用来记录必要信息*/
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CourseDao courseDao;
@@ -54,7 +59,7 @@ public class CourseService {
      * @date 2019-11-23 18:16:45
      * @description 更新[课程实体]并返回更新之前的[课程实体]
      */
-    public CourseEntity updateStudent(CourseDto courseDto) {
+    public CourseEntity updateCourse(CourseDto courseDto) {
         if (null == courseDto) return null;
         CourseEntity courseEntity = courseDao.findCourseById(courseDto.getId());
         courseDao.updateCourse(courseDto);

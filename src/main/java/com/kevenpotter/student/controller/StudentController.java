@@ -5,6 +5,8 @@ import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("student")
 public class StudentController {
 
+    /*定义日志记录器，用来记录必要信息*/
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private StudentService studentService;
 
@@ -27,7 +32,7 @@ public class StudentController {
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-22 11:34:46
-     * @description 根据[学生姓名]查询[学生实体]
+     * @description 根据[学生编号]或[学生姓名]查询[学生实体]
      */
     @GetMapping("/student")
     public ApiResult getStudent(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {

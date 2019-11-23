@@ -5,6 +5,8 @@ import com.kevenpotter.student.domain.entity.CourseEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.CourseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("course")
 public class CourseController {
 
+    /*定义日志记录器，用来记录必要信息*/
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private CourseService courseService;
 
@@ -27,7 +32,7 @@ public class CourseController {
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-23 18:18:08
-     * @description 根据[课程名称]查询[课程实体]
+     * @description 根据[课程编号]或[课程名称]查询[课程实体]
      */
     @GetMapping("/course")
     public ApiResult getCourse(@RequestParam(value = "courseId", required = false) Long courseId, @RequestParam(value = "name", required = false) String name) {
@@ -62,7 +67,7 @@ public class CourseController {
     @PutMapping("/course")
     public ApiResult updateCourse(@RequestBody CourseDto courseDto) {
         if (null == courseDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        CourseEntity courseEntity = courseService.updateStudent(courseDto);
+        CourseEntity courseEntity = courseService.updateCourse(courseDto);
         if (null == courseEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功更新课程信息");
         return ApiResult.buildSuccess(courseEntity);
     }
