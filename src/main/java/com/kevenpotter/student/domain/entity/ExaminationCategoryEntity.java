@@ -1,20 +1,23 @@
 package com.kevenpotter.student.domain.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.StringJoiner;
 
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-11-23 11:12:10
- * @description 联系课实体类
+ * @description 考试类目实体类
  */
-public class PracticeEntity implements Serializable {
+public class ExaminationCategoryEntity implements Serializable {
 
-    /*练习场次编号*/
+    /*考试场次编号*/
     private Long id;
-    /*练习场次名称*/
+    /*考试场次名称*/
     private String name;
+    /*分数占比*/
+    private BigDecimal ratio;
 
     public Long getId() {
         return id;
@@ -32,11 +35,20 @@ public class PracticeEntity implements Serializable {
         this.name = name;
     }
 
+    public BigDecimal getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
+    }
+
     @Override
     public String toString() {
-        return new StringJoiner(", ", PracticeEntity.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ExaminationCategoryEntity.class.getSimpleName() + "[", "]")
                 .add("id=" + id)
                 .add("name='" + name + "'")
+                .add("ratio=" + ratio)
                 .toString();
     }
 }
