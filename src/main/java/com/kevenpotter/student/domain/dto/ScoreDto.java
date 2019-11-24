@@ -1,15 +1,14 @@
-package com.kevenpotter.student.domain.entity;
+package com.kevenpotter.student.domain.dto;
 
-import java.io.Serializable;
 import java.util.StringJoiner;
 
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2019-11-23 11:13:59
- * @description 分数实体类
+ * @date 2019-11-24 18:26:24
+ * @description 分数数据传输类
  */
-public class ScoreEntity implements Serializable {
+public class ScoreDto {
 
     /*课程编号*/
     private Long courseId;
@@ -54,7 +53,7 @@ public class ScoreEntity implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", ScoreEntity.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", ScoreDto.class.getSimpleName() + "[", "]")
                 .add("courseId=" + courseId)
                 .add("studentId=" + studentId)
                 .add("examinationCategoryId=" + examinationCategoryId)
