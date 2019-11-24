@@ -49,6 +49,8 @@ public class ExaminationCategoryService {
      */
     public ExaminationCategoryEntity addExaminationCategory(ExaminationCategoryDto examinationCategoryDto) {
         if (null == examinationCategoryDto) return null;
+        ExaminationCategoryEntity examinationCategoryEntity = this.getExaminationCategory(examinationCategoryDto.getId(), examinationCategoryDto.getName());
+        if (null != examinationCategoryEntity) return null;
         examinationCategoryDao.addExaminationCategory(examinationCategoryDto);
         return this.getExaminationCategory(examinationCategoryDto.getId(), examinationCategoryDto.getName());
     }

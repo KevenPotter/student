@@ -48,6 +48,8 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
+        StudentEntity studentEntity = this.getStudent(studentDto.getId(), studentDto.getName());
+        if (null != studentEntity) return null;
         studentDao.addStudent(studentDto);
         return this.getStudent(studentDto.getId(), studentDto.getName());
     }

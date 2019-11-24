@@ -53,7 +53,7 @@ public class CourseController {
     public ApiResult addCourse(@RequestBody CourseDto courseDto) {
         if (null == courseDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         CourseEntity courseEntity = courseService.addCourse(courseDto);
-        if (null == courseEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加课程信息");
+        if (null == courseEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加课程信息,课程信息可能已重复");
         return ApiResult.buildSuccess(courseEntity);
     }
 

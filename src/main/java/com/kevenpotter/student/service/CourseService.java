@@ -48,6 +48,8 @@ public class CourseService {
      */
     public CourseEntity addCourse(CourseDto courseDto) {
         if (null == courseDao) return null;
+        CourseEntity courseEntity = this.getCourse(courseDto.getId(), courseDto.getName());
+        if (null != courseEntity) return null;
         courseDao.addCourse(courseDto);
         return this.getCourse(courseDto.getId(), courseDto.getName());
     }

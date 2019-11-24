@@ -53,7 +53,8 @@ public class ExaminationCategoryController {
     public ApiResult addExaminationCategory(@RequestBody ExaminationCategoryDto examinationCategoryDto) {
         if (null == examinationCategoryDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         ExaminationCategoryEntity examinationCategoryEntity = examinationCategoryService.addExaminationCategory(examinationCategoryDto);
-        if (null == examinationCategoryEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加考试类目信息");
+        if (null == examinationCategoryEntity)
+            return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加考试类目信息,考试类目信息可能已重复");
         return ApiResult.buildSuccess(examinationCategoryEntity);
     }
 

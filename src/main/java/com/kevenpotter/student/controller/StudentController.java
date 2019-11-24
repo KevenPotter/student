@@ -53,7 +53,7 @@ public class StudentController {
     public ApiResult addStudent(@RequestBody StudentDto studentDto) {
         if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentEntity studentEntity = studentService.addStudent(studentDto);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加学生信息");
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加学生信息,学生信息可能已重复");
         return ApiResult.buildSuccess(studentEntity);
     }
 

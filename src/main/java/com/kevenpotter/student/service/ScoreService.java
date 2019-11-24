@@ -46,6 +46,8 @@ public class ScoreService {
      */
     public ScoreEntity addScore(ScoreDto scoreDto) {
         if (null == scoreDto) return null;
+        ScoreEntity scoreEntity = this.getScore(scoreDto.getCourseId(), scoreDto.getExaminationCategoryId(), scoreDto.getStudentId());
+        if (null != scoreEntity) return null;
         scoreDao.addScore(scoreDto);
         return this.getScore(scoreDto.getCourseId(), scoreDto.getExaminationCategoryId(), scoreDto.getStudentId());
     }

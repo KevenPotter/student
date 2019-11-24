@@ -55,7 +55,7 @@ public class ScoreController {
     public ApiResult addScore(@RequestBody ScoreDto scoreDto) {
         if (null == scoreDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         ScoreEntity scoreEntity = scoreService.addScore(scoreDto);
-        if (null == scoreEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加分数信息");
+        if (null == scoreEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加分数信息,分数信息可能已重复");
         return ApiResult.buildSuccess(scoreEntity);
     }
 
