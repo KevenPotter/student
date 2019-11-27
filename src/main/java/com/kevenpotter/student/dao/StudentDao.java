@@ -5,6 +5,8 @@ import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
@@ -23,7 +25,7 @@ public interface StudentDao {
      * @description 根据[学生姓名]查询[学生实体]
      */
     @Select("SELECT * FROM student s WHERE s.name = #{name}")
-    StudentEntity findUserByName(@Param("name") String name);
+    List<StudentEntity> findUserByName(@Param("name") String name);
 
     /**
      * @param studentId 学生编号
@@ -52,7 +54,7 @@ public interface StudentDao {
      * @date 2019-11-22 15:48:44
      * @description 插入一条新的[学生实体]
      */
-    @Insert("INSERT INTO `student`.`student` (`id`, `sex`, `name`, `age`, `address`, `addtime`, `department_id`) VALUES (#{studentDto.id}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now(), #{studentDto.departmentId});")
+    @Insert("INSERT INTO `student`.`student` (`id`, `department_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.id}, #{studentDto.departmentId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
     void addStudent(@Param("studentDto") StudentDto studentDto);
 
     /**
@@ -61,7 +63,7 @@ public interface StudentDao {
      * @date 2019-11-22 16:05:38
      * @description 更新[学生实体]
      */
-    @Update("UPDATE `student`.`student` SET `id`=#{studentDto.id}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address}, `department_id`=#{studentDto.departmentId} WHERE (`id`=#{studentDto.id});")
+    @Update("UPDATE `student`.`student` SET `id`={studentDto.id}, `department_id`=#{studentDto.departmentId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`id`=#{studentDto.id});")
     void updateStudent(@Param("studentDto") StudentDto studentDto);
 }
 
