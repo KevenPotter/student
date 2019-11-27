@@ -33,8 +33,7 @@ public class StudentService {
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
     public StudentEntity getStudent(Long studentId, String name) {
-        if (null == studentId && StringUtils.isEmpty(name)) return null;
-        if (null == studentId) return studentDao.findUserByName(name);
+        if ((null == studentId && StringUtils.isEmpty(name)) || null == studentId) return null;
         if (StringUtils.isEmpty(name)) return studentDao.findUserById(studentId);
         return studentDao.findUserByIdAndName(studentId, name);
     }
