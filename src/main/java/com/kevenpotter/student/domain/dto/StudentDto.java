@@ -18,7 +18,7 @@ public class StudentDto {
     /*学生所属年级*/
     private Integer grade;
     /*学生所属班级*/
-    private Integer aClass;
+    private Integer clazz;
     /*学生姓名*/
     private String name;
     /*学生年龄*/
