@@ -1,11 +1,10 @@
 package com.kevenpotter.student.dao;
 
+import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author KevenPotter
@@ -21,11 +20,21 @@ public interface StudentDao {
      * @param id 主键ID
      * @return 返回一个[学生实体]
      * @author KevenPotter
-     * @date 2019-11-22 13:22:38
+     * @date 2019-11-29 10:45:09
      * @description 根据[主键ID]查询[学生实体]
      */
     @Select("SELECT * FROM student s WHERE s.id = #{id}")
     StudentEntity getStudentById(@Param("id") Long id);
+
+    /**
+     * @param studentId 学生编号
+     * @return 返回一个[学生实体]
+     * @author KevenPotter
+     * @date 2019-11-22 13:22:38
+     * @description 根据[学生编号]查询[学生实体]
+     */
+    @Select("SELECT * FROM student s WHERE s.student_id = #{studentId}")
+    StudentEntity getStudentByStudentId(@Param("studentId") Long studentId);
 
     /**
      * @param studentId 学生编号
@@ -37,15 +46,16 @@ public interface StudentDao {
      */
     @Select("<script> " +
             "SELECT * FROM student s " +
-            "WHERE 1=1 " +
+            "<where> " +
             "<if test='studentId != null'> " +
             "AND s.student_id = #{studentId}  " +
             "</if> " +
             "<if test='name != null'> " +
             "AND s.name LIKE CONCAT('%',#{name},'%') " +
             "</if>" +
+            "</where>" +
             "</script>")
-    List<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name);
+    Page<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name);
 
     /**
      * @param studentDto 学生数据传输类

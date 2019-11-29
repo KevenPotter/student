@@ -1,17 +1,14 @@
 package com.kevenpotter.student.service;
 
+import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.utils.ListUtils;
-import com.kevenpotter.student.utils.NumericUtils;
-import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author KevenPotter
@@ -36,8 +33,7 @@ public class StudentService {
      * @date 2019-11-22 11:34:13
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public List<StudentEntity> getStudent(Long studentId, String name) {
-        if (NumericUtils.isEmpty(studentId) && StringUtils.isEmpty(name)) return null;
+    public Page<StudentEntity> getStudent(Long studentId, String name) {
         return studentDao.getStudents(studentId, name);
     }
 
@@ -50,7 +46,7 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        List<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName());
+        Page<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName());
         if (!ListUtils.isEmpty(studentEntityList)) return null;
         studentDao.addStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());
@@ -65,6 +61,8 @@ public class StudentService {
      */
     public StudentEntity updateStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
+        StudentEntity studentEntity = studentDao.getStudentByStudentId(studentDto.getStudentId());
+        if (null == studentEntity) return null;
         studentDao.updateStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());
     }
