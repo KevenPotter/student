@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 @Data
 public class StudentEntity implements Serializable {
 
-    /*学生编号*/
+    /*主键ID*/
     private Long id;
+    /*学生编号*/
+    private Long studentId;
     /*学生所属系别*/
     private Integer departmentId;
     /*学生所属年级*/

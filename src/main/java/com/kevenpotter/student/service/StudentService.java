@@ -3,11 +3,15 @@ package com.kevenpotter.student.service;
 import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
+import com.kevenpotter.student.utils.ListUtils;
+import com.kevenpotter.student.utils.NumericUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author KevenPotter
@@ -32,10 +36,9 @@ public class StudentService {
      * @date 2019-11-22 11:34:13
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public StudentEntity getStudent(Long studentId, String name) {
-        if ((null == studentId && StringUtils.isEmpty(name)) || null == studentId) return null;
-        if (StringUtils.isEmpty(name)) return studentDao.findUserById(studentId);
-        return studentDao.findUserByIdAndName(studentId, name);
+    public List<StudentEntity> getStudent(Long studentId, String name) {
+        if (NumericUtils.isEmpty(studentId) && StringUtils.isEmpty(name)) return null;
+        return studentDao.getStudents(studentId, name);
     }
 
     /**
@@ -47,10 +50,10 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        StudentEntity studentEntity = this.getStudent(studentDto.getId(), studentDto.getName());
-        if (null != studentEntity) return null;
+        List<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName());
+        if (!ListUtils.isEmpty(studentEntityList)) return null;
         studentDao.addStudent(studentDto);
-        return this.getStudent(studentDto.getId(), studentDto.getName());
+        return studentDao.getStudentById(studentDto.getId());
     }
 
     /**
@@ -62,9 +65,8 @@ public class StudentService {
      */
     public StudentEntity updateStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        StudentEntity studentEntity = studentDao.findUserById(studentDto.getId());
         studentDao.updateStudent(studentDto);
-        return studentEntity;
+        return studentDao.getStudentById(studentDto.getId());
     }
 
 }

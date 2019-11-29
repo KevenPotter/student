@@ -18,35 +18,34 @@ import java.util.List;
 public interface StudentDao {
 
     /**
-     * @param name 学生姓名
-     * @return 返回一个[学生实体]
-     * @author KevenPotter
-     * @date 2019-11-22 11:30:35
-     * @description 根据[学生姓名]查询[学生实体]
-     */
-    @Select("SELECT * FROM student s WHERE s.name = #{name}")
-    List<StudentEntity> findUserByName(@Param("name") String name);
-
-    /**
-     * @param studentId 学生编号
+     * @param id 主键ID
      * @return 返回一个[学生实体]
      * @author KevenPotter
      * @date 2019-11-22 13:22:38
-     * @description 根据[学生编号]查询[学生实体]
+     * @description 根据[主键ID]查询[学生实体]
      */
-    @Select("SELECT * FROM student s WHERE s.id = #{studentId}")
-    StudentEntity findUserById(@Param("studentId") Long studentId);
+    @Select("SELECT * FROM student s WHERE s.id = #{id}")
+    StudentEntity getStudentById(@Param("id") Long id);
 
     /**
      * @param studentId 学生编号
      * @param name      学生姓名
-     * @return 返回一个[学生实体]
+     * @return 返回[学生实体]列表
      * @author KevenPotter
-     * @date 2019-11-22 11:26:26
-     * @description 根据[学生编号]和[学生姓名]查询[学生实体]
+     * @date 2019-11-29 11:16:38
+     * @description 根据给定的参数进行[学生实体]列表的查询
      */
-    @Select("SELECT * FROM student s WHERE s.id = #{studentId} AND s.name = #{name};")
-    StudentEntity findUserByIdAndName(@Param("studentId") Long studentId, @Param("name") String name);
+    @Select("<script> " +
+            "SELECT * FROM student s " +
+            "WHERE 1=1 " +
+            "<if test='studentId != null'> " +
+            "AND s.student_id = #{studentId}  " +
+            "</if> " +
+            "<if test='name != null'> " +
+            "AND s.name LIKE CONCAT('%',#{name},'%') " +
+            "</if>" +
+            "</script>")
+    List<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name);
 
     /**
      * @param studentDto 学生数据传输类
@@ -54,7 +53,8 @@ public interface StudentDao {
      * @date 2019-11-22 15:48:44
      * @description 插入一条新的[学生实体]
      */
-    @Insert("INSERT INTO `student`.`student` (`id`, `department_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.id}, #{studentDto.departmentId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
+    @Insert("INSERT INTO `student`.`student` (`student_id`, `department_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.studentId}, #{studentDto.departmentId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
+    @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "id")
     void addStudent(@Param("studentDto") StudentDto studentDto);
 
     /**
@@ -63,7 +63,8 @@ public interface StudentDao {
      * @date 2019-11-22 16:05:38
      * @description 更新[学生实体]
      */
-    @Update("UPDATE `student`.`student` SET `id`={studentDto.id}, `department_id`=#{studentDto.departmentId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`id`=#{studentDto.id});")
+    @Update("UPDATE `student`.`student` SET `student_id`=#{studentDto.studentId}, `department_id`=#{studentDto.departmentId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`student_id`=#{studentDto.studentId});")
+    @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "1")
     void updateStudent(@Param("studentDto") StudentDto studentDto);
 }
 

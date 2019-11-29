@@ -5,10 +5,15 @@ import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.StudentService;
+import com.kevenpotter.student.utils.ListUtils;
+import com.kevenpotter.student.utils.NumericUtils;
+import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author KevenPotter
@@ -35,11 +40,14 @@ public class StudentController {
      * @description 根据[学生编号]或[学生姓名]查询[学生实体]
      */
     @GetMapping("/student")
-    public ApiResult getStudent(@RequestParam(value = "studentId", required = false) Long studentId, @RequestParam(value = "name", required = false) String name) {
-        if (null == studentId && null == name) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        StudentEntity studentEntity = studentService.getStudent(studentId, name);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
-        return ApiResult.buildSuccess(studentEntity);
+    public ApiResult getStudent(
+            @RequestParam(value = "studentId", required = false) Long studentId,
+            @RequestParam(value = "name", required = false) String name) {
+        if (NumericUtils.isEmpty(studentId) && StringUtils.isEmpty(name))
+            return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        List<StudentEntity> studentEntityList = studentService.getStudent(studentId, name);
+        if (ListUtils.isEmpty(studentEntityList)) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
+        return ApiResult.buildSuccess(studentEntityList);
     }
 
     /**
