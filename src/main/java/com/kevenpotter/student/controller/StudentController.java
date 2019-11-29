@@ -42,7 +42,7 @@ public class StudentController {
             @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize);
         PageInfo<StudentEntity> pageInfo = new PageInfo<StudentEntity>(studentService.getStudent(studentId, name));
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
