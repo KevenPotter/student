@@ -6,6 +6,8 @@ import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
