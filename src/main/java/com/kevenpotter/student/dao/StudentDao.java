@@ -63,7 +63,7 @@ public interface StudentDao {
      * @date 2019-11-22 15:48:44
      * @description 插入一条新的[学生实体]
      */
-    @Insert("INSERT INTO `student`.`student` (`student_id`, `department_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.studentId}, #{studentDto.departmentId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
+    @Insert("INSERT INTO `student`.`student` (`student_id`, `department_id`, `major_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.studentId}, #{studentDto.departmentId}, #{studentDto.majorId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
     @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "id")
     void addStudent(@Param("studentDto") StudentDto studentDto);
 
@@ -73,7 +73,7 @@ public interface StudentDao {
      * @date 2019-11-22 16:05:38
      * @description 更新[学生实体]
      */
-    @Update("UPDATE `student`.`student` SET `student_id`=#{studentDto.studentId}, `department_id`=#{studentDto.departmentId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`student_id`=#{studentDto.studentId});")
+    @Update("UPDATE `student`.`student` SET `student_id`=#{studentDto.studentId}, `department_id`=#{studentDto.departmentId}, `major_id`=#{studentDto.majorId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`student_id`=#{studentDto.studentId});")
     @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "1")
     void updateStudent(@Param("studentDto") StudentDto studentDto);
 }

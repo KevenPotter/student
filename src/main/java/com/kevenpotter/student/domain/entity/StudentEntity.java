@@ -20,6 +20,8 @@ public class StudentEntity implements Serializable {
     private Long studentId;
     /*学生所属系别*/
     private Integer departmentId;
+    /*学生所属专业*/
+    private Integer majorId;
     /*学生所属年级*/
     private Integer grade;
     /*学生所属班级*/
