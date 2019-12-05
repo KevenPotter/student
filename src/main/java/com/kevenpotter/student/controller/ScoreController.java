@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019-11-23 18:17:37
  * @description 课程控制层类
  */
+@CrossOrigin
 @RestController
 @RequestMapping("score")
 public class ScoreController {

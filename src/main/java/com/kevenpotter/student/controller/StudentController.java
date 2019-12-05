@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019-11-22 11:26:36
  * @description 学生控制层类
  */
+@CrossOrigin
 @RestController
 @RequestMapping("student")
 public class StudentController {
