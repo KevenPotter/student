@@ -38,7 +38,7 @@ public class StudentController {
      * @date 2019-11-22 11:34:46
      * @description 根据[学生编号]或[学生姓名]查询[学生实体]
      */
-    @GetMapping("/student")
+    @GetMapping("/students")
     public ApiResult getStudent(
             @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "name", required = false) String name,

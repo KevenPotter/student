@@ -32,7 +32,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/department")
+    @GetMapping("/departments")
     public ApiResult getAllDepartments() {
         List<DepartmentEntity> departmentEntityList = departmentService.getAllDepartments();
         if (ListUtils.isEmpty(departmentEntityList)) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到系别信息");
