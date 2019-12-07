@@ -5,6 +5,7 @@ import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.utils.ListUtils;
+import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class StudentService {
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
     public Page<StudentEntity> getStudent(Long studentId, String name) {
+        if (StringUtils.isEmpty(name)) {
+            name = null;
+        } else {
+            name = name.trim();
+        }
         return studentDao.getStudents(studentId, name);
     }
 
