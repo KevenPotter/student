@@ -33,4 +33,16 @@ public class DepartmentService {
     public List<DepartmentEntity> getAllDepartments() {
         return departmentDao.getAllDepartments();
     }
+
+    /**
+     * @param departmentId 系别编号
+     * @return 根据[系别编号]返回[系别实体类]
+     * @author KevenPotter
+     * @date 2019-12-06 21:56:40
+     * @description 根据[系别编号]返回[系别实体类]
+     */
+    public DepartmentEntity getDepartmentById(Long departmentId) {
+        if (null == departmentId) return null;
+        return departmentDao.getDepartmentById(departmentId);
+    }
 }

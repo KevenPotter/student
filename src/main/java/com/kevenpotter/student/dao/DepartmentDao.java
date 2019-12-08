@@ -25,5 +25,15 @@ public interface DepartmentDao {
      */
     @Select("SELECT * FROM department d;")
     List<DepartmentEntity> getAllDepartments();
+
+    /**
+     * @param departmentId 系别编号
+     * @return 根据[系别编号]返回[系别实体类]
+     * @author KevenPotter
+     * @date 2019-12-06 21:53:10
+     * @description 根据[系别编号]返回[系别实体类]
+     */
+    @Select("SELECT * FROM department d WHERE d.department_id=#{departmentId}")
+    DepartmentEntity getDepartmentById(Long departmentId);
 }
 

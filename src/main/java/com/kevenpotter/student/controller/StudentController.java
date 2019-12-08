@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @date 2019-11-22 11:26:36
  * @description 学生控制层类
  */
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
 @RequestMapping("student")
 public class StudentController {
@@ -38,6 +38,7 @@ public class StudentController {
      * @date 2019-11-22 11:34:46
      * @description 根据[学生编号]或[学生姓名]查询[学生实体]
      */
+    @ResponseBody
     @GetMapping("/students")
     public ApiResult getStudent(
             @RequestParam(value = "studentId", required = false) Long studentId,

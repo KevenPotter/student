@@ -16,5 +16,5 @@ public class DepartmentEntity {
     /*系别编号*/
     private Long departmentId;
     /*系别名称*/
-    private Integer departmentName;
+    private String departmentName;
 }
