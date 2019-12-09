@@ -30,7 +30,7 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     /**
-     * @return 返回全部[系别实体类]列表
+     * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-12-06 17:12:33
      * @description 返回全部[系别实体类]列表
@@ -44,7 +44,7 @@ public class DepartmentController {
 
     /**
      * @param departmentId 系别编号
-     * @return 根据[系别编号]返回[系别实体类]
+     * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-12-06 22:01:08
      * @description 根据[系别编号]返回[系别实体类]

@@ -2,6 +2,7 @@ package com.kevenpotter.student.dao;
 
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +35,6 @@ public interface DepartmentDao {
      * @description 根据[系别编号]返回[系别实体类]
      */
     @Select("SELECT * FROM department d WHERE d.department_id=#{departmentId}")
-    DepartmentEntity getDepartmentById(Long departmentId);
+    DepartmentEntity getDepartmentById(@Param("departmentId") Long departmentId);
 }
 
