@@ -6,8 +6,6 @@ import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
@@ -55,9 +53,15 @@ public interface StudentDao {
             "<if test='name != null'> " +
             "AND s.name LIKE CONCAT('%',#{name},'%') " +
             "</if>" +
+            "<if test='departmentId != null'> " +
+            "AND s.department_id = #{departmentId}  " +
+            "</if> " +
+            "<if test='majorId != null'> " +
+            "AND s.major_id = #{majorId}  " +
+            "</if> " +
             "</where>" +
             "</script>")
-    Page<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name);
+    Page<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name, @Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId);
 
     /**
      * @param studentDto 学生数据传输类

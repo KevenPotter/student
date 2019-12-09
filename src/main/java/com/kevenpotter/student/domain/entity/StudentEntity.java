@@ -1,5 +1,6 @@
 package com.kevenpotter.student.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public class StudentEntity implements Serializable {
     /*主键ID*/
     private Long id;
     /*学生编号*/
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long studentId;
     /*学生所属系别*/
     private Integer departmentId;

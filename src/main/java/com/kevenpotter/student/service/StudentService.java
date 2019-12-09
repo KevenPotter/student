@@ -34,13 +34,13 @@ public class StudentService {
      * @date 2019-11-22 11:34:13
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public Page<StudentEntity> getStudent(Long studentId, String name) {
+    public Page<StudentEntity> getStudent(Long studentId, String name, Integer departmentId, Integer majorId) {
         if (StringUtils.isEmpty(name)) {
             name = null;
         } else {
             name = name.trim();
         }
-        return studentDao.getStudents(studentId, name);
+        return studentDao.getStudents(studentId, name, departmentId, majorId);
     }
 
     /**
@@ -52,7 +52,7 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        Page<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName());
+        Page<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName(), studentDto.getDepartmentId(), studentDto.getMajorId());
         if (!ListUtils.isEmpty(studentEntityList)) return null;
         studentDao.addStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());

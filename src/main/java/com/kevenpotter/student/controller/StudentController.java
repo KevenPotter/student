@@ -31,10 +31,12 @@ public class StudentController {
     private StudentService studentService;
 
     /**
-     * @param studentId 学生编号
-     * @param name      学生姓名
-     * @param pageNo    当前页码
-     * @param pageSize  分页大小
+     * @param studentId    学生编号
+     * @param name         学生姓名
+     * @param departmentId 系别编号
+     * @param majorId      专业编号
+     * @param pageNo       当前页码
+     * @param pageSize     分页大小
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-22 11:34:46
@@ -45,10 +47,12 @@ public class StudentController {
     public ApiResult getStudent(
             @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "departmentId", required = false) Integer departmentId,
+            @RequestParam(value = "majorId", required = false) Integer majorId,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<StudentEntity> pageInfo = new PageInfo<StudentEntity>(studentService.getStudent(studentId, name));
+        PageInfo<StudentEntity> pageInfo = new PageInfo<StudentEntity>(studentService.getStudent(studentId, name, departmentId, majorId));
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
         return ApiResult.buildSuccess(pageInfo);
     }
