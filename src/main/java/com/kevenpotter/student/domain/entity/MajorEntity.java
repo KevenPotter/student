@@ -16,7 +16,7 @@ public class MajorEntity {
     /*专业编号*/
     private Long majorId;
     /*专业名称*/
-    private Integer majorName;
+    private String majorName;
     /*系别编号*/
     private Long departmentId;
 }

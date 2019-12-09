@@ -43,6 +43,7 @@ public class MajorService {
      */
     public List<MajorEntity> getMajorsByDepartmentId(Long departmentId) {
         if (null == departmentId) return null;
+        if (0 == departmentId) return this.getAllMajors();
         return majorDao.getMajorsByDepartmentId(departmentId);
     }
 }

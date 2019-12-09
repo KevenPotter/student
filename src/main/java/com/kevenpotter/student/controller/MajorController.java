@@ -50,7 +50,7 @@ public class MajorController {
      * @date 2019-12-09 10:07:08
      * @description 根据[系别编号]返回[专业实体类]列表
      */
-    @GetMapping("/major/{majorId}")
+    @GetMapping("/major/{departmentId}")
     @ResponseBody
     public ApiResult getMajorsByDepartmentId(@PathVariable Long departmentId) {
         if (null == departmentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");

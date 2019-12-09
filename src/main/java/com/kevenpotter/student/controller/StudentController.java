@@ -33,6 +33,8 @@ public class StudentController {
     /**
      * @param studentId 学生编号
      * @param name      学生姓名
+     * @param pageNo    当前页码
+     * @param pageSize  分页大小
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-11-22 11:34:46
