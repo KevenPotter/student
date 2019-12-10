@@ -11,6 +11,8 @@
     <groupId>com.kevenpotter</groupId>
     <artifactId>student</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
     <name>student</name>
     <description>Student management system</description>
 
@@ -88,6 +90,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>student</finalName>
     </build>
 
 </project>
