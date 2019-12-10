@@ -41,9 +41,20 @@ public class MajorService {
      * @date 2019-12-09 10:03:11
      * @description 根据[系别编号]返回[专业实体类]列表
      */
-    public List<MajorEntity> getMajorsByDepartmentId(Long departmentId) {
+    public List<MajorEntity> getMajorsByDepartmentId(Integer departmentId) {
         if (null == departmentId) return null;
-        if (0 == departmentId) return this.getAllMajors();
         return majorDao.getMajorsByDepartmentId(departmentId);
+    }
+
+    /**
+     * @param majorId 专业编号
+     * @return 根据[专业编号]返回[专业实体类]
+     * @author KevenPotter
+     * @date 2019-12-10 09:28:19
+     * @description 根据[专业编号]返回[专业实体类]
+     */
+    public MajorEntity getMajorByMajorId(Integer majorId) {
+        if (null == majorId) return null;
+        return majorDao.getMajorByMajorId(majorId);
     }
 }

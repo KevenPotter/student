@@ -14,9 +14,9 @@ public class MajorDto {
     /*主键ID*/
     private Long id;
     /*专业编号*/
-    private Long majorId;
+    private Integer majorId;
     /*专业名称*/
     private String majorName;
     /*系别编号*/
-    private Long departmentId;
+    private Integer departmentId;
 }

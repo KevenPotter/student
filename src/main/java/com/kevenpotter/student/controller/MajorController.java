@@ -50,12 +50,28 @@ public class MajorController {
      * @date 2019-12-09 10:07:08
      * @description 根据[系别编号]返回[专业实体类]列表
      */
-    @GetMapping("/major/{departmentId}")
+    @GetMapping("/majors/{departmentId}")
     @ResponseBody
-    public ApiResult getMajorsByDepartmentId(@PathVariable Long departmentId) {
+    public ApiResult getMajorsByDepartmentId(@PathVariable Integer departmentId) {
         if (null == departmentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         List<MajorEntity> majorEntityList = majorService.getMajorsByDepartmentId(departmentId);
         if (ListUtils.isEmpty(majorEntityList)) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到专业信息");
         return ApiResult.buildSuccess(majorEntityList);
+    }
+
+    /**
+     * @param majorId 专业编号
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2019-12-10 09:30:41
+     * @description 根据[专业编号]返回[专业实体类]
+     */
+    @GetMapping("/major/{majorId}")
+    @ResponseBody
+    public ApiResult getMajorByMajorId(@PathVariable Integer majorId) {
+        if (null == majorId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        MajorEntity majorEntity = majorService.getMajorByMajorId(majorId);
+        if (null == majorEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到专业信息");
+        return ApiResult.buildSuccess(majorEntity);
     }
 }
