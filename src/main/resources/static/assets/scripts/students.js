@@ -39,7 +39,6 @@ function loadStudentsList(studentId, studentName, departmentId, majorId, pageInd
         success: function (data) {
             if (data.code == "100002") {
                 layer.msg('未搜索出指定信息......', {icon: 6, time: 2000});
-                console.log("未搜索出指定信息......");
                 return;
             }
             var studentsArray = data.data.list;
