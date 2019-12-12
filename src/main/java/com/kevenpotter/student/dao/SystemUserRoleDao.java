@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
@@ -24,6 +26,6 @@ public interface SystemUserRoleDao {
      * @description 根据[用户编号]返回一个[后台用户-角色实体]
      */
     @Select("SELECT * FROM system_user_role sur WHERE sur.user_id = #{userId}")
-    SystemUserRoleEntity getSystemUserRoleBy(@Param("userId") Long userId);
+    List<SystemUserRoleEntity> getSystemUserRoleBy(@Param("userId") Long userId);
 }
 

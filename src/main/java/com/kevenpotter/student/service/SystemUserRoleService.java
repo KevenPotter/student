@@ -2,10 +2,13 @@ package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.SystemUserRoleDao;
 import com.kevenpotter.student.domain.entity.SystemUserRoleEntity;
+import com.kevenpotter.student.utils.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author KevenPotter
@@ -24,13 +27,15 @@ public class SystemUserRoleService {
 
     /**
      * @param userId 用户编号
-     * @return 根据[用户编号]返回[后台用户-角色实体]
+     * @return 根据[用户编号]返回[后台用户-角色实体]列表
      * @author KevenPotter
      * @date 2019-12-12 16:06:17
-     * @description 根据[用户编号]返回[后台用户-角色实体]
+     * @description 根据[用户编号]返回[后台用户-角色实体]列表
      */
-    public SystemUserRoleEntity getSystemUserRoleByUserId(Long userId) {
+    public List<SystemUserRoleEntity> getSystemUserRoleByUserId(Long userId) {
         if (null == userId) return null;
-        return systemUserRoleDao.getSystemUserRoleBy(userId);
+        List<SystemUserRoleEntity> systemUserRoleEntityList = systemUserRoleDao.getSystemUserRoleBy(userId);
+        if (ListUtils.isEmpty(systemUserRoleEntityList)) return null;
+        return systemUserRoleEntityList;
     }
 }
