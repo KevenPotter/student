@@ -1,12 +1,8 @@
 package com.kevenpotter.student.service;
 
-import com.kevenpotter.student.dao.CourseDao;
 import com.kevenpotter.student.dao.SystemUserDao;
-import com.kevenpotter.student.domain.dto.CourseDto;
-import com.kevenpotter.student.domain.entity.CourseEntity;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import com.kevenpotter.student.utils.StringUtils;
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +33,8 @@ public class SystemUserService {
      */
     public SystemUserEntity getSystemUser(Long userId, String userName) {
         if (null == userId && StringUtils.isEmpty(userName)) return null;
-        return null;
+        if (StringUtils.isEmpty(userName)) userName = null;
+        else userName = userName.trim();
+        return systemUserDao.getSystemUser(userId, userName);
     }
 }
