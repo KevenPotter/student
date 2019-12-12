@@ -24,6 +24,6 @@ public interface SystemRoleDao {
      * @description 根据[角色编号]返回一个[后台角色实体]
      */
     @Select("SELECT * FROM system_role sr WHERE sr.role_id = #{roleId}")
-    SystemRoleEntity getSystemRoleByRoleId(@Param("roleId") String roleId);
+    SystemRoleEntity getSystemRoleByRoleId(@Param("roleId") Long roleId);
 }
 

@@ -24,6 +24,6 @@ public interface SystemUserRoleDao {
      * @description 根据[用户编号]返回一个[后台用户-角色实体]
      */
     @Select("SELECT * FROM system_user_role sur WHERE sur.user_id = #{userId}")
-    SystemUserRoleEntity getSystemUserRoleBy(@Param("userId") String userId);
+    SystemUserRoleEntity getSystemUserRoleBy(@Param("userId") Long userId);
 }
 
