@@ -37,7 +37,7 @@ public class SystemUserController {
     @GetMapping("/systemUser")
     public ApiResult getSystemUser(@RequestBody SystemUserDto systemUserDto) {
         if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        SystemUserEntity systemUserEntity = systemUserService.getSystemUser(systemUserDto.getUserId(), systemUserDto.getUserName());
+        SystemUserEntity systemUserEntity = systemUserService.getSystemUser(systemUserDto);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
         return ApiResult.buildSuccess(systemUserEntity);
     }
