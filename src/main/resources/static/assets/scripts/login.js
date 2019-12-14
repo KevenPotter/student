@@ -14,11 +14,20 @@ function login() {
         "userPassword": password
     };
     $.ajax({
-        url: "/login",
+        url: studentManagementSystem + "/login",
         type: "POST",
         data: "username=" + userName + "&password=" + password,
         success: function (data) {
             console.log(data);
         }
     });
+}
+
+/**
+ * @author KevenPotter
+ * @date 2019-12-15 00:06:16
+ * @description 注册页面
+ */
+function register() {
+    layer.msg('注册开始......', {icon: 6, time: 2000});
 }

@@ -32,11 +32,10 @@ public class SystemUserService {
      * @description 根据[后台用户数据传输类]返回[后台用户实体类]
      */
     public SystemUserEntity getSystemUser(SystemUserDto systemUserDto) {
-        return systemUserDao.getSystemUser(null, "周杰伦");
-//        if (null == systemUserDto) return null;
-//        String userName = systemUserDto.getUserName();
-//        if (StringUtils.isEmpty(systemUserDto.getUserName())) systemUserDto.setUserName(null);
-//        else systemUserDto.setUserName(userName.trim());
-//        return systemUserDao.getSystemUser(systemUserDto.getUserId(), userName);
+        if (null == systemUserDto) return null;
+        String userName = systemUserDto.getUserName();
+        if (StringUtils.isEmpty(systemUserDto.getUserName())) systemUserDto.setUserName(null);
+        else systemUserDto.setUserName(userName.trim());
+        return systemUserDao.getSystemUser(systemUserDto.getUserId(), userName);
     }
 }

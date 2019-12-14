@@ -5,9 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author KevenPotter
@@ -22,15 +20,14 @@ public class LoginController {
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String showHome() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         logger.info("当前登陆用户：" + name);
-
-        return "home.html";
+        return "index.html";
     }
 
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String showLogin() {
         return "login.html";
     }
