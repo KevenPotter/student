@@ -1,5 +1,7 @@
 package com.kevenpotter.student.utils;
 
+import java.util.regex.Pattern;
+
 /**
  * @author KevenPotter
  * @company https://github.com/KevenPotter/student
@@ -8,6 +10,15 @@ package com.kevenpotter.student.utils;
  */
 public class AccountVerification {
 
+    /*学生编号验证*/
+    public static final String REGEX_STUDENT_NO = "(^\\d{18}$)";
+    /*手机号码验证*/
+    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    /*邮箱号码验证*/
+    public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+    /*用户昵称验证*/
+    public static final String REGEX_NICKNAME = "^([\u4e00-\u9fa5\\w]+|[\\w]+)$";
+
     /**
      * @param username 用户名
      * @return 返回判断值
@@ -15,7 +26,7 @@ public class AccountVerification {
      * @description
      */
     public static boolean isStudentNo(String username) {
-        return false;
+        return Pattern.matches(REGEX_STUDENT_NO, username);
     }
 
     /**
@@ -35,7 +46,7 @@ public class AccountVerification {
      * @description
      */
     public static boolean isEmail(String username) {
-        return false;
+        return Pattern.matches(REGEX_EMAIL, username);
     }
 
     /**
@@ -45,7 +56,7 @@ public class AccountVerification {
      * @description
      */
     public static boolean isMobile(String username) {
-        return false;
+        return Pattern.matches(REGEX_MOBILE, username);
     }
 
     /**
@@ -55,6 +66,14 @@ public class AccountVerification {
      * @description
      */
     public static boolean isNickname(String username) {
-        return false;
+        return Pattern.matches(REGEX_NICKNAME, username);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isStudentNo("201719070801010301"));
+        System.out.println(isMobile("134733572221"));
+        System.out.println(isEmail("11q.@acom"));
+        System.out.println(isNickname("的11q_acom"));
+        System.out.println(isNickname("11q_acom"));
     }
 }
