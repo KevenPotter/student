@@ -17,8 +17,6 @@ public class SystemUserEntity implements Serializable {
     private Long id;
     /*用户编号(学号、教工号)*/
     private Long userId;
-    /*用户名称*/
-    private String userName;
     /*手机号码*/
     private Long userMobile;
     /*邮箱号码*/

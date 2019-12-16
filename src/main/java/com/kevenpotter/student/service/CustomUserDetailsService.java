@@ -51,7 +51,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             SystemRoleEntity systemRoleEntity = systemRoleService.getSystemRoleByRoleId(systemUserRoleEntity.getRoleId());
             authorityList.add(new SimpleGrantedAuthority(systemRoleEntity.getRoleName()));
         }
-        return new User(systemUserEntity.getUserName(), systemUserEntity.getUserPassword(), authorityList);
+        return new User(systemUserEntity.getUserId().toString(), systemUserEntity.getUserPassword(), authorityList);
     }
 
     /**
@@ -64,7 +64,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private SystemUserDto checkUserName(String username) {
         SystemUserDto systemUserDto = new SystemUserDto();
         if (AccountVerification.isStudentNo(username)) systemUserDto.setUserId(Long.valueOf(username));
-        if (AccountVerification.isStudentName(username)) systemUserDto.setUserName(username);
         if (AccountVerification.isMobile(username)) systemUserDto.setUserMobile(Long.valueOf(username));
         if (AccountVerification.isEmail(username)) systemUserDto.setUserEmail(username);
         if (AccountVerification.isNickname(username)) systemUserDto.setUserNickName(username);

@@ -3,7 +3,6 @@ package com.kevenpotter.student.service;
 import com.kevenpotter.student.dao.SystemUserDao;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
-import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +32,6 @@ public class SystemUserService {
      */
     public SystemUserEntity getSystemUser(SystemUserDto systemUserDto) {
         if (null == systemUserDto) return null;
-        String userName = systemUserDto.getUserName();
-        if (StringUtils.isEmpty(systemUserDto.getUserName())) systemUserDto.setUserName(null);
-        else systemUserDto.setUserName(userName.trim());
         return systemUserDao.getSystemUser(systemUserDto);
     }
 }

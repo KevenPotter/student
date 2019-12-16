@@ -10,9 +10,6 @@
                 <when test="systemUserDto.userId != null">
                     su.user_id = #{systemUserDto.userId}
                 </when>
-                <when test="systemUserDto.userName != null">
-                    su.user_name = #{systemUserDto.userName}
-                </when>
                 <when test="systemUserDto.userMobile != null">
                     su.user_mobile = #{systemUserDto.userMobile}
                 </when>
