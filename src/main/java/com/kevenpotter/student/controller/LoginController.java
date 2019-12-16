@@ -5,7 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author KevenPotter
@@ -44,5 +51,14 @@ public class LoginController {
     @PreAuthorize("hasRole('ROLE_USER')")
     public String printUser() {
         return "如果你看见这句话，说明你有ROLE_USER角色";
+    }
+
+    @RequestMapping(value = "/login/error")
+    public void showError(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
+        try {
+            httpServletResponse.sendRedirect("http://localhost:8081/error.html");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
