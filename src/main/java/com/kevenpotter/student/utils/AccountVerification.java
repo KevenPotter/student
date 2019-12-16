@@ -12,18 +12,20 @@ public class AccountVerification {
 
     /*学生编号验证*/
     public static final String REGEX_STUDENT_NO = "(^\\d{18}$)";
+    /*学生姓名验证*/
+    public static final String REGEX_STUDENT_NAME = "[\\u4E00-\\u9FA5]+";
     /*手机号码验证*/
     public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
     /*邮箱号码验证*/
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
     /*用户昵称验证*/
-    public static final String REGEX_NICKNAME = "^([\u4e00-\u9fa5\\w]+|[\\w]+)$";
+    public static final String REGEX_NICKNAME = "_";
 
     /**
      * @param username 用户名
      * @return 返回判断值
      * @date 2019-12-15 00:36:33
-     * @description
+     * @description 判断用户名是否是[学生编号]形式
      */
     public static boolean isStudentNo(String username) {
         return Pattern.matches(REGEX_STUDENT_NO, username);
@@ -33,17 +35,17 @@ public class AccountVerification {
      * @param username 用户名
      * @return 返回判断值
      * @date 2019-12-15 00:47:52
-     * @description
+     * @description 判断用户名是否是[学生姓名]形式
      */
     public static boolean isStudentName(String username) {
-        return false;
+        return Pattern.matches(REGEX_STUDENT_NAME, username);
     }
 
     /**
      * @param username 用户名
      * @return 返回判断值
      * @date 2019-12-15 00:37:21
-     * @description
+     * @description 判断用户名是否是[邮箱号码]形式
      */
     public static boolean isEmail(String username) {
         return Pattern.matches(REGEX_EMAIL, username);
@@ -53,7 +55,7 @@ public class AccountVerification {
      * @param username 用户名
      * @return 返回判断值
      * @date 2019-12-15 00:38:56
-     * @description
+     * @description 判断用户名是否是[手机号码]形式
      */
     public static boolean isMobile(String username) {
         return Pattern.matches(REGEX_MOBILE, username);
@@ -63,17 +65,9 @@ public class AccountVerification {
      * @param username 用户名
      * @return 返回判断值
      * @date 2019-12-15 00:41:01
-     * @description
+     * @description 判断用户名是否是[昵称]形式
      */
     public static boolean isNickname(String username) {
-        return Pattern.matches(REGEX_NICKNAME, username);
-    }
-
-    public static void main(String[] args) {
-        System.out.println(isStudentNo("201719070801010301"));
-        System.out.println(isMobile("134733572221"));
-        System.out.println(isEmail("11q.@acom"));
-        System.out.println(isNickname("的11q_acom"));
-        System.out.println(isNickname("11q_acom"));
+        return username.contains(REGEX_NICKNAME);
     }
 }

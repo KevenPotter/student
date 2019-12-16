@@ -15,12 +15,12 @@ public class SystemUserDto {
     private Long userId;
     /*用户名称*/
     private String userName;
+    /*手机号码*/
+    private Long userMobile;
+    /*邮箱号码*/
+    private String userEmail;
     /*用户昵称*/
-    private String userNickname;
-    /*用户邮箱*/
-    private String email;
-    /*用户手机*/
-    private Long mobile;
+    private String userNickName;
     /*用户密码*/
     private String userPassword;
 }

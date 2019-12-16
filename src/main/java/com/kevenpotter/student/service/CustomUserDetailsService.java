@@ -65,9 +65,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         SystemUserDto systemUserDto = new SystemUserDto();
         if (AccountVerification.isStudentNo(username)) systemUserDto.setUserId(Long.valueOf(username));
         if (AccountVerification.isStudentName(username)) systemUserDto.setUserName(username);
-        if (AccountVerification.isMobile(username)) systemUserDto.setMobile(Long.valueOf(username));
-        if (AccountVerification.isNickname(username)) systemUserDto.setUserNickname(username);
-        if (AccountVerification.isEmail(username)) systemUserDto.setEmail(username);
+        if (AccountVerification.isMobile(username)) systemUserDto.setUserMobile(Long.valueOf(username));
+        if (AccountVerification.isEmail(username)) systemUserDto.setUserEmail(username);
+        if (AccountVerification.isNickname(username)) systemUserDto.setUserNickName(username);
         return systemUserDto;
     }
 

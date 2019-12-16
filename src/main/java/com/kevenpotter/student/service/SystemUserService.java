@@ -36,6 +36,6 @@ public class SystemUserService {
         String userName = systemUserDto.getUserName();
         if (StringUtils.isEmpty(systemUserDto.getUserName())) systemUserDto.setUserName(null);
         else systemUserDto.setUserName(userName.trim());
-        return systemUserDao.getSystemUser(systemUserDto.getUserId(), userName);
+        return systemUserDao.getSystemUser(systemUserDto);
     }
 }

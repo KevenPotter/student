@@ -7,14 +7,23 @@
         SELECT * FROM system_user su
         <where>
             <choose>
-                <when test="userId != null and  userName != null">
-                    su.user_id = #{userId} AND su.user_name = #{userName}
+                <when test="systemUserDto.userId != null">
+                    su.user_id = #{systemUserDto.userId}
                 </when>
-                <when test="userId != null and userName == null">
-                    su.user_id = #{userId}
+                <when test="systemUserDto.userName != null">
+                    su.user_name = #{systemUserDto.userName}
+                </when>
+                <when test="systemUserDto.userMobile != null">
+                    su.user_mobile = #{systemUserDto.userMobile}
+                </when>
+                <when test="systemUserDto.userEmail != null">
+                    su.user_email = #{systemUserDto.userEmail}
+                </when>
+                <when test="systemUserDto.userNickName != null">
+                    su.user_nickname = #{systemUserDto.userNickName}
                 </when>
                 <otherwise>
-                    su.user_name = #{userName}
+                    1 != 1
                 </otherwise>
             </choose>
         </where>

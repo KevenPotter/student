@@ -29,6 +29,8 @@ public class StudentDto {
     private Integer age;
     /*学生性别*/
     private String sex;
+    /*学生手机号码*/
+    private Long mobile;
     /*学生家庭住址*/
     private String address;
 }
