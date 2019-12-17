@@ -15,7 +15,7 @@ public class AccountVerification {
     /*学生姓名验证*/
     public static final String REGEX_STUDENT_NAME = "[\\u4E00-\\u9FA5]+";
     /*手机号码验证*/
-    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[5-9]))\\d{8}$";
     /*邮箱号码验证*/
     public static final String REGEX_EMAIL = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
     /*用户昵称验证*/
