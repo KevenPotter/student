@@ -18,11 +18,38 @@ public interface SystemUserDao {
 
     /**
      * @param systemUserDto 后台用户数据传输类
-     * @return 根据[用户编号]或[用户名称]返回[后台用户实体类]
+     * @return 根据[后台用户数据传输类]返回[后台用户实体类]
      * @author KevenPotter
      * @date 2019-12-11 21:18:43
-     * @description 根据[用户编号]或[用户名称]返回[后台用户实体类]
+     * @description 根据[后台用户数据传输类]返回[后台用户实体类]
      */
     SystemUserEntity getSystemUser(@Param("systemUserDto") SystemUserDto systemUserDto);
+
+    /**
+     * @param userNickname 用户昵称
+     * @return 根据[用户昵称]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-18 15:00:48
+     * @description 根据[用户昵称]返回[后台用户实体类]
+     */
+    SystemUserEntity getSystemUserByNickname(@Param("userNickname") String userNickname);
+
+    /**
+     * @param userEmail 用户邮箱
+     * @return 根据[用户邮箱]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-18 15:03:32
+     * @description 根据[用户邮箱]返回[后台用户实体类]
+     */
+    SystemUserEntity getSystemUserByEmail(@Param("userEmail") String userEmail);
+
+    /**
+     * @param userMobile 用户手机
+     * @return 根据[用户手机]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-18 15:24:56
+     * @description 根据[用户手机]返回[后台用户实体类]
+     */
+    SystemUserEntity getSystemUserByMobile(@Param("userMobile") Long userMobile);
 }
 
