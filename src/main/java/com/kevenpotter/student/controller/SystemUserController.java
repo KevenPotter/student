@@ -52,7 +52,8 @@ public class SystemUserController {
      */
     @GetMapping("/systemUserNi/{userNickname}")
     public ApiResult getSystemUserByNickname(@PathVariable String userNickname) {
-        if (StringUtils.isEmpty(userNickname)) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        if (StringUtils.isEmpty(userNickname)) return ApiResult.buildFailure(ApiConstant.CODE_1, "[用户昵称]为空");
+        userNickname = userNickname.trim();
         SystemUserEntity systemUserEntity = systemUserService.getSystemUserByNickname(userNickname);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
         return ApiResult.buildSuccess(systemUserEntity);
@@ -67,7 +68,8 @@ public class SystemUserController {
      */
     @GetMapping("/systemUserEm/{userEmail}")
     public ApiResult getSystemUserByEmail(@PathVariable String userEmail) {
-        if (StringUtils.isEmpty(userEmail)) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        if (StringUtils.isEmpty(userEmail)) return ApiResult.buildFailure(ApiConstant.CODE_1, "[用户邮箱]为空");
+        userEmail = userEmail.trim();
         SystemUserEntity systemUserEntity = systemUserService.getSystemUserByEmail(userEmail);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
         return ApiResult.buildSuccess(systemUserEntity);
@@ -82,7 +84,7 @@ public class SystemUserController {
      */
     @GetMapping("/systemUserMo/{userMobile}")
     public ApiResult getSystemUserByMobile(@PathVariable Long userMobile) {
-        if (null == userMobile) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        if (null == userMobile) return ApiResult.buildFailure(ApiConstant.CODE_1, "[用户手机]为空");
         SystemUserEntity systemUserEntity = systemUserService.getSystemUserByMobile(userMobile);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
         return ApiResult.buildSuccess(systemUserEntity);
