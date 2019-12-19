@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("systemUser")
+@RequestMapping("/systemUser")
 public class SystemUserController {
 
     /*定义日志记录器，用来记录必要信息*/
@@ -40,6 +40,22 @@ public class SystemUserController {
         if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         SystemUserEntity systemUserEntity = systemUserService.getSystemUser(systemUserDto);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
+        return ApiResult.buildSuccess(systemUserEntity);
+    }
+
+    /**
+     * @param systemUserDto 后台用户数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2019-12-19 10:25:17
+     * @description 插入一条新的[后台用户实体]并返回该[后台用户实体]
+     */
+    @PostMapping("/systemUser")
+    @ResponseBody
+    public ApiResult addSystemUser(@RequestBody SystemUserDto systemUserDto) {
+        if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        SystemUserEntity systemUserEntity = systemUserService.addSystemUser(systemUserDto);
+        if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加用户信息");
         return ApiResult.buildSuccess(systemUserEntity);
     }
 

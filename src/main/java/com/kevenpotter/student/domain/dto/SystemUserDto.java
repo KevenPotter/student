@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class SystemUserDto {
 
+    /*主键ID*/
+    private Long id;
     /*用户编号(学号、教工号)*/
     private Long userId;
     /*手机号码*/

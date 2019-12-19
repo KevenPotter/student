@@ -3,6 +3,7 @@ package com.kevenpotter.student.service;
 import com.kevenpotter.student.dao.SystemUserDao;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
+import com.kevenpotter.student.utils.NumericUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,44 @@ public class SystemUserService {
     public SystemUserEntity getSystemUser(SystemUserDto systemUserDto) {
         if (null == systemUserDto) return null;
         return systemUserDao.getSystemUser(systemUserDto);
+    }
+
+    /**
+     * @param systemUserDto 后台用户数据传输类
+     * @return 返回插入的[后台用户实体]
+     * @author KevenPotter
+     * @date 2019-12-11 16:20:33
+     * @description 插入一条新的[后台用户实体]并返回该[后台用户实体]
+     */
+    public SystemUserEntity addSystemUser(SystemUserDto systemUserDto) {
+        if (null == systemUserDto) return null;
+        if (!StringUtils.isEmpty(systemUserDto.getUserNickName())) {
+            SystemUserEntity systemUserEntity = this.getSystemUserByNickname(systemUserDto.getUserNickName());
+            if (null != systemUserEntity) return null;
+        }
+        if (!StringUtils.isEmpty(systemUserDto.getUserEmail())) {
+            SystemUserEntity systemUserEntity = this.getSystemUserByEmail(systemUserDto.getUserEmail());
+            if (null != systemUserEntity) return null;
+        }
+        if (null != systemUserDto.getUserMobile()) {
+            SystemUserEntity systemUserEntity = this.getSystemUserByMobile(systemUserDto.getUserMobile());
+            if (null != systemUserEntity) return null;
+        }
+        systemUserDto.setUserId(NumericUtils.generateRandomNumber(18));
+        systemUserDao.addSystemUser(systemUserDto);
+        return this.getSystemUserById(systemUserDto.getId());
+    }
+
+    /**
+     * @param id 主键ID
+     * @return 根据[主键ID]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-19 11:20:20
+     * @description 根据[主键ID]返回[后台用户实体类]
+     */
+    public SystemUserEntity getSystemUserById(Long id) {
+        if (null == id) return null;
+        return systemUserDao.getSystemUserById(id);
     }
 
     /**

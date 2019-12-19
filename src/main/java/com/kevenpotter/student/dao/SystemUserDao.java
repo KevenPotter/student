@@ -26,6 +26,23 @@ public interface SystemUserDao {
     SystemUserEntity getSystemUser(@Param("systemUserDto") SystemUserDto systemUserDto);
 
     /**
+     * @param systemUserDto 后台用户数据传输类
+     * @author KevenPotter
+     * @date 2019-12-19 10:19:50
+     * @description 插入一条新的[后台用户实体]
+     */
+    void addSystemUser(@Param("systemUserDto") SystemUserDto systemUserDto);
+
+    /**
+     * @param id 主键ID
+     * @return 根据[主键ID]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-19 11:17:33
+     * @description 根据[主键ID]返回[后台用户实体类]
+     */
+    SystemUserEntity getSystemUserById(@Param("id") Long id);
+
+    /**
      * @param userNickname 用户昵称
      * @return 根据[用户昵称]返回[后台用户实体类]
      * @author KevenPotter

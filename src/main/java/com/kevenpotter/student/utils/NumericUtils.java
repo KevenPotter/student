@@ -51,4 +51,16 @@ public class NumericUtils {
         }
         return false;
     }
+
+    /**
+     * @param n 随机数位数
+     * @return 返回一个指定位数N的随机数字
+     * @author KevenPotter
+     * @date 2019-12-19 11:28:10
+     * @description 返回一个指定位数N的随机数字
+     */
+    public static Long generateRandomNumber(Integer n) {
+        if (n < 1) throw new IllegalArgumentException("The number of random numbers must be greater than 0.");
+        return (long) (Math.random() * 9 * Math.pow(10, n - 1)) + (long) Math.pow(10, n - 1);
+    }
 }
