@@ -110,4 +110,14 @@ public class SystemUserService {
         if (null == userMobile) return null;
         return systemUserDao.getSystemUserByMobile(userMobile);
     }
+
+    /**
+     * @return 返回账户记录总条数
+     * @author KevenPotter
+     * @date 2019-12-20 16:55:47
+     * @description 返回账户记录总条数
+     */
+    public Long getTheTotalNumberOfAccounts() {
+        return systemUserDao.getCount();
+    }
 }

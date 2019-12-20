@@ -82,5 +82,14 @@ public interface StudentDao {
     @Update("UPDATE `student`.`student` SET `student_id`=#{studentDto.studentId}, `department_id`=#{studentDto.departmentId}, `major_id`=#{studentDto.majorId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`student_id`=#{studentDto.studentId});")
     @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "1")
     void updateStudent(@Param("studentDto") StudentDto studentDto);
+
+    /**
+     * @return 返回学生记录总条数
+     * @author KevenPotter
+     * @date 2019-12-20 16:45:46
+     * @description 返回学生记录总条数
+     */
+    @Select("SELECT COUNT(*) FROM student;")
+    Long getCount();
 }
 

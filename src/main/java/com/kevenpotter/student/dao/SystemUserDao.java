@@ -4,6 +4,7 @@ import com.kevenpotter.student.domain.dto.SystemUserDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -68,5 +69,14 @@ public interface SystemUserDao {
      * @description 根据[用户手机]返回[后台用户实体类]
      */
     SystemUserEntity getSystemUserByMobile(@Param("userMobile") Long userMobile);
+
+    /**
+     * @return 返回账户记录总条数
+     * @author KevenPotter
+     * @date 2019-12-20 16:54:34
+     * @description 返回账户记录总条数
+     */
+    @Select("SELECT COUNT(*) FROM system_user;")
+    Long getCount();
 }
 

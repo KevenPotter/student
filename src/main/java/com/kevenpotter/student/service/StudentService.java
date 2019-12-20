@@ -73,4 +73,14 @@ public class StudentService {
         return studentDao.getStudentById(studentDto.getId());
     }
 
+    /**
+     * @return 返回学生记录总条数
+     * @author KevenPotter
+     * @date 2019-12-20 16:48:03
+     * @description 返回学生记录总条数
+     */
+    public Long getTheTotalNumberOfStudents() {
+        return studentDao.getCount();
+    }
+
 }
