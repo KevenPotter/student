@@ -1,5 +1,6 @@
 package com.kevenpotter.student.controller;
 
+import com.kevenpotter.student.domain.dto.DashboardDto;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.IndexService;
 import org.slf4j.Logger;
@@ -31,11 +32,11 @@ public class IndexController {
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-12-20 16:29:09
-     * @description 返回教师记录总条数
+     * @description 返回首页的仪表盘展示数据
      */
     @GetMapping("/counts")
     public ApiResult getDashBoard() {
-        indexService.getDashBoard();
-        return null;
+        DashboardDto dashboardDto = indexService.getDashBoard();
+        return ApiResult.buildSuccess(dashboardDto);
     }
 }

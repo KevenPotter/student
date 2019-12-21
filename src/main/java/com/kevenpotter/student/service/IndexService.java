@@ -1,5 +1,6 @@
 package com.kevenpotter.student.service;
 
+import com.kevenpotter.student.domain.dto.DashboardDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,12 @@ public class IndexService {
      * @date 2019-12-20 16:57:08
      * @description 返回首页的仪表盘展示数据
      */
-    public void getDashBoard() {
-        studentService.getTheTotalNumberOfStudents();
-        teacherService.getTheTotalNumberOfTeachers();
-        systemUserService.getTheTotalNumberOfAccounts();
+    public DashboardDto getDashBoard() {
+        DashboardDto dashboardDto = new DashboardDto();
+        dashboardDto.setTotalNumberOfStudents(studentService.getTheTotalNumberOfStudents());
+        dashboardDto.setTotalNumberOfTeachers(teacherService.getTheTotalNumberOfTeachers());
+        dashboardDto.setTotalNumberOfAccounts(systemUserService.getTheTotalNumberOfAccounts());
+        dashboardDto.setTotalNumberOfVisits(111L);
+        return dashboardDto;
     }
 }
