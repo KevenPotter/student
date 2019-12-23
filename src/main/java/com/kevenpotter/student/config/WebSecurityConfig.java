@@ -16,6 +16,12 @@
 //
 //import javax.sql.DataSource;
 //
+///**
+// * @author KevenPotter
+// * @compony https://github.com/KevenPotter/student
+// * @date 2019-12-12 17:11:56
+// * @description Spring Security配置类
+// */
 //@Configuration
 //@EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
