@@ -1,5 +1,6 @@
 package com.kevenpotter.student.backup;
 
+import com.kevenpotter.student.utils.ZKUtils;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooKeeper;
@@ -21,13 +22,14 @@ public class ZooKeeperProSync implements Watcher {
 
     public static void main(String[] args) throws Exception {
         // zookeeper配置数据存放路径
-        String path = "/username";
+        String path = "/zookeeper";
         // 连接zookeeper并且注册一个默认的监听器
-        zk = new ZooKeeper("10.5.1.140:2181,10.5.1.140:2182,10.5.1.140:2183", 5000, new ZooKeeperProSync());
+        zk = new ZooKeeper("10.5.1.140:2181,10.5.1.140:2182,10.5.1.140:2183", Integer.MAX_VALUE, new ZooKeeperProSync());
         // 等待zk连接成功的通知
         connectedSemaphore.await();
         // 获取path目录节点的配置数据,并注册默认的监听器
         System.out.println(new String(zk.getData(path, true, stat)));
+        ZKUtils.createPersistentNode(zk, "/aaa/bbb/ccc/ddd/eee", "hello");
         Thread.sleep(Integer.MAX_VALUE);
     }
 
