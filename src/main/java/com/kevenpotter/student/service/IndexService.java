@@ -62,23 +62,4 @@ public class IndexService {
         String path = ZKUtils.PATH = "/visions/user";
         return ZKUtils.createEphemeralSequentialNode(zk, path, "hello");
     }
-
-//    public class Visits implements Watcher {
-//
-//        @Override
-//        public void process(WatchedEvent watchedEvent) {
-//            if (Event.KeeperState.SyncConnected == watchedEvent.getState()) { // zk连接成功通知事件
-//                System.out.println("连接成功");
-//                if (Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
-//                    connectedSemaphore.countDown();
-//                } else if (watchedEvent.getType() == Event.EventType.NodeDataChanged) { // zk目录节点数据编号通知事件
-//                    try {
-//                        System.out.println("配置已修改，新值为：" + new String(zk.getData(watchedEvent.getPath(), true, stat)));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

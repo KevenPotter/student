@@ -35,7 +35,7 @@ public class OnlineUsersWatcher implements Watcher {
                 connectedSemaphore.countDown();
             } else if (watchedEvent.getType() == Event.EventType.NodeDeleted) {
                 logger.info("用户已退出......");
-            } else if (watchedEvent.getType() == Event.EventType.NodeDeleted) {
+            } else if (watchedEvent.getType() == Event.EventType.NodeDataChanged) {
                 logger.info("用户数据被修改....");
             }
         }
