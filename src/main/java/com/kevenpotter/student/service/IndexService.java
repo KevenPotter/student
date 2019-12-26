@@ -2,8 +2,7 @@ package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.domain.dto.DashboardDto;
 import com.kevenpotter.student.utils.ZKUtils;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
+import com.kevenpotter.student.zookeeper.watcher.OnlineUsersWatcher;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
@@ -28,10 +27,6 @@ public class IndexService {
 
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
-    private static CountDownLatch connectedSemaphore = new CountDownLatch(1);
-    private static ZooKeeper zk = null;
-    private static Stat stat = new Stat();
 
     @Autowired
     private StudentService studentService;
@@ -58,8 +53,9 @@ public class IndexService {
     }
 
     public String updateUserCounts() throws IOException, InterruptedException {
+        CountDownLatch connectedSemaphore = new CountDownLatch(1);
         // 连接zookeeper并且注册一个默认的监听器
-        zk = new ZooKeeper(zookeeperAddress, Integer.MAX_VALUE, new Visits());
+        ZooKeeper zk = new ZooKeeper(zookeeperAddress, Integer.MAX_VALUE, new OnlineUsersWatcher(connectedSemaphore, new Stat()));
         // 等待zk连接成功的通知
         connectedSemaphore.await();
         // 获取path目录节点的配置数据,并注册默认的监听器
@@ -67,22 +63,22 @@ public class IndexService {
         return ZKUtils.createEphemeralSequentialNode(zk, path, "hello");
     }
 
-    public class Visits implements Watcher {
-
-        @Override
-        public void process(WatchedEvent watchedEvent) {
-            if (Event.KeeperState.SyncConnected == watchedEvent.getState()) { // zk连接成功通知事件
-                System.out.println("连接成功");
-                if (Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
-                    connectedSemaphore.countDown();
-                } else if (watchedEvent.getType() == Event.EventType.NodeDataChanged) { // zk目录节点数据编号通知事件
-                    try {
-                        System.out.println("配置已修改，新值为：" + new String(zk.getData(watchedEvent.getPath(), true, stat)));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
+//    public class Visits implements Watcher {
+//
+//        @Override
+//        public void process(WatchedEvent watchedEvent) {
+//            if (Event.KeeperState.SyncConnected == watchedEvent.getState()) { // zk连接成功通知事件
+//                System.out.println("连接成功");
+//                if (Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
+//                    connectedSemaphore.countDown();
+//                } else if (watchedEvent.getType() == Event.EventType.NodeDataChanged) { // zk目录节点数据编号通知事件
+//                    try {
+//                        System.out.println("配置已修改，新值为：" + new String(zk.getData(watchedEvent.getPath(), true, stat)));
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
