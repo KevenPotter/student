@@ -18,6 +18,8 @@ public class ZKUtils {
     /*路径分隔符*/
     public static final String SPLITTER = "/";
 
+    /*节点路径*/
+    public static String PATH = "/";
     /*子节点路径*/
     public static String CHILDREN_PATH = "/";
 
@@ -109,7 +111,11 @@ public class ZKUtils {
      */
     public static void ensureParentNode(ZooKeeper zooKeeper, String path) {
         if (ensureNode(zooKeeper, path)) {
-            createNode(zooKeeper, CHILDREN_PATH, null, CreateMode.PERSISTENT);
+            if (CHILDREN_PATH.equals(PATH)) {
+                return;
+            } else {
+                createNode(zooKeeper, CHILDREN_PATH, null, CreateMode.PERSISTENT);
+            }
             return;
         } else {
             CHILDREN_PATH = path;
