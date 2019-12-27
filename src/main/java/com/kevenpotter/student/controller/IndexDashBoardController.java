@@ -1,5 +1,6 @@
 package com.kevenpotter.student.controller;
 
+import com.kevenpotter.student.config.WebSocketConfig;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -13,7 +14,8 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @date 2019-12-23 16:16:56
  * @description 首页仪表盘控制层类
  */
-@ServerEndpoint("/dashboard")
+@ServerEndpoint(value = "/dashboard", configurator = WebSocketConfig.MySpringConfigurator.class)
+@Component
 public class IndexDashBoardController {
 
     /*静态变量,用来记录当前在线连接数.应该把它设计成线程安全的.*/
