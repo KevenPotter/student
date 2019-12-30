@@ -1,6 +1,7 @@
 package com.kevenpotter.student.controller;
 
 import com.kevenpotter.student.domain.dto.DashboardDto;
+import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.IndexService;
 import org.slf4j.Logger;
@@ -42,8 +43,21 @@ public class IndexController {
         return ApiResult.buildSuccess(dashboardDto);
     }
 
+    /**
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2019-12-20 17:02:22
+     * @description
+     */
     @GetMapping("/visits")
-    public ApiResult updateUserCounts() throws IOException, InterruptedException {
-        return ApiResult.buildSuccess(indexService.updateUserCounts());
+    public ApiResult updateUserCounts() {
+        try {
+            return ApiResult.buildSuccess(indexService.updateUserCounts());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到用户登录记录");
     }
 }

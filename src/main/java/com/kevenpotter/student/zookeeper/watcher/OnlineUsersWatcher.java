@@ -2,6 +2,7 @@ package com.kevenpotter.student.zookeeper.watcher;
 
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,10 +20,12 @@ public class OnlineUsersWatcher implements Watcher {
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private ZooKeeper zooKeeper;
     private CountDownLatch connectedSemaphore;
     private Stat stat;
 
-    public OnlineUsersWatcher(CountDownLatch connectedSemaphore, Stat stat) {
+    public OnlineUsersWatcher(ZooKeeper zooKeeper, CountDownLatch connectedSemaphore, Stat stat) {
+        this.zooKeeper = zooKeeper;
         this.connectedSemaphore = connectedSemaphore;
         this.stat = stat;
     }
@@ -30,7 +33,6 @@ public class OnlineUsersWatcher implements Watcher {
     @Override
     public void process(WatchedEvent watchedEvent) {
         if (Event.KeeperState.SyncConnected == watchedEvent.getState()) {
-            logger.info("用户已连接......");
             if (Event.EventType.None == watchedEvent.getType() && null == watchedEvent.getPath()) {
                 connectedSemaphore.countDown();
             } else if (watchedEvent.getType() == Event.EventType.NodeDeleted) {

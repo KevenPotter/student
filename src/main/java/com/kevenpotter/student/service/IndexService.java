@@ -37,6 +37,7 @@ public class IndexService {
 
     @Value("${zookeeper.address}")
     private String zookeeperAddress;
+    private ZooKeeper zooKeeper;
 
     /**
      * @author KevenPotter
@@ -48,18 +49,27 @@ public class IndexService {
         dashboardDto.setTotalNumberOfStudents(studentService.getTheTotalNumberOfStudents());
         dashboardDto.setTotalNumberOfTeachers(teacherService.getTheTotalNumberOfTeachers());
         dashboardDto.setTotalNumberOfAccounts(systemUserService.getTheTotalNumberOfAccounts());
-        dashboardDto.setTotalNumberOfVisits(111L);
+        dashboardDto.setTotalNumberOfVisits(0L);
         return dashboardDto;
     }
 
+    /**
+     * @return 返回创建好后的ZooKeeper用户路径
+     * @throws IOException          抛出IO异常
+     * @throws InterruptedException 抛出中断异常
+     * @author KevenPotter
+     * @date 2019-12-20 18:34:10
+     * @description 此方法旨在创建ZooKeeper用户路径, 主要用途是当用户浏览网站时, 会相应的创建该用户的节点信息, 以进行网站在线人数
+     * 的统计
+     */
     public String updateUserCounts() throws IOException, InterruptedException {
         CountDownLatch connectedSemaphore = new CountDownLatch(1);
         // 连接zookeeper并且注册一个默认的监听器
-        ZooKeeper zk = new ZooKeeper(zookeeperAddress, Integer.MAX_VALUE, new OnlineUsersWatcher(connectedSemaphore, new Stat()));
+        zooKeeper = new ZooKeeper(zookeeperAddress, 2000, new OnlineUsersWatcher(zooKeeper, connectedSemaphore, new Stat()));
         // 等待zk连接成功的通知
         connectedSemaphore.await();
         // 获取path目录节点的配置数据,并注册默认的监听器
         String path = ZKUtils.PATH = "/visions/user";
-        return ZKUtils.createEphemeralSequentialNode(zk, path, "hello");
+        return ZKUtils.createEphemeralSequentialNode(zooKeeper, path, "hello");
     }
 }

@@ -51,7 +51,7 @@ public class OnlineUsersListener {
                 logger.error("连接初始化失败. ZooKeeper集群地址为空,请检查 [OnlineUsersListener.java] 文件的配置.");
                 return;
             }
-            zooKeeper = new ZooKeeper(zookeeperAddress, 2000, event -> monitorOnlineUsers());
+            zooKeeper = new ZooKeeper(zookeeperAddress, 2000, watchedEvent -> monitorOnlineUsers());
         } catch (IOException e) {
             e.printStackTrace();
         }

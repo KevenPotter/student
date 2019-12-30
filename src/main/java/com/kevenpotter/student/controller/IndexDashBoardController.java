@@ -1,7 +1,9 @@
 package com.kevenpotter.student.controller;
 
 import com.kevenpotter.student.config.WebSocketConfig;
-import org.springframework.stereotype.Component;
+import com.kevenpotter.student.service.IndexService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -15,7 +17,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @description 首页仪表盘控制层类
  */
 @ServerEndpoint(value = "/dashboard", configurator = WebSocketConfig.MySpringConfigurator.class)
-@Component
+@RestController
 public class IndexDashBoardController {
 
     /*静态变量,用来记录当前在线连接数.应该把它设计成线程安全的.*/
@@ -24,6 +26,13 @@ public class IndexDashBoardController {
     private static CopyOnWriteArraySet<IndexDashBoardController> webSocketSet = new CopyOnWriteArraySet<IndexDashBoardController>();
     /*与某个客户端的连接会话,需要通过它来给客户端发送数据.*/
     private Session session;
+
+    private static IndexService indexService;
+
+    @Autowired
+    public void setIndexService(IndexService indexService) {
+        IndexDashBoardController.indexService = indexService;
+    }
 
     /**
      * @param session session为与某个客户端的连接会话,需要通过它来给客户端发送数据
@@ -36,6 +45,13 @@ public class IndexDashBoardController {
         this.session = session;
         webSocketSet.add(this);
         addOnlineCount();
+        try {
+            indexService.updateUserCounts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
     }
 
