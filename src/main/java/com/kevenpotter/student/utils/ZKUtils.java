@@ -4,6 +4,8 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
 
@@ -14,6 +16,9 @@ import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
  * @description ZooKeeper工具类
  */
 public class ZKUtils {
+
+    /*定义日志记录器，用来记录必要信息*/
+    private static Logger logger = LoggerFactory.getLogger(ZKUtils.class);
 
     /*路径分隔符*/
     public static final String SPLITTER = "/";
@@ -137,10 +142,16 @@ public class ZKUtils {
     public static boolean ensureNode(ZooKeeper zooKeeper, String path) {
         try {
             Stat stat = zooKeeper.exists(path, false);
-            if (null == stat) return false;
-            else return true;
+            if (null == stat) {
+                logger.debug("{} 节点不存在", path);
+                return false;
+            } else {
+                logger.debug("{} 节点已存在", path);
+                return true;
+            }
         } catch (KeeperException e) {
-            e.printStackTrace();
+            logger.warn("Negligible Exception - KeeperException: {} 节点不存在", path);
+            return false;
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
