@@ -5,7 +5,9 @@ import com.kevenpotter.student.service.IndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.*;
+import javax.websocket.OnClose;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -43,57 +45,47 @@ public class IndexDashBoardController {
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
+        System.out.println("sessionId: " + session.getId());
         webSocketSet.add(this);
-        addOnlineCount();
+        IndexDashBoardController.addOnlineCount();
         try {
-            indexService.updateUserCounts();
+            session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-        System.out.println("有新连接加入！当前在线人数为" + getOnlineCount());
     }
 
     @OnClose
     public void onClose() {
         webSocketSet.remove(this);
-        subOnlineCount();
-        System.out.println("有一连接关闭！当前在线人数为" + getOnlineCount());
+        IndexDashBoardController.subOnlineCount();
     }
 
-    @OnMessage
-    public void onMessage(String message, Session session) {
-        System.out.println("来自客户端的消息:" + message);
-        for (IndexDashBoardController indexDashBoardController : webSocketSet) {
-            try {
-                indexDashBoardController.sendMessage(message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                continue;
-            }
-        }
+    /**
+     * @return 返回当前WebSocket连接数
+     * @author KevenPotter
+     * @date 2019-12-31 15:53:41
+     * @description 获取当前WebSocket连接数, 也就是浏览网站的用户数
+     */
+    private static synchronized int getOnlineCount() {
+        return IndexDashBoardController.onlineCount;
     }
 
-    @OnError
-    public void onError(Session session, Throwable error) {
-        System.out.println("发生错误");
-        error.printStackTrace();
-    }
-
-    public void sendMessage(String message) throws IOException {
-        this.session.getBasicRemote().sendText(message);
-    }
-
-    public static synchronized int getOnlineCount() {
-        return onlineCount;
-    }
-
-    public static synchronized void addOnlineCount() {
+    /**
+     * @author KevenPotter
+     * @date 2019-12-31 15:55:27
+     * @description 对当前的WebSocket连接数进行增加, 也就是增加浏览网站的用户数
+     */
+    private static synchronized void addOnlineCount() {
         IndexDashBoardController.onlineCount++;
     }
 
-    public static synchronized void subOnlineCount() {
+    /**
+     * @author KevenPotter
+     * @date 2019-12-31 15:59:01
+     * @description 对当前的WebSocket连接数进行减少, 也就是减少浏览网站的用户数
+     */
+    private static synchronized void subOnlineCount() {
         IndexDashBoardController.onlineCount--;
     }
 }
