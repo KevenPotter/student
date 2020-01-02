@@ -2,9 +2,12 @@ package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author KevenPotter
@@ -91,5 +94,13 @@ public interface StudentDao {
      */
     @Select("SELECT COUNT(*) FROM student;")
     Long getCount();
+
+    /**
+     * @return 返回各系部男女学生人数
+     * @author KevenPotter
+     * @date 2020-01-02 14:21:46
+     * @description 统计各系部男女学生人数并将其返回
+     */
+    List<StudentSexStatisticsDto> getSexStatisticsByDepartment();
 }
 

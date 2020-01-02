@@ -1,6 +1,6 @@
 package com.kevenpotter.student.domain.dto;
 
-import java.util.StringJoiner;
+import lombok.Data;
 
 /**
  * @author KevenPotter
@@ -8,6 +8,7 @@ import java.util.StringJoiner;
  * @date 2019-11-24 18:26:24
  * @description 分数数据传输类
  */
+@Data
 public class ScoreDto {
 
     /*课程编号*/
@@ -18,46 +19,4 @@ public class ScoreDto {
     private Long examinationCategoryId;
     /*课程成绩*/
     private String score;
-
-    public Long getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Long courseId) {
-        this.courseId = courseId;
-    }
-
-    public Long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(Long studentId) {
-        this.studentId = studentId;
-    }
-
-    public Long getExaminationCategoryId() {
-        return examinationCategoryId;
-    }
-
-    public void setExaminationCategoryId(Long examinationCategoryId) {
-        this.examinationCategoryId = examinationCategoryId;
-    }
-
-    public String getScore() {
-        return score;
-    }
-
-    public void setScore(String score) {
-        this.score = score;
-    }
-
-    @Override
-    public String toString() {
-        return new StringJoiner(", ", ScoreDto.class.getSimpleName() + "[", "]")
-                .add("courseId=" + courseId)
-                .add("studentId=" + studentId)
-                .add("examinationCategoryId=" + examinationCategoryId)
-                .add("score='" + score + "'")
-                .toString();
-    }
 }
