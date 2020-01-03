@@ -4,26 +4,30 @@
 
     <!-- 统计各系部男女学生人数并将其返回 -->
     <select id="getSexStatisticsByDepartment" resultType="com.kevenpotter.student.domain.dto.StudentSexStatisticsDto">
-        SELECT d.department_name AS 'departmentName',
-               sum(
-                       CASE
-                           WHEN s.sex = '男' THEN
-                               1
-                           ELSE
-                               0
-                           END
-                   )             AS 'numberOfMales',
-               sum(
-                       CASE
-                           WHEN s.sex = '女' THEN
-                               1
-                           ELSE
-                               0
-                           END
-                   )             AS 'numberOfFemales'
-        FROM student s
-                 LEFT JOIN department d ON s.department_id = d.department_id
-        GROUP BY s.department_id;
+        SELECT
+	        d.department_name AS 'departmentName',
+	        sum(
+		        CASE
+		        WHEN s.sex = '男' THEN
+			        1
+		        ELSE
+		        	0
+		        END
+	        ) AS 'numberOfMales',
+	        sum(
+	        	CASE
+		        WHEN s.sex = '女' THEN
+		        	1
+		        ELSE
+		        	0
+		        END
+	        ) AS 'numberOfFemales'
+        FROM
+	        student s
+        LEFT JOIN department d ON s.department_id = d.department_id
+        GROUP BY
+	        s.department_id,
+	        d.department_name;
     </select>
 
 </mapper>
