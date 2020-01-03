@@ -99,6 +99,7 @@ public class IndexDashBoardController {
      * @description 对信息进行广播, 也就是更新首页的visits(在线浏览)信息
      */
     private static void broadcast() {
+        if (sessionSet.size() == 0) return;
         try {
             for (Session session : sessionSet) {
                 session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
