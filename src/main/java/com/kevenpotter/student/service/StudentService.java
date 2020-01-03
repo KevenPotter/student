@@ -37,13 +37,25 @@ public class StudentService {
      * @date 2019-11-22 11:34:13
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public Page<StudentEntity> getStudent(Long studentId, String name, Integer departmentId, Integer majorId) {
+    public Page<StudentEntity> getStudents(Long studentId, String name, Integer departmentId, Integer majorId) {
         if (StringUtils.isEmpty(name)) {
             name = null;
         } else {
             name = name.trim();
         }
         return studentDao.getStudents(studentId, name, departmentId, majorId);
+    }
+
+    /**
+     * @param studentId 学生编号
+     * @return 返回一个[学生实体]
+     * @author KevenPotter
+     * @date 2020-01-03 14:54:49
+     * @description 根据[学生编号]查询[学生实体]
+     */
+    public StudentEntity getStudentByStudentId(Long studentId) {
+        if (null == studentId) return null;
+        return studentDao.getStudentByStudentId(studentId);
     }
 
     /**
@@ -55,7 +67,7 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        Page<StudentEntity> studentEntityList = this.getStudent(studentDto.getStudentId(), studentDto.getName(), studentDto.getDepartmentId(), studentDto.getMajorId());
+        Page<StudentEntity> studentEntityList = this.getStudents(studentDto.getStudentId(), studentDto.getName(), studentDto.getDepartmentId(), studentDto.getMajorId());
         if (!ListUtils.isEmpty(studentEntityList)) return null;
         studentDao.addStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());
@@ -70,7 +82,7 @@ public class StudentService {
      */
     public StudentEntity updateStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        StudentEntity studentEntity = studentDao.getStudentByStudentId(studentDto.getStudentId());
+        StudentEntity studentEntity = this.getStudentByStudentId(studentDto.getStudentId());
         if (null == studentEntity) return null;
         studentDao.updateStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());

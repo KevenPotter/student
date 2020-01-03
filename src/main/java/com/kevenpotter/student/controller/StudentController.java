@@ -44,7 +44,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/students")
-    public ApiResult getStudent(
+    public ApiResult getStudents(
             @RequestParam(value = "studentId", required = false) Long studentId,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "departmentId", required = false) Integer departmentId,
@@ -52,9 +52,25 @@ public class StudentController {
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<StudentEntity> pageInfo = new PageInfo<StudentEntity>(studentService.getStudent(studentId, name, departmentId, majorId));
+        PageInfo<StudentEntity> pageInfo = new PageInfo<StudentEntity>(studentService.getStudents(studentId, name, departmentId, majorId));
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
         return ApiResult.buildSuccess(pageInfo);
+    }
+
+    /**
+     * @param studentId 学生编号
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-03 14:56:47
+     * @description 根据[学生编号]查询[学生实体]
+     */
+    @ResponseBody
+    @GetMapping("/student/{studentId}")
+    public ApiResult getStudent(@PathVariable Long studentId) {
+        if (null == studentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        StudentEntity studentEntity = studentService.getStudentByStudentId(studentId);
+        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
+        return ApiResult.buildSuccess(studentEntity);
     }
 
     /**

@@ -102,6 +102,7 @@ public class IndexDashBoardController {
         if (sessionSet.size() == 0) return;
         try {
             for (Session session : sessionSet) {
+                if (!session.isOpen()) continue;
                 session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
             }
         } catch (IOException e) {
