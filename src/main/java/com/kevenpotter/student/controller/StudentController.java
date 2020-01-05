@@ -3,6 +3,7 @@ package com.kevenpotter.student.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -68,9 +69,9 @@ public class StudentController {
     @GetMapping("/student/{studentId}")
     public ApiResult getStudent(@PathVariable Long studentId) {
         if (null == studentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        StudentEntity studentEntity = studentService.getStudentByStudentId(studentId);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
-        return ApiResult.buildSuccess(studentEntity);
+        StudentProfileDto studentProfileDto = studentService.getStudentProfileByStudentId(studentId);
+        if (null == studentProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
+        return ApiResult.buildSuccess(studentProfileDto);
     }
 
     /**

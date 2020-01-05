@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
@@ -66,6 +66,18 @@ public class IndexDashBoardController {
     }
 
     /**
+     * @param session session为与某个客户端的连接会话,需要通过它来给客户端发送数据
+     * @author KevenPotter
+     * @date 2020-01-04 13:18:22
+     * @description 连接错误调用的方法
+     */
+    @OnError
+    public void onError(Session session, Throwable throwable) {
+        sessionSet.remove(session);
+        logger.debug(throwable.getMessage());
+    }
+
+    /**
      * @return 返回当前WebSocket连接数
      * @author KevenPotter
      * @date 2019-12-31 15:53:41
@@ -105,9 +117,8 @@ public class IndexDashBoardController {
                 if (!session.isOpen()) continue;
                 session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("在线浏览广播发生错误. 请检查 [IndexDashBoardController.java] 代码.");
-            e.printStackTrace();
         }
     }
 }

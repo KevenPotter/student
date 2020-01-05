@@ -30,4 +30,26 @@
 	        d.department_name;
     </select>
 
+	<!-- 根据[学生编号]查询[学生详情数据传输类] -->
+	<select id="getStudentProfileByStudentId" resultType="com.kevenpotter.student.domain.dto.StudentProfileDto">
+		SELECT
+			s.id AS 'id',
+			s.student_id AS 'studentId',
+			s.grade AS 'studentGrade',
+			s.clazz AS 'studentClazz',
+			s.sex AS 'studentSex',
+			s.`name` AS 'studentName',
+			s.age AS 'studentAge',
+			s.mobile AS 'studentMobile',
+			s.address AS 'studentAddress',
+			d.department_name AS 'departmentName',
+			m.major_name AS 'majorName'
+		FROM
+			student s
+		LEFT JOIN department d ON s.department_id = d.department_id
+		LEFT JOIN major m ON s.major_id = m.major_id
+		WHERE
+			s.student_id = #{studentId};
+	</select>
+
 </mapper>

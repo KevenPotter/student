@@ -2,6 +2,7 @@ package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import org.apache.ibatis.annotations.*;
@@ -38,6 +39,15 @@ public interface StudentDao {
      */
     @Select("SELECT * FROM student s WHERE s.student_id = #{studentId}")
     StudentEntity getStudentByStudentId(@Param("studentId") Long studentId);
+
+    /**
+     * @param studentId 学生编号
+     * @return 返回一个[学生详情数据传输类]
+     * @author KevenPotter
+     * @date 2020-01-04 00:20:34
+     * @description 根据[学生编号]查询[学生详情数据传输类]
+     */
+    StudentProfileDto getStudentProfileByStudentId(@Param("studentId") Long studentId);
 
     /**
      * @param studentId 学生编号

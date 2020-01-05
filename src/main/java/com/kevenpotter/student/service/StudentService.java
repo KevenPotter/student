@@ -3,6 +3,7 @@ package com.kevenpotter.student.service;
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
+import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.utils.ListUtils;
@@ -48,14 +49,14 @@ public class StudentService {
 
     /**
      * @param studentId 学生编号
-     * @return 返回一个[学生实体]
+     * @return 返回一个[学生详情数据传输类]
      * @author KevenPotter
      * @date 2020-01-03 14:54:49
-     * @description 根据[学生编号]查询[学生实体]
+     * @description 根据[学生编号]查询[学生详情数据传输类]
      */
-    public StudentEntity getStudentByStudentId(Long studentId) {
+    public StudentProfileDto getStudentProfileByStudentId(Long studentId) {
         if (null == studentId) return null;
-        return studentDao.getStudentByStudentId(studentId);
+        return studentDao.getStudentProfileByStudentId(studentId);
     }
 
     /**
@@ -82,7 +83,7 @@ public class StudentService {
      */
     public StudentEntity updateStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        StudentEntity studentEntity = this.getStudentByStudentId(studentDto.getStudentId());
+        StudentEntity studentEntity = studentDao.getStudentByStudentId(studentDto.getStudentId());
         if (null == studentEntity) return null;
         studentDao.updateStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());
