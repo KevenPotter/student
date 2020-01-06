@@ -13,10 +13,12 @@ import java.io.Serializable;
 @Data
 public class CourseEntity implements Serializable {
 
-    /*课程编号*/
+    /*自增ID*/
     private Long id;
+    /*学科编号*/
+    private Integer courseId;
     /*课程名称*/
-    private String name;
+    private String courseName;
     /*课时*/
     private Integer hour;
     /*学分*/

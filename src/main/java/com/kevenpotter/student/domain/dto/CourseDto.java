@@ -11,10 +11,10 @@ import lombok.Data;
 @Data
 public class CourseDto {
 
-    /*课程编号*/
-    private Long id;
+    /*学科编号*/
+    private Integer courseId;
     /*课程名称*/
-    private String name;
+    private String courseName;
     /*课时*/
     private Integer hour;
     /*学分*/

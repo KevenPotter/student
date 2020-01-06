@@ -13,12 +13,14 @@ import java.io.Serializable;
 @Data
 public class ScoreEntity implements Serializable {
 
-    /*课程编号*/
-    private Long courseId;
     /*学生编号*/
     private Long studentId;
+    /*课程编号*/
+    private Long courseId;
     /*考试场次编号*/
     private Long examinationCategoryId;
     /*课程成绩*/
     private String score;
+    /*学期*/
+    private Integer semester;
 }

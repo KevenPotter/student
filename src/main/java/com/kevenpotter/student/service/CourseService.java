@@ -23,49 +23,4 @@ public class CourseService {
 
     @Autowired
     private CourseDao courseDao;
-
-    /**
-     * @param courseId 课程编号
-     * @param name     课程名称
-     * @return 返回一个[课程实体]
-     * @author KevenPotter
-     * @date 2019-11-23 18:09:50
-     * @description 根据[课程编号]或[课程名称]查询[课程实体]
-     */
-    public CourseEntity getCourse(Long courseId, String name) {
-        if (null == courseId && StringUtils.isEmpty(name)) return null;
-        if (null == courseId) return courseDao.findCourseByName(name);
-        if (StringUtils.isEmpty(name)) return courseDao.findCourseById(courseId);
-        return courseDao.findCourseByIdAndName(courseId, name);
-    }
-
-    /**
-     * @param courseDto 课程数据传输类
-     * @return 返回插入的课程实体
-     * @author KevenPotter
-     * @date 2019-11-23 18:14:28
-     * @description 插入一条新的[课程实体]并返回该[课程实体]
-     */
-    public CourseEntity addCourse(CourseDto courseDto) {
-        if (null == courseDao) return null;
-        CourseEntity courseEntity = this.getCourse(courseDto.getId(), courseDto.getName());
-        if (null != courseEntity) return null;
-        courseDao.addCourse(courseDto);
-        return this.getCourse(courseDto.getId(), courseDto.getName());
-    }
-
-    /**
-     * @param courseDto 课程数据传输类
-     * @return 返回更新之前的课程实体
-     * @author KevenPotter
-     * @date 2019-11-23 18:16:45
-     * @description 更新[课程实体]并返回更新之前的[课程实体]
-     */
-    public CourseEntity updateCourse(CourseDto courseDto) {
-        if (null == courseDto) return null;
-        CourseEntity courseEntity = courseDao.findCourseById(courseDto.getId());
-        courseDao.updateCourse(courseDto);
-        return courseEntity;
-    }
-
 }
