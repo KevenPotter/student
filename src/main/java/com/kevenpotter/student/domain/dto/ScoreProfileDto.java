@@ -13,6 +13,8 @@ public class ScoreProfileDto {
 
     /*学生编号*/
     private Long studentId;
+    /*课程编号*/
+    private Integer courseId;
     /*课程名称*/
     private String courseName;
     /*课时*/

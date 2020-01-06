@@ -5,6 +5,7 @@
     <!-- 根据[学生编号]查询[分数详情数据传输类]集合 -->
     <select id="getScoreByStudentId" resultType="com.kevenpotter.student.domain.dto.ScoreProfileDto">
         SELECT s.student_id  AS 'studentId',
+               c.course_id   AS 'courseId',
                c.course_name AS 'courseName',
                c.`hour`      AS 'courseHour',
                c.credit      AS 'courseCredit',
