@@ -1,5 +1,6 @@
 package com.kevenpotter.student.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,12 +14,15 @@ import java.io.Serializable;
 @Data
 public class ScoreEntity implements Serializable {
 
+    /*主键ID*/
+    private Long id;
     /*学生编号*/
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long studentId;
     /*课程编号*/
-    private Long courseId;
+    private Integer courseId;
     /*考试场次编号*/
-    private Long examinationCategoryId;
+    private Integer examinationCategoryId;
     /*课程成绩*/
     private String score;
     /*学期*/

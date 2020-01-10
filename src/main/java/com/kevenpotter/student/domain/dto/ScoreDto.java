@@ -11,12 +11,16 @@ import lombok.Data;
 @Data
 public class ScoreDto {
 
+    /*主键ID*/
+    private Long id;
     /*学生编号*/
     private Long studentId;
     /*课程编号*/
-    private Long courseId;
+    private Integer courseId;
     /*考试场次编号*/
-    private Long examinationCategoryId;
+    private Integer examinationCategoryId;
     /*课程成绩*/
     private String score;
+    /*学期*/
+    private Integer semester;
 }

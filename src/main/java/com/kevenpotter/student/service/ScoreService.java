@@ -38,4 +38,19 @@ public class ScoreService {
         if (null == studentId || null == semester) return null;
         return scoreDao.getScoreByStudentId(studentId, semester);
     }
+
+    /**
+     * @param scoreDto
+     * @return
+     * @date 2020-01-10 14:06:58
+     */
+    public ScoreEntity addScore(ScoreDto scoreDto) {
+        if (null == scoreDto) return null;
+        ScoreEntity existScoreEntity = scoreDao.getScoreByStudentIdAndCourseIdAndExaminationCategoryIdAndSemester(scoreDto.getStudentId(), scoreDto.getCourseId(), scoreDto.getExaminationCategoryId(), scoreDto.getSemester());
+        if (null != existScoreEntity) return null;
+        scoreDao.addScore(scoreDto);
+        ScoreEntity scoreEntity = scoreDao.getScoreById(scoreDto.getId());
+        if (null == scoreEntity) return null;
+        return scoreEntity;
+    }
 }
