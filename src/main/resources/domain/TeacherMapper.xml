@@ -24,4 +24,22 @@
         </where>
     </select>
 
+    <!-- 根据[教师编号]查询[教师详情数据传输类] -->
+    <select id="getTeacherProfileByTeacherId" resultType="com.kevenpotter.student.domain.dto.TeacherProfileDto">
+        SELECT t.id              AS 'id',
+               t.teacher_id      AS 'teacherId',
+               t.`name`          AS 'teacherName',
+               t.professional    AS 'professional',
+               t.age             AS 'teacherAge',
+               t.sex             AS 'teacherSex',
+               t.mobile          AS 'teacherMobile',
+               t.address         AS 'teacherAddress',
+               d.department_name AS 'departmentName',
+               m.major_name      AS 'majorName'
+        FROM `teacher` t
+                 LEFT JOIN department d ON t.department_id = d.department_id
+                 LEFT JOIN major m ON t.major_id = m.major_id
+        WHERE t.teacher_id = #{teacherId};
+    </select>
+
 </mapper>

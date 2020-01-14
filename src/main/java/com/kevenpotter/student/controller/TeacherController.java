@@ -2,6 +2,8 @@ package com.kevenpotter.student.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kevenpotter.student.domain.dto.StudentProfileDto;
+import com.kevenpotter.student.domain.dto.TeacherProfileDto;
 import com.kevenpotter.student.domain.entity.TeacherEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -56,5 +58,21 @@ public class TeacherController {
         PageInfo<TeacherEntity> pageInfo = new PageInfo<TeacherEntity>(teacherService.getTeachers(teacherId, name, departmentId, majorId, professional));
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到教师信息");
         return ApiResult.buildSuccess(pageInfo);
+    }
+
+    /**
+     * @param teacherId 教师编号
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-14 15:46:52
+     * @description 根据[教师编号]查询[教师详情数据传输类]
+     */
+    @ResponseBody
+    @GetMapping("/teacher/{teacherId}")
+    public ApiResult getStudent(@PathVariable Long teacherId) {
+        if (null == teacherId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        TeacherProfileDto teacherProfileDto = teacherService.getTeacherProfileByTeacherId(teacherId);
+        if (null == teacherProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到教师信息");
+        return ApiResult.buildSuccess(teacherProfileDto);
     }
 }

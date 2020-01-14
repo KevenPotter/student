@@ -2,6 +2,7 @@ package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.TeacherDao;
+import com.kevenpotter.student.domain.dto.TeacherProfileDto;
 import com.kevenpotter.student.domain.entity.TeacherEntity;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
@@ -51,5 +52,17 @@ public class TeacherService {
         if (StringUtils.isEmpty(professional)) professional = null;
         else professional = professional.trim();
         return teacherDao.getTeachers(teacherId, name, departmentId, majorId, professional);
+    }
+
+    /**
+     * @param teacherId 教师编号
+     * @return 返回一个[教师详情数据传输类]
+     * @author KevenPotter
+     * @date 2020-01-14 16:08:49
+     * @description 根据[教师编号]查询[教师详情数据传输类]
+     */
+    public TeacherProfileDto getTeacherProfileByTeacherId(Long teacherId) {
+        if (null == teacherId) return null;
+        return teacherDao.getTeacherProfileByTeacherId(teacherId);
     }
 }
