@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController
-@RequestMapping("student")
+@RequestMapping("/student")
 public class StudentController {
 
     /*定义日志记录器，用来记录必要信息*/

@@ -50,8 +50,10 @@ public interface StudentDao {
     StudentProfileDto getStudentProfileByStudentId(@Param("studentId") Long studentId);
 
     /**
-     * @param studentId 学生编号
-     * @param name      学生姓名
+     * @param studentId    学生编号
+     * @param name         学生姓名
+     * @param departmentId 系别编号
+     * @param majorId      专业编号
      * @return 返回[学生实体]列表
      * @author KevenPotter
      * @date 2019-11-29 11:16:38

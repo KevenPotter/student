@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kevenpotter.student.dao.TeacherDao">
+
+    <!-- 依据指定条件查找规定范围内的[教师实体]列表 -->
+    <select id="getTeachers" resultType="com.kevenpotter.student.domain.entity.TeacherEntity">
+        SELECT * FROM teacher t
+        <where>
+            <if test="teacherId != null">
+                AND t.teacher_id = #{teacherId}
+            </if>
+            <if test="name != null">
+                AND t.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="departmentId != null">
+                AND t.department_id = #{departmentId}
+            </if>
+            <if test="majorId != null">
+                AND t.major_id = #{majorId}
+            </if>
+            <if test="professional != null">
+                AND t.professional = #{professional}
+            </if>
+        </where>
+    </select>
+
+</mapper>

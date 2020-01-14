@@ -1,6 +1,9 @@
 package com.kevenpotter.student.service;
 
+import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.TeacherDao;
+import com.kevenpotter.student.domain.entity.TeacherEntity;
+import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +32,24 @@ public class TeacherService {
      */
     public Long getTheTotalNumberOfTeachers() {
         return teacherDao.getCount();
+    }
+
+    /**
+     * @param teacherId    教师编号
+     * @param name         教师姓名
+     * @param departmentId 系别编号
+     * @param majorId      专业编号
+     * @param professional 教师职称
+     * @return 依据指定条件查找规定范围内的[教师实体]列表
+     * @author KevenPotter
+     * @date 2020-01-14 11:14:34
+     * @description 依据指定条件查找规定范围内的[教师实体]列表
+     */
+    public Page<TeacherEntity> getTeachers(Long teacherId, String name, Integer departmentId, Integer majorId, String professional) {
+        if (StringUtils.isEmpty(name)) name = null;
+        else name = name.trim();
+        if (StringUtils.isEmpty(professional)) professional = null;
+        else professional = professional.trim();
+        return teacherDao.getTeachers(teacherId, name, departmentId, majorId, professional);
     }
 }
