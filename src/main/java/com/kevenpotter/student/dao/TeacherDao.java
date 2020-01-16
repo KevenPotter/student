@@ -38,7 +38,7 @@ public interface TeacherDao {
      * @date 2020-01-14 11:19:01
      * @description 依据指定条件查找规定范围内的[教师实体]列表
      */
-    Page<TeacherEntity> getTeachers(@Param("teacherId") Long teacherId, @Param("name") String name, @Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId, @Param("professional") String professional);
+    Page<TeacherEntity> getTeachers(@Param("teacherId") String teacherId, @Param("name") String name, @Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId, @Param("professional") String professional);
 
     /**
      * @param teacherId 教师编号
@@ -47,6 +47,6 @@ public interface TeacherDao {
      * @date 2020-01-14 16:07:18
      * @description 根据[教师编号]查询[教师详情数据传输类]
      */
-    TeacherProfileDto getTeacherProfileByTeacherId(@Param("teacherId") Long teacherId);
+    TeacherProfileDto getTeacherProfileByTeacherId(@Param("teacherId") String teacherId);
 }
 

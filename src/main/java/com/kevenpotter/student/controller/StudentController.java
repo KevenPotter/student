@@ -46,7 +46,7 @@ public class StudentController {
     @ResponseBody
     @GetMapping("/students")
     public ApiResult getStudents(
-            @RequestParam(value = "studentId", required = false) Long studentId,
+            @RequestParam(value = "studentId", required = false) String studentId,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "departmentId", required = false) Integer departmentId,
             @RequestParam(value = "majorId", required = false) Integer majorId,
@@ -67,7 +67,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/student/{studentId}")
-    public ApiResult getStudent(@PathVariable Long studentId) {
+    public ApiResult getStudent(@PathVariable String studentId) {
         if (null == studentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         StudentProfileDto studentProfileDto = studentService.getStudentProfileByStudentId(studentId);
         if (null == studentProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");

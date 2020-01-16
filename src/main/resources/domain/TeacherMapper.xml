@@ -7,7 +7,7 @@
         SELECT * FROM teacher t
         <where>
             <if test="teacherId != null">
-                AND t.teacher_id = #{teacherId}
+                AND t.teacher_id LIKE CONCAT('',#{teacherId},'%')
             </if>
             <if test="name != null">
                 AND t.name LIKE CONCAT('%',#{name},'%')

@@ -2,7 +2,6 @@ package com.kevenpotter.student.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.TeacherProfileDto;
 import com.kevenpotter.student.domain.entity.TeacherEntity;
 import com.kevenpotter.student.result.ApiConstant;
@@ -47,7 +46,7 @@ public class TeacherController {
     @ResponseBody
     @GetMapping("/teachers")
     public ApiResult getTeachers(
-            @RequestParam(value = "teacherId", required = false) Long teacherId,
+            @RequestParam(value = "teacherId", required = false) String teacherId,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "departmentId", required = false) Integer departmentId,
             @RequestParam(value = "majorId", required = false) Integer majorId,
@@ -69,7 +68,7 @@ public class TeacherController {
      */
     @ResponseBody
     @GetMapping("/teacher/{teacherId}")
-    public ApiResult getStudent(@PathVariable Long teacherId) {
+    public ApiResult getStudent(@PathVariable String teacherId) {
         if (null == teacherId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         TeacherProfileDto teacherProfileDto = teacherService.getTeacherProfileByTeacherId(teacherId);
         if (null == teacherProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到教师信息");

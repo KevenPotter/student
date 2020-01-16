@@ -46,7 +46,9 @@ public class TeacherService {
      * @date 2020-01-14 11:14:34
      * @description 依据指定条件查找规定范围内的[教师实体]列表
      */
-    public Page<TeacherEntity> getTeachers(Long teacherId, String name, Integer departmentId, Integer majorId, String professional) {
+    public Page<TeacherEntity> getTeachers(String teacherId, String name, Integer departmentId, Integer majorId, String professional) {
+        if (StringUtils.isEmpty(teacherId)) teacherId = null;
+        else teacherId = teacherId.trim();
         if (StringUtils.isEmpty(name)) name = null;
         else name = name.trim();
         if (StringUtils.isEmpty(professional)) professional = null;
@@ -61,7 +63,7 @@ public class TeacherService {
      * @date 2020-01-14 16:08:49
      * @description 根据[教师编号]查询[教师详情数据传输类]
      */
-    public TeacherProfileDto getTeacherProfileByTeacherId(Long teacherId) {
+    public TeacherProfileDto getTeacherProfileByTeacherId(String teacherId) {
         if (null == teacherId) return null;
         return teacherDao.getTeacherProfileByTeacherId(teacherId);
     }

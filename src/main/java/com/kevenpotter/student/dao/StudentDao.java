@@ -38,7 +38,7 @@ public interface StudentDao {
      * @description 根据[学生编号]查询[学生实体]
      */
     @Select("SELECT * FROM student s WHERE s.student_id = #{studentId}")
-    StudentEntity getStudentByStudentId(@Param("studentId") Long studentId);
+    StudentEntity getStudentByStudentId(@Param("studentId") String studentId);
 
     /**
      * @param studentId 学生编号
@@ -47,7 +47,7 @@ public interface StudentDao {
      * @date 2020-01-04 00:20:34
      * @description 根据[学生编号]查询[学生详情数据传输类]
      */
-    StudentProfileDto getStudentProfileByStudentId(@Param("studentId") Long studentId);
+    StudentProfileDto getStudentProfileByStudentId(@Param("studentId") String studentId);
 
     /**
      * @param studentId    学生编号
@@ -63,7 +63,7 @@ public interface StudentDao {
             "SELECT * FROM student s " +
             "<where> " +
             "<if test='studentId != null'> " +
-            "AND s.student_id = #{studentId}  " +
+            "AND s.student_id LIKE CONCAT('',#{studentId},'%') " +
             "</if> " +
             "<if test='name != null'> " +
             "AND s.name LIKE CONCAT('%',#{name},'%') " +
@@ -76,7 +76,7 @@ public interface StudentDao {
             "</if> " +
             "</where>" +
             "</script>")
-    Page<StudentEntity> getStudents(@Param("studentId") Long studentId, @Param("name") String name, @Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId);
+    Page<StudentEntity> getStudents(@Param("studentId") String studentId, @Param("name") String name, @Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId);
 
     /**
      * @param studentDto 学生数据传输类

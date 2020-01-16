@@ -14,7 +14,7 @@ public class StudentProfileDto {
     /*主键ID*/
     private Long id;
     /*学生编号*/
-    private Long studentId;
+    private String studentId;
     /*学生所属年级*/
     private Integer studentGrade;
     /*学生所属班级*/

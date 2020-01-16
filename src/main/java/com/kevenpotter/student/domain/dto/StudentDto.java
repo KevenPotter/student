@@ -14,7 +14,7 @@ public class StudentDto {
     /*主键ID*/
     private Long id;
     /*学生编号*/
-    private Long studentId;
+    private String studentId;
     /*学生所属系别*/
     private Integer departmentId;
     /*学生所属专业*/

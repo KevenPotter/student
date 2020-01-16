@@ -14,7 +14,7 @@ public class TeacherProfileDto {
     /*主键ID*/
     private Long id;
     /*教师编号*/
-    private Long teacherId;
+    private String teacherId;
     /*教师姓名*/
     private String teacherName;
     /*教师职称*/

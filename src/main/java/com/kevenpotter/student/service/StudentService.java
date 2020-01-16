@@ -38,12 +38,11 @@ public class StudentService {
      * @date 2019-11-22 11:34:13
      * @description 根据[学生姓名]或[学生编号]查询[学生实体]
      */
-    public Page<StudentEntity> getStudents(Long studentId, String name, Integer departmentId, Integer majorId) {
-        if (StringUtils.isEmpty(name)) {
-            name = null;
-        } else {
-            name = name.trim();
-        }
+    public Page<StudentEntity> getStudents(String studentId, String name, Integer departmentId, Integer majorId) {
+        if (StringUtils.isEmpty(studentId)) studentId = null;
+        else studentId = studentId.trim();
+        if (StringUtils.isEmpty(name)) name = null;
+        else name = name.trim();
         return studentDao.getStudents(studentId, name, departmentId, majorId);
     }
 
@@ -54,7 +53,7 @@ public class StudentService {
      * @date 2020-01-03 14:54:49
      * @description 根据[学生编号]查询[学生详情数据传输类]
      */
-    public StudentProfileDto getStudentProfileByStudentId(Long studentId) {
+    public StudentProfileDto getStudentProfileByStudentId(String studentId) {
         if (null == studentId) return null;
         return studentDao.getStudentProfileByStudentId(studentId);
     }

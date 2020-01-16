@@ -18,8 +18,7 @@ public class TeacherEntity implements Serializable {
     /*主键ID*/
     private Long id;
     /*教师编号*/
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Long teacherId;
+    private String teacherId;
     /*教师所属系别*/
     private Integer departmentId;
     /*教师所属专业*/
