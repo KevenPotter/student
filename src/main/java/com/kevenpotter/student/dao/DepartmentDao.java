@@ -24,7 +24,7 @@ public interface DepartmentDao {
      * @date 2019-12-06 16:56:46
      * @description 返回全部[系别实体类]列表
      */
-    @Select("SELECT * FROM department d;")
+    @Select("SELECT * FROM department d")
     List<DepartmentEntity> getAllDepartments();
 
     /**

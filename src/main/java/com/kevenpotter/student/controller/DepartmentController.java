@@ -1,5 +1,7 @@
 package com.kevenpotter.student.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -20,7 +22,7 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("department")
+@RequestMapping("/department")
 public class DepartmentController {
 
     /*定义日志记录器，用来记录必要信息*/
@@ -30,11 +32,31 @@ public class DepartmentController {
     private DepartmentService departmentService;
 
     /**
+     * @param pageNo   当前页码
+     * @param pageSize 分页大小
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-16 16:12:28
+     * @description
+     */
+    @ResponseBody
+    @PatchMapping("/departments")
+    public ApiResult getDepartments(
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<DepartmentEntity> pageInfo = new PageInfo<DepartmentEntity>(departmentService.getAllDepartments());
+        if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到系部信息");
+        return ApiResult.buildSuccess(pageInfo);
+    }
+
+    /**
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2019-12-06 17:12:33
      * @description 返回全部[系别实体类]列表
      */
+    @ResponseBody
     @GetMapping("/departments")
     public ApiResult getAllDepartments() {
         List<DepartmentEntity> departmentEntityList = departmentService.getAllDepartments();
