@@ -2,6 +2,7 @@ package com.kevenpotter.student.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.kevenpotter.student.domain.dto.DepartmentDto;
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -75,8 +76,31 @@ public class DepartmentController {
     @ResponseBody
     public ApiResult getDepartmentById(@PathVariable Long departmentId) {
         if (null == departmentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        DepartmentEntity departmentEntity = departmentService.getDepartmentById(departmentId);
+        DepartmentEntity departmentEntity = departmentService.getDepartmentByDepartmentId(departmentId);
         if (null == departmentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到系别信息");
+        return ApiResult.buildSuccess(departmentEntity);
+    }
+
+    /**
+     * @param departmentDto 系别数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-17 16:02:44
+     * @description 添加系部
+     */
+    @PostMapping("/departments")
+    @ResponseBody
+    public ApiResult addDepartment(@RequestBody DepartmentDto departmentDto) {
+        if (null == departmentDto)
+            return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        DepartmentEntity departmentEntityByDepartmentId = departmentService.getDepartmentByDepartmentId(departmentDto.getDepartmentId());
+        if (null != departmentEntityByDepartmentId)
+            return ApiResult.buildFailure(ApiConstant.CODE_4, "系部编号重复,请更换系部编号");
+        DepartmentEntity departmentEntityByDepartmentName = departmentService.getDepartmentByDepartmentName(departmentDto.getDepartmentName().trim());
+        if (null != departmentEntityByDepartmentName)
+            return ApiResult.buildFailure(ApiConstant.CODE_4, "系部名称重复,请更换系部编号");
+        DepartmentEntity departmentEntity = departmentService.addDepartment(departmentDto);
+        if (null == departmentEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功添加系部信息");
         return ApiResult.buildSuccess(departmentEntity);
     }
 }

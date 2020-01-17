@@ -67,7 +67,7 @@ public class StudentService {
      */
     public StudentEntity addStudent(StudentDto studentDto) {
         if (null == studentDto) return null;
-        Page<StudentEntity> studentEntityList = this.getStudents(studentDto.getStudentId(), studentDto.getName(), studentDto.getDepartmentId(), studentDto.getMajorId());
+        List<StudentEntity> studentEntityList = this.getStudents(studentDto.getStudentId(), studentDto.getName(), studentDto.getDepartmentId(), studentDto.getMajorId());
         if (!ListUtils.isEmpty(studentEntityList)) return null;
         studentDao.addStudent(studentDto);
         return studentDao.getStudentById(studentDto.getId());

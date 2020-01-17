@@ -16,4 +16,6 @@ public class ApiConstant {
     public static final String CODE_2 = "100002";
     /*未获取到目标信息*/
     public static final String CODE_3 = "100003";
+    /*重复的目标信息*/
+    public static final String CODE_4 = "100004";
 }
