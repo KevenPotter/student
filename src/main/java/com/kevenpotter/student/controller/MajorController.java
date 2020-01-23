@@ -1,5 +1,8 @@
 package com.kevenpotter.student.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.kevenpotter.student.domain.dto.MajorDto;
 import com.kevenpotter.student.domain.entity.MajorEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -20,7 +23,7 @@ import java.util.List;
  */
 @CrossOrigin
 @RestController
-@RequestMapping("major")
+@RequestMapping("/major")
 public class MajorController {
 
     /*定义日志记录器，用来记录必要信息*/
@@ -28,6 +31,28 @@ public class MajorController {
 
     @Autowired
     private MajorService majorService;
+
+    /**
+     * @param pageNo   当前页码
+     * @param pageSize 分页大小
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-21 09:16:11
+     * @description
+     */
+    @ResponseBody
+    @PatchMapping("/majors/{departmentId}")
+    public ApiResult getMajors(
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            @PathVariable Integer departmentId) {
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<MajorEntity> pageInfo;
+        if (-1 == departmentId) pageInfo = new PageInfo<MajorEntity>(majorService.getAllMajors());
+        else pageInfo = new PageInfo<MajorEntity>(majorService.getMajorsByDepartmentId(departmentId));
+        if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到专业信息");
+        return ApiResult.buildSuccess(pageInfo);
+    }
 
     /**
      * @return 返回一个结果集
@@ -72,6 +97,29 @@ public class MajorController {
         if (null == majorId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         MajorEntity majorEntity = majorService.getMajorByMajorId(majorId);
         if (null == majorEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到专业信息");
+        return ApiResult.buildSuccess(majorEntity);
+    }
+
+    /**
+     * @param majorDto 专业数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-01-21 23:29:38
+     * @description 添加专业
+     */
+    @PostMapping("/majors")
+    @ResponseBody
+    public ApiResult addDepartment(@RequestBody MajorDto majorDto) {
+        if (null == majorDto)
+            return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        MajorEntity majorEntityByMajorId = majorService.getMajorByMajorId(majorDto.getMajorId());
+        if (null != majorEntityByMajorId)
+            return ApiResult.buildFailure(ApiConstant.CODE_4, "专业编号重复,请更换专业编号");
+        MajorEntity majorEntityByMajorName = majorService.getMajorByMajorName(majorDto.getMajorName().trim());
+        if (null != majorEntityByMajorName)
+            return ApiResult.buildFailure(ApiConstant.CODE_4, "专业名称重复,请更换专业名称");
+        MajorEntity majorEntity = majorService.addMajor(majorDto);
+        if (null == majorEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功添加专业信息");
         return ApiResult.buildSuccess(majorEntity);
     }
 }

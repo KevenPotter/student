@@ -1,7 +1,9 @@
 package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.MajorDao;
+import com.kevenpotter.student.domain.dto.MajorDto;
 import com.kevenpotter.student.domain.entity.MajorEntity;
+import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +58,30 @@ public class MajorService {
     public MajorEntity getMajorByMajorId(Integer majorId) {
         if (null == majorId) return null;
         return majorDao.getMajorByMajorId(majorId);
+    }
+
+    /**
+     * @param majorName 专业名称
+     * @return 根据[专业名称]返回[专业实体类]
+     * @author KevenPotter
+     * @date 2020-01-22 10:57:43
+     * @description 根据[专业名称]返回[专业实体类]
+     */
+    public MajorEntity getMajorByMajorName(String majorName) {
+        if (StringUtils.isEmpty(majorName)) return new MajorEntity();
+        return majorDao.getMajorByMajorName(majorName);
+    }
+
+    /**
+     * @param majorDto 专业数据传输类
+     * @return 插入一条新的[专业实体]并返回该[专业实体]
+     * @author KevenPotter
+     * @date 2020-01-22 11:01:27
+     * @description 插入一条新的[专业实体]并返回该[专业实体]
+     */
+    public MajorEntity addMajor(MajorDto majorDto) {
+        if (null == majorDto) return null;
+        majorDao.addMajor(majorDto);
+        return majorDao.getMajorById(majorDto.getId());
     }
 }

@@ -58,7 +58,6 @@ public interface DepartmentDao {
 
     /**
      * @param departmentDto 系别数据传输类
-     * @return 插入一条新的[系别实体]并返回该[系别实体]
      * @author KevenPotter
      * @date 2020-01-17 16:58:59
      * @description 插入一条新的[系别实体]并返回该[系别实体]

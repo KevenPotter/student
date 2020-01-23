@@ -38,6 +38,7 @@ public class CourseController {
      * @date 2020-01-09 10:47:41
      * @description 依据[系别编号]、[专业编号]、[学期]返回[课程实体]列表
      */
+    @ResponseBody
     @GetMapping("/courses/{departmentId}/{majorId}/{semester}")
     public ApiResult getCoursesByDepartmentIdAndMajorIdAndSemester(@PathVariable Integer departmentId, @PathVariable Integer majorId, @PathVariable Integer semester) {
         if (null == departmentId || null == majorId || null == semester)

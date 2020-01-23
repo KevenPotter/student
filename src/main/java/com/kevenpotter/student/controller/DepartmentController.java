@@ -98,7 +98,7 @@ public class DepartmentController {
             return ApiResult.buildFailure(ApiConstant.CODE_4, "系部编号重复,请更换系部编号");
         DepartmentEntity departmentEntityByDepartmentName = departmentService.getDepartmentByDepartmentName(departmentDto.getDepartmentName().trim());
         if (null != departmentEntityByDepartmentName)
-            return ApiResult.buildFailure(ApiConstant.CODE_4, "系部名称重复,请更换系部编号");
+            return ApiResult.buildFailure(ApiConstant.CODE_4, "系部名称重复,请更换系部名称");
         DepartmentEntity departmentEntity = departmentService.addDepartment(departmentDto);
         if (null == departmentEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功添加系部信息");
         return ApiResult.buildSuccess(departmentEntity);
