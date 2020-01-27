@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class CourseDto {
 
+    /*主键ID*/
+    private Long id;
     /*学科编号*/
     private Integer courseId;
     /*课程名称*/

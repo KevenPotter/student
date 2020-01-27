@@ -38,7 +38,7 @@ public class MajorController {
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2020-01-21 09:16:11
-     * @description
+     * @description 根据[系别编号]获取相应的[专业实体列表]
      */
     @ResponseBody
     @PatchMapping("/majors/{departmentId}")
