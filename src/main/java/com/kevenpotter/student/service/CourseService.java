@@ -1,10 +1,10 @@
 package com.kevenpotter.student.service;
 
+import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.CourseDao;
 import com.kevenpotter.student.domain.dto.CourseDto;
-import com.kevenpotter.student.domain.dto.MajorDto;
 import com.kevenpotter.student.domain.entity.CourseEntity;
-import com.kevenpotter.student.domain.entity.MajorEntity;
+import com.kevenpotter.student.utils.ListUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +39,33 @@ public class CourseService {
     }
 
     /**
+     * @param orderBy 排序字段
+     * @return 根据[排序字段]返回全部[课程实体]列表
+     * @author KevenPotter
+     * @date 2020-02-03 10:39:59
+     * @description 根据[排序字段]返回全部[课程实体]列表
+     */
+    public List<CourseEntity> getAllCourses(String orderByParam) {
+        List<CourseEntity> courseEntityList = courseDao.getAllCoursesByOrder(orderByParam);
+        if (ListUtils.isEmpty(courseEntityList)) return null;
+        return courseEntityList;
+    }
+
+    /**
+     * @param departmentId 系别编号
+     * @param majorId      专业编号
+     * @param semester     学期
+     * @return 依据指定条件查找规定范围内的[课程实体]列表
+     * @author KevenPotter
+     * @date 2020-01-29 23:57:08
+     * @description 依据指定条件查找规定范围内的[课程实体]列表
+     */
+    public Page<CourseEntity> getCourses(Integer departmentId, Integer majorId, Integer semester) {
+        if (null == departmentId && null == majorId && null == semester) return null;
+        return courseDao.getCourses(departmentId, majorId, semester);
+    }
+
+    /**
      * @param courseId 课程编号
      * @return 根据[课程编号]返回[课程实体类]
      * @author KevenPotter
@@ -48,6 +75,31 @@ public class CourseService {
     public CourseEntity getCourseByCourseId(Integer courseId) {
         if (null == courseId) return null;
         return courseDao.getCourseByCourseId(courseId);
+    }
+
+    /**
+     * @param majorId 专业编号
+     * @return 根据[专业编号]返回[课程实体类]列表
+     * @author KevenPotter
+     * @date 2020-01-28 17:20:40
+     * @description 根据[专业编号]返回[课程实体类]列表
+     */
+    public List<CourseEntity> getCoursesByMajorId(Integer majorId) {
+        if (null == majorId) return null;
+        return courseDao.getCoursesByMajorId(majorId);
+    }
+
+    /**
+     * @param majorId  专业编号
+     * @param semester 学期
+     * @return 根据[专业编号]和[学期]返回[课程实体类]列表
+     * @author KevenPotter
+     * @date 2020-01-29 19:21:18
+     * @description 根据[专业编号]和[学期]返回[课程实体类]列表
+     */
+    public List<CourseEntity> getCoursesByMajorIdAndSemester(Integer majorId, Integer semester) {
+        if (null == majorId || null == semester) return null;
+        return courseDao.getCoursesByMajorIdAndSemester(majorId, semester);
     }
 
     /**

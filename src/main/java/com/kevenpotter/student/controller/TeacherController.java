@@ -68,7 +68,7 @@ public class TeacherController {
      */
     @ResponseBody
     @GetMapping("/teacher/{teacherId}")
-    public ApiResult getStudent(@PathVariable String teacherId) {
+    public ApiResult getTeacher(@PathVariable String teacherId) {
         if (null == teacherId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         TeacherProfileDto teacherProfileDto = teacherService.getTeacherProfileByTeacherId(teacherId);
         if (null == teacherProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到教师信息");

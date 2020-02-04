@@ -109,7 +109,7 @@ public class MajorController {
      */
     @PostMapping("/majors")
     @ResponseBody
-    public ApiResult addDepartment(@RequestBody MajorDto majorDto) {
+    public ApiResult addMajor(@RequestBody MajorDto majorDto) {
         if (null == majorDto)
             return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         MajorEntity majorEntityByMajorId = majorService.getMajorByMajorId(majorDto.getMajorId());

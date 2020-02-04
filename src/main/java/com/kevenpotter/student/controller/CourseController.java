@@ -33,6 +33,20 @@ public class CourseController {
     private CourseService courseService;
 
     /**
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-02-03 10:36:00
+     * @description 返回全部的[课程实体]列表
+     */
+    @ResponseBody
+    @GetMapping("/courses")
+    public ApiResult getAllCourses() {
+        List<CourseEntity> courseEntityList = courseService.getAllCourses("course_name");
+        if (ListUtils.isEmpty(courseEntityList)) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到课程信息");
+        return ApiResult.buildSuccess(courseEntityList);
+    }
+
+    /**
      * @param pageNo   当前页码
      * @param pageSize 分页大小
      * @return 返回一个结果集
@@ -41,12 +55,21 @@ public class CourseController {
      * @description 返回[课程实体]列表
      */
     @ResponseBody
-    @PatchMapping("/courses")
-    public ApiResult getMajors(
+    @PatchMapping("/courses/{majorId}/{semester}")
+    public ApiResult getCourses(
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
-            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+            @PathVariable Integer majorId,
+            @PathVariable Integer semester) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<CourseEntity> pageInfo = new PageInfo<CourseEntity>(courseService.getAllCourses());
+        PageInfo<CourseEntity> pageInfo;
+        if (-1 == majorId && 0 == semester) {
+            pageInfo = new PageInfo<CourseEntity>(courseService.getAllCourses());
+        } else if (-1 != majorId && 0 == semester) {
+            pageInfo = new PageInfo<CourseEntity>(courseService.getCourses(null, majorId, null));
+        } else {
+            pageInfo = new PageInfo<CourseEntity>(courseService.getCoursesByMajorIdAndSemester(majorId, semester));
+        }
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到课程信息");
         return ApiResult.buildSuccess(pageInfo);
     }
@@ -79,7 +102,7 @@ public class CourseController {
      */
     @PostMapping("/courses")
     @ResponseBody
-    public ApiResult addDepartment(@RequestBody CourseDto courseDto) {
+    public ApiResult addCourse(@RequestBody CourseDto courseDto) {
         if (null == courseDto)
             return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         CourseEntity courseEntityByCourseId = courseService.getCourseByCourseId(courseDto.getCourseId());
