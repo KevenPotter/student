@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kevenpotter.student.dao.DepartmentMajorSemesterCourseDao">
+
+    <!-- 批量插入[系部专业学期课程] -->
+    <insert id="batchAddDepartmentMajorSemesterCourse" parameterType="java.util.List">
+        INSERT INTO `student`.`department_major_semester_course` (
+        `department_id`,
+        `major_id`,
+        `semester`,
+        `course_id`)
+        VALUES
+        <foreach collection="list" item="departmentMajorSemesterCourseDto" index="index" separator=",">
+            (#{departmentMajorSemesterCourseDto.departmentId},
+            #{departmentMajorSemesterCourseDto.majorId},
+            #{departmentMajorSemesterCourseDto.semester},
+            #{departmentMajorSemesterCourseDto.courseId})
+        </foreach>
+    </insert>
+
+</mapper>

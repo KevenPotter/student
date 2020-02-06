@@ -18,4 +18,6 @@ public class ApiConstant {
     public static final String CODE_3 = "100003";
     /*重复的目标信息*/
     public static final String CODE_4 = "100004";
+    /*消息添加失败*/
+    public static final String CODE_5 = "100005";
 }
