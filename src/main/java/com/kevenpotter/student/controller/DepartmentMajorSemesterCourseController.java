@@ -77,7 +77,6 @@ public class DepartmentMajorSemesterCourseController {
         if (null == majorId || StringUtils.isEmpty(majorAddCoursesArrayString) || null == semester)
             return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         String[] majorAddCoursesArray = majorAddCoursesArrayString.split(",");
-        List<String> majorAddCourseIdLists = Arrays.asList(majorAddCoursesArray);
         MajorEntity majorEntity = majorService.getMajorByMajorId(majorId);
         Integer departmentId = majorEntity.getDepartmentId();
         ArrayList<DepartmentMajorSemesterCourseDto> departmentMajorSemesterCourseDtoArrayList = new ArrayList<DepartmentMajorSemesterCourseDto>();

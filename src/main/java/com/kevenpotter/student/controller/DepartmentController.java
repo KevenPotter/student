@@ -3,6 +3,7 @@ package com.kevenpotter.student.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kevenpotter.student.domain.dto.DepartmentDto;
+import com.kevenpotter.student.domain.dto.DepartmentNestedPiesDto;
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
@@ -11,9 +12,12 @@ import com.kevenpotter.student.utils.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author KevenPotter
@@ -79,6 +83,20 @@ public class DepartmentController {
         DepartmentEntity departmentEntity = departmentService.getDepartmentByDepartmentId(departmentId);
         if (null == departmentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到系别信息");
         return ApiResult.buildSuccess(departmentEntity);
+    }
+
+    /**
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-02-08 17:12:26
+     * @description 统计各系部专业数量并将其返回
+     */
+    @GetMapping("/departmentNestedPiesStatistics")
+    @ResponseBody
+    public ApiResult getDepartmentNestedPiesStatistics() {
+        DepartmentNestedPiesDto departmentNestedPiesDto = departmentService.getDepartmentNestedPiesStatistics();
+        if (null == departmentNestedPiesDto) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到各系部专业数量信息");
+        return ApiResult.buildSuccess(departmentNestedPiesDto);
     }
 
     /**

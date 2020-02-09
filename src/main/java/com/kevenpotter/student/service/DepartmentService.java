@@ -2,13 +2,17 @@ package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.DepartmentDao;
 import com.kevenpotter.student.domain.dto.DepartmentDto;
+import com.kevenpotter.student.domain.dto.DepartmentNestedPiesDataDto;
+import com.kevenpotter.student.domain.dto.DepartmentNestedPiesDto;
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
+import com.kevenpotter.student.utils.ListUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -70,6 +74,27 @@ public class DepartmentService {
     public DepartmentEntity getDepartmentByDepartmentName(String departmentName) {
         if (StringUtils.isEmpty(departmentName)) return new DepartmentEntity();
         return departmentDao.getDepartmentByDepartmentName(departmentName);
+    }
+
+    /**
+     * @return 统计各系部专业数量并将其返回
+     * @author KevenPotter
+     * @date 2020-02-08 17:25:31
+     * @description 统计各系部专业数量并将其返回
+     */
+    public DepartmentNestedPiesDto getDepartmentNestedPiesStatistics() {
+        List<DepartmentNestedPiesDataDto> departmentNestedPiesDataDtoList = departmentDao.getDepartmentNestedPiesStatistics();
+        if (ListUtils.isEmpty(departmentNestedPiesDataDtoList)) return null;
+        ArrayList<String> majorNameList = new ArrayList<String>();
+        ArrayList<DepartmentNestedPiesDataDto> departmentNestedPiesDataDtoArrayList = new ArrayList<DepartmentNestedPiesDataDto>();
+        for (DepartmentNestedPiesDataDto departmentNestedPiesDataDto : departmentNestedPiesDataDtoList) {
+            majorNameList.add(departmentNestedPiesDataDto.getName());
+            departmentNestedPiesDataDtoArrayList.add(departmentNestedPiesDataDto);
+        }
+        DepartmentNestedPiesDto departmentNestedPiesDto = new DepartmentNestedPiesDto();
+        departmentNestedPiesDto.setMajorNameList(majorNameList);
+        departmentNestedPiesDto.setDepartmentNestedPiesDataDtoList(departmentNestedPiesDataDtoArrayList);
+        return departmentNestedPiesDto;
     }
 
     /**

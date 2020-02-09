@@ -1,6 +1,7 @@
 package com.kevenpotter.student.dao;
 
 import com.kevenpotter.student.domain.dto.DepartmentDto;
+import com.kevenpotter.student.domain.dto.DepartmentNestedPiesDataDto;
 import com.kevenpotter.student.domain.entity.DepartmentEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
@@ -55,6 +56,15 @@ public interface DepartmentDao {
      */
     @Select("SELECT * FROM department d WHERE d.department_name=#{departmentName}")
     DepartmentEntity getDepartmentByDepartmentName(@Param("departmentName") String departmentName);
+
+    /**
+     * @return 返回[系别专业数量数据详情传输类]列表
+     * @author KevenPotter
+     * @date 2020-02-08 17:32:58
+     * @description 返回[系别专业数量数据详情传输类]列表
+     */
+    @Select("SELECT d.department_name AS 'name',COUNT(m.major_id) AS 'value' FROM department d LEFT JOIN major m ON d.department_id = m.department_id GROUP BY d.department_id")
+    List<DepartmentNestedPiesDataDto> getDepartmentNestedPiesStatistics();
 
     /**
      * @param departmentDto 系别数据传输类
