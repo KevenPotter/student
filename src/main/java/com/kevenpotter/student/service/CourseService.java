@@ -39,7 +39,7 @@ public class CourseService {
     }
 
     /**
-     * @param orderBy 排序字段
+     * @param orderByParam 排序字段
      * @return 根据[排序字段]返回全部[课程实体]列表
      * @author KevenPotter
      * @date 2020-02-03 10:39:59
