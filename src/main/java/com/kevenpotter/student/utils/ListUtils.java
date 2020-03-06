@@ -18,10 +18,6 @@ public class ListUtils {
      * @description 对集合进行判空操作
      */
     public static boolean isEmpty(List list) {
-        if (null == list || list.size() <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return null == list || list.size() <= 0;
     }
 }
