@@ -1,6 +1,7 @@
 package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
+import com.google.common.collect.Lists;
 import com.kevenpotter.student.dao.CourseDao;
 import com.kevenpotter.student.domain.dto.CourseDto;
 import com.kevenpotter.student.domain.entity.CourseEntity;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -139,5 +141,20 @@ public class CourseService {
         if (null == courseDto) return null;
         courseDao.addCourse(courseDto);
         return courseDao.getCourseById(courseDto.getId());
+    }
+
+    public static void main(String[] args) {
+        int READ = 1 << 0;
+        int WRITE = 1 << 1;
+        int CREATE = 1 << 2;
+        int DELETE = 1 << 3;
+        int ADMIN = 1 << 4;
+        int ALL = READ | WRITE | CREATE | DELETE | ADMIN;
+        System.out.println(READ);
+        System.out.println(WRITE);
+        System.out.println(CREATE);
+        System.out.println(DELETE);
+        System.out.println(ADMIN);
+        System.out.println(ALL);
     }
 }
