@@ -28,7 +28,7 @@ public class IndexDashBoardController {
     private static Logger logger = LoggerFactory.getLogger(IndexDashBoardController.class);
 
     /*静态变量,用来记录当前在线连接数.应该把它设计成线程安全的.*/
-    private static int onlineCount = 0;
+    private volatile static int onlineCount = 0;
     /*与某个客户端的连接会话列表,需要通过它来给客户端广播数据.*/
     private static CopyOnWriteArraySet<Session> sessionSet = new CopyOnWriteArraySet<Session>();
 
