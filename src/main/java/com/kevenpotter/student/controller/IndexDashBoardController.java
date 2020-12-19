@@ -115,7 +115,9 @@ public class IndexDashBoardController {
         try {
             for (Session session : sessionSet) {
                 if (!session.isOpen()) continue;
-                session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
+                synchronized (session) {
+                    session.getBasicRemote().sendText(String.valueOf(IndexDashBoardController.getOnlineCount()));
+                }
             }
         } catch (Exception e) {
             logger.error("在线浏览广播发生错误. 请检查 [IndexDashBoardController.java] 代码.");
