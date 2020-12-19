@@ -78,6 +78,7 @@ public class CuratorCreate {
                 .withMode(CreateMode.PERSISTENT)
                 .withACL(ZooDefs.Ids.OPEN_ACL_UNSAFE)
                 .forPath("/node3/node31", "node31".getBytes());
+        System.out.println("结束");
     }
 
     @Test
@@ -93,5 +94,6 @@ public class CuratorCreate {
                     System.out.println(event.getType());
                 }).forPath("/node4", "node4".getBytes());
         Thread.sleep(5000);
+        System.out.println("结束");
     }
 }

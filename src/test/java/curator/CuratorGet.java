@@ -3,21 +3,13 @@ package curator;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
-import org.apache.curator.framework.api.BackgroundCallback;
-import org.apache.curator.framework.api.CuratorEvent;
 import org.apache.curator.retry.ExponentialBackoffRetry;
-import org.apache.zookeeper.CreateMode;
-import org.apache.zookeeper.ZooDefs;
-import org.apache.zookeeper.data.ACL;
-import org.apache.zookeeper.data.Id;
+import org.apache.zookeeper.data.Stat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class CuratorSet {
+public class CuratorGet {
 
     CuratorFramework client;
 
@@ -34,7 +26,7 @@ public class CuratorSet {
                 // 重连机制
                 .retryPolicy(retryPolicy)
                 // 命名空间
-                .namespace("set")
+                .namespace("get")
                 // 构建对象
                 .build();
         // 打开连接
@@ -47,32 +39,33 @@ public class CuratorSet {
     }
 
     @Test
-    public void set1() throws Exception {
-        // 更新节点
-        client.setData()
-                .forPath("/node1", "node11".getBytes());
-        System.out.println("结束");
+    public void get1() throws Exception {
+        // 读取节点数据
+        byte[] bytes = client.getData()
+                // 节点的路径
+                .forPath("/node1");
+        System.out.println(new String(bytes));
     }
 
     @Test
-    public void set2() throws Exception {
-        client.setData()
-                // 指定版本号
-                .withVersion(-1)
-                .forPath("/node1", "node111".getBytes());
-        System.out.println("结束");
+    public void get2() throws Exception {
+        // 读取节点属性
+        Stat stat = new Stat();
+        client.getData()
+                // 读取属性
+                .storingStatIn(stat)
+                .forPath("/node1");
+        System.out.println(stat);
     }
 
     @Test
-    public void set3() throws Exception {
-        // 异步方式修改节点
-        client.setData()
-                .withVersion(-1)
+    public void get3() throws Exception {
+        // 异步方式读取节点数据
+        client.getData()
                 .inBackground((client, event) -> {
-                    System.out.println(event.getPath());
-                    System.out.println(event.getType());
+                    System.out.println(event);
                 })
-                .forPath("/node1", "node1".getBytes());
+                .forPath("/node1");
         Thread.sleep(5000);
         System.out.println("结束");
     }
