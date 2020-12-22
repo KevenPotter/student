@@ -14,10 +14,6 @@
     <script type="text/javascript" src="./assets/vendor/echarts/theme/macarons.js"></script>
     <script src="assets/scripts/klorofil-common.js"></script>
     <script type="text/javascript" src="./assets/vendor/layer/layer.js"></script>
-    <script type="text/javascript" src="./assets/scripts/common-method.js"></script>
-    <script type="text/javascript" src="./assets/scripts/responseStatusCode.js"></script>
-    <script type="text/javascript" src="./assets/scripts/base.js"></script>
-    <script type="text/javascript" src="./assets/scripts/index.js"></script>
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
@@ -99,16 +95,16 @@
             <nav>
                 <ul class="nav">
                     <li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>首页</span></a></li>
-                    <li><a href="html/students.html" class=""><i class="lnr lnr-dice"></i> <span>学生列表</span></a></li>
+                    <li><a href="html/students.html" class=""><i class="lnr lnr-users"></i> <span>学生信息</span></a></li>
+                    <li><a href="html/teachers.html" class=""><i class="lnr lnr-graduation-hat"></i> <span>教师信息</span></a></li>
+                    <li><a href="html/department_major.html" class=""><i class="lnr lnr-inbox"></i> <span>系部专业</span></a></li>
                     <li><a href="html/elements.html" class=""><i class="lnr lnr-code"></i> <span>元素</span></a></li>
-                    <li><a href="html/charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>图表</span></a></li>
                     <li><a href="html/panels.html" class=""><i class="lnr lnr-cog"></i> <span>面板</span></a></li>
                     <li><a href="html/notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>提示</span></a></li>
                     <li>
                         <a href="#subPages" data-toggle="collapse" class="collapsed"><i class="lnr lnr-file-empty"></i> <span>单页</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
                         <div id="subPages" class="collapse ">
                             <ul class="nav">
-                                <li><a href="page-profile.html" class="">简介</a></li>
                                 <li><a href="login.html" class="">登陆</a></li>
                                 <li><a href="page-lockscreen.html" class="">锁屏</a></li>
                             </ul>
@@ -145,7 +141,7 @@
                                     <span class="icon"><i class="fa fa-graduation-cap"></i></span>
                                     <p>
                                         <span id="teachers" class="number">0</span>
-                                        <span class="title" onclick="hha()">Teachers</span>
+                                        <span class="title">Teachers</span>
                                     </p>
                                 </div>
                             </div>
@@ -492,5 +488,10 @@
     </footer>
 </div>
 <!-- END WRAPPER -->
+<!-- CUSTOM JAVASCRIPT -->
+<script type="text/javascript" src="./assets/scripts/common-method.js"></script>
+<script type="text/javascript" src="./assets/scripts/responseStatusCode.js"></script>
+<script type="text/javascript" src="./assets/scripts/base.js"></script>
+<script type="text/javascript" src="./assets/scripts/index.js"></script>
 </body>
 </html>

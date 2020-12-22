@@ -1,3 +1,11 @@
+//
+var windowHeight = $(window).height();
+var windowWidth = $(window).width();
+$(document).ready(function () {
+    windowHeight = $(window).height();
+    windowWidth = $(window).width();
+});
+
 /**
  * @author KevenPotter
  * @date 2019-12-06 16:03:58
@@ -15,10 +23,33 @@ function loadDepartmentsList() {
             for (var departmentIndex = 0, length = departmentsArray.length; departmentIndex < length; departmentIndex++) {
                 var item = departmentsArray[departmentIndex];
                 departmentsSelect.append('<option id="' + departmentIndex + '" value="' + item.departmentId + '">' + item.departmentName + '</option>');
-                bootstrapSelectFlush(departmentsSelect);
             }
         }
     });
+}
+
+/**
+ * @author KevenPotter
+ * @date 2020-01-21 10:24:37
+ * @description 加载采用了[Selectpicker]样式的系别列表
+ */
+function loadDepartmentsListBySelectpicker() {
+    var departmentsSelect = $('#departmentsSelect');
+    $.ajax({
+        url: studentManagementSystem + "/department/departments",
+        type: "GET",
+        dataType: "json",
+        success: function (data) {
+            var departmentsArray = data.data;
+            departmentsSelect.append('<option value="' + null + '">请选择系别</option>');
+            for (var departmentIndex = 0, length = departmentsArray.length; departmentIndex < length; departmentIndex++) {
+                var item = departmentsArray[departmentIndex];
+                departmentsSelect.append('<option id="' + departmentIndex + '" value="' + item.departmentId + '">' + item.departmentName + '</option>');
+            }
+            bootstrapSelectFlush(departmentsSelect);
+        }
+    });
+
 }
 
 /**
@@ -28,6 +59,9 @@ function loadDepartmentsList() {
  * @description 重新渲染bootstrap-select元素的内容
  */
 function bootstrapSelectFlush(element) {
+    $('.selectpicker').selectpicker({
+        dropupAuto: false
+    });
     element.selectpicker("refresh");
     element.selectpicker("render");
 }
@@ -43,6 +77,16 @@ function clearHtml(element) {
 }
 
 /**
+ * @param element HTML元素
+ * @author KevenPotter
+ * @date 2020-01-17 14:18:35
+ * @description 清空元素的标签值内容
+ */
+function clearValue(element) {
+    element.val("");
+}
+
+/**
  * @param parameter 验证参数
  * @returns boolean
  * @author KevenPotter
@@ -50,7 +94,7 @@ function clearHtml(element) {
  * @description 此方法旨在对参数进行非空验证
  */
 function isEmpty(parameter) {
-    if ("" == parameter || null == parameter || undefined == parameter) return true;
+    if ("" == parameter || null == parameter || undefined == parameter || "null" == parameter) return true;
     return false;
 }
 
@@ -67,4 +111,66 @@ function layerMsg(msg, icon, time) {
     if (isEmpty(icon)) icon = GREEN_CHECK_MARK;
     if (isEmpty(time)) time = 3000;
     layer.msg(msg, {icon: icon, time: time});
+}
+
+/**
+ * @param id 捕获页的id值
+ * @param time 显示时长(毫秒)
+ * @param widePercentage 宽度百分比
+ * @param highPercentage 高度百分比
+ * @author KevenPotter
+ * @date 2020-05-12 15:14:25
+ * @description 该方法旨在封装了layer插件的捕获页提示消息,使其使用方式更加便捷
+ */
+function layerCapture(id, time, widePercentage, highPercentage) {
+    layer.open({
+        type: 1,
+        shade: false,
+        title: false,
+        content: $('#' + id + ''),
+        area: [widePercentage / 100 * windowWidth + 'px', highPercentage / 100 * windowHeight + 'px'],
+        time: time
+    });
+}
+
+/**
+ * @param object
+ * @author KevenPotter
+ * @date 2020-01-10 08:50:40
+ * @description 该方法旨在将对象转化为可用于传参的字符串型对象
+ */
+function toObjectString(object) {
+    return JSON.stringify(object).replace(/\"/g, "'");
+}
+
+/**
+ * @param divElement div边界框
+ * @param spanElement span图标
+ * @author KevenPotter
+ * @date 2019-12-17 22:22:27
+ * @description 此方法旨在[div边界框]和[span图标]进行成功样式的添加
+ */
+function addSuccessStyle(divElement, spanElement) {
+    if (!isEmpty(divElement)) {
+        divElement.removeClass("has-error has-feedback").addClass("has-success has-feedback");
+    }
+    if (!isEmpty(spanElement)) {
+        spanElement.removeClass("glyphicon glyphicon-remove form-control-feedback").addClass("glyphicon glyphicon-ok form-control-feedback");
+    }
+}
+
+/**
+ * @param divElement div边界框
+ * @param spanElement span图标
+ * @author KevenPotter
+ * @date 2019-12-17 22:23:11
+ * @description 此方法旨在[div边界框]和[span图标]进行失败样式的添加
+ */
+function addErrorStyle(divElement, spanElement) {
+    if (!isEmpty(divElement)) {
+        divElement.removeClass("has-success has-feedback").addClass("has-error has-feedback");
+    }
+    if (!isEmpty(spanElement)) {
+        spanElement.removeClass("glyphicon glyphicon-ok form-control-feedback").addClass("glyphicon glyphicon-remove form-control-feedback");
+    }
 }
