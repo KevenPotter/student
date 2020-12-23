@@ -1,18 +1,24 @@
 package com.kevenpotter.student.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 教师实体类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-20 15:27:16
- * @description 教师实体类
  */
 @Data
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeacherEntity implements Serializable {
 
     /*主键ID*/

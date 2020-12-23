@@ -1,14 +1,21 @@
 package com.kevenpotter.student.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
+ * 专业实体类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-05 11:46:16
- * @description 专业实体类
  */
 @Data
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class MajorEntity {
 
     /*主键ID*/

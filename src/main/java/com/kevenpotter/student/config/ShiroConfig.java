@@ -22,7 +22,10 @@ public class ShiroConfig {
 
     /*受限资源*/
     private static Map<String, String> RESTRICTED_RESOURCES = new HashMap<String, String>() {{
-        put("/index.html", "authc");
+        put("/register.html", "anon");
+        put("/register-success.html", "anon");
+        put("/**.html", "authc");
+        put("/**/**.html", "authc");
     }};
 
     /*公共资源*/

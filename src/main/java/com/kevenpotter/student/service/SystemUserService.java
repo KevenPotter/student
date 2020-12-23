@@ -58,6 +58,9 @@ public class SystemUserService {
             SystemUserEntity systemUserEntity = this.getSystemUserByMobile(systemUserDto.getUserMobile());
             if (null != systemUserEntity) return null;
         }
+        if (null != systemUserDto.getUserPassword()) {
+            systemUserDto.setUserPassword("111");
+        }
         systemUserDto.setUserId(NumericUtils.generateRandomNumber(18));
         systemUserDao.addSystemUser(systemUserDto);
         return this.getSystemUserById(systemUserDto.getId());

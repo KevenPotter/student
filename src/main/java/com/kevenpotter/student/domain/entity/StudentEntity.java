@@ -1,17 +1,24 @@
 package com.kevenpotter.student.domain.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ * 学生实体类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-11-22 11:23:23
- * @description 学生实体类
  */
 @Data
+@Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentEntity implements Serializable {
 
     /*主键ID*/

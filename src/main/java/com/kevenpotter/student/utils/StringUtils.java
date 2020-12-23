@@ -15,9 +15,11 @@ public class StringUtils {
      * @date 2019-11-22 11:28:11
      * @description 对字符串进行判空操作
      */
-    public static boolean isEmpty(String value) {
-        if (value == null || "".equals(value.trim()) || "null".equals(value) || "undefined".equals(value)) {
-            return true;
+    public static boolean isEmpty(String... value) {
+        for (String string : value) {
+            if (string == null || "".equals(string.trim()) || "null".equals(string) || "undefined".equals(string)) {
+                return true;
+            }
         }
         return false;
     }

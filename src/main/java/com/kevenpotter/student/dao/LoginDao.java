@@ -3,6 +3,7 @@ package com.kevenpotter.student.dao;
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.CourseDto;
 import com.kevenpotter.student.domain.entity.CourseEntity;
+import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -11,12 +12,12 @@ import java.util.List;
 /**
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2019-11-23 12:44:59
- * @description 课程持久层类
+ * @date 2020-12-23 11:26:26
+ * @description 登录持久层类
  */
 @Repository
 @Mapper
-public interface CourseDao {
+public interface LoginDao {
 
     /**
      * @return 返回全部[课程实体]列表
@@ -28,7 +29,7 @@ public interface CourseDao {
     List<CourseEntity> getAllCourses();
 
     /**
-     * @param orderByParam 排序字段
+     * @param orderBy 排序字段
      * @return 根据[排序字段]返回全部[课程实体]列表
      * @author KevenPotter
      * @date 2020-02-03 10:39:59
@@ -49,14 +50,15 @@ public interface CourseDao {
     Page<CourseEntity> getCourses(@Param("departmentId") Integer departmentId, @Param("majorId") Integer majorId, @Param("semester") Integer semester);
 
     /**
-     * @param id 主键ID
-     * @return 根据[主键ID]返回[课程实体类]
+     * 根据[用户编号]返回[后台用户实体类]
+     *
+     * @param userId 用户编号
+     * @return 根据[用户编号]返回[后台用户实体类]
      * @author KevenPotter
-     * @date 2020-01-27 22:31:55
-     * @description 根据[主键ID]返回[课程实体类]
+     * @date 2020-12-23 11:31:27
      */
-    @Select("SELECT * FROM course c WHERE c.id=#{id}")
-    CourseEntity getCourseById(@Param("id") Long id);
+    @Select("SELECT * FROM system_user su WHERE su.user_id=#{userId}")
+    SystemUserEntity getSystemUserByUserId(@Param("userId") Long userId);
 
     /**
      * @param courseId 课程编号
