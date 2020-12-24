@@ -32,4 +32,6 @@ public class SystemUserEntity implements Serializable {
     private String userNickName;
     /*用户密码*/
     private String userPassword;
+    /*加密盐值*/
+    private String salt;
 }

@@ -33,6 +33,13 @@
         WHERE su.id = #{id};
     </select>
 
+    <!-- 根据[用户编号]返回[后台用户实体类] -->
+    <select id="getSystemUserByUserId" resultType="com.kevenpotter.student.domain.entity.SystemUserEntity">
+        SELECT *
+        FROM system_user su
+        WHERE su.user_id = #{userId};
+    </select>
+
     <!-- 根据[用户昵称]返回[后台用户实体类] -->
     <select id="getSystemUserByNickname" resultType="com.kevenpotter.student.domain.entity.SystemUserEntity">
         SELECT *
@@ -56,8 +63,8 @@
 
     <!-- 插入一条新的[后台用户实体] -->
     <insert id="addSystemUser" parameterType="com.kevenpotter.student.domain.dto.SystemUserDto" keyProperty="systemUserDto.id" keyColumn="id" useGeneratedKeys="true">
-        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`)
-        VALUES (#{systemUserDto.userId}, #{systemUserDto.userMobile}, #{systemUserDto.userEmail}, #{systemUserDto.userNickName}, #{systemUserDto.userPassword});
+        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`,`salt`)
+        VALUES (#{systemUserDto.userId}, #{systemUserDto.userMobile}, #{systemUserDto.userEmail}, #{systemUserDto.userNickName}, #{systemUserDto.userPassword}, #{systemUserDto.salt});
     </insert>
 
 </mapper>

@@ -1,6 +1,7 @@
 package com.kevenpotter.student.config;
 
 import com.kevenpotter.student.realm.CustomerRealm;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -77,6 +78,11 @@ public class ShiroConfig {
      */
     @Bean
     public Realm getRealm() {
-        return new CustomerRealm();
+        CustomerRealm customerRealm = new CustomerRealm();
+        HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();   // 修改凭证校验匹配器
+        credentialsMatcher.setHashAlgorithmName("MD5");                                 // 设置加密算法位MD5
+        credentialsMatcher.setHashIterations(1024);                                     // 设置散列次数
+        customerRealm.setCredentialsMatcher(credentialsMatcher);
+        return customerRealm;
     }
 }

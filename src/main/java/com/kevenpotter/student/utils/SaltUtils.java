@@ -1,11 +1,14 @@
 package com.kevenpotter.student.utils;
 
+import org.apache.shiro.crypto.hash.Md5Hash;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.SecureRandom;
 import java.util.Objects;
+import java.util.Random;
 
 /**
  * 盐值工具类
@@ -22,16 +25,38 @@ public class SaltUtils {
     public static final String DES = "DES";
     /*DES*/
     public static int KEY_SIZE_DES = 0;
+    /*字符数组*/
+    public static char[] CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()".toCharArray();
 
     /**
-     * 返回MD5加密时需要使用的盐值
+     * 返回加密后的盐值
      *
      * @return 返回MD5加密时需要使用的盐值
      * @author KevenPotter
      * @date 2020-12-23 13:49:28
      */
-    public static String getSaltValue() {
-        return DESDecode("976C0FD9866D7679C4C94E16936706DC", "Keven");
+    public static String getEncodeSaltValue(String salt) {
+        return DESEncode(salt, "Keven");
+    }
+
+    /**
+     * 返回解密后的盐值
+     *
+     * @return 返回MD5解密需要使用的盐值
+     * @author KevenPotter
+     * @date 2020-12-23 13:50:03
+     */
+    public static String getDecodeSaltValue(String salt) {
+        return DESDecode(salt, "Keven");
+    }
+
+    public static String getRandomSalt(int n) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            char aChar = CHARS[new Random().nextInt(CHARS.length)];
+            sb.append(aChar);
+        }
+        return sb.toString();
     }
 
     /**

@@ -44,6 +44,16 @@ public interface SystemUserDao {
     SystemUserEntity getSystemUserById(@Param("id") Long id);
 
     /**
+     * 根据[用户编号]返回[后台用户实体类]
+     *
+     * @param userId 用户编号
+     * @return 根据[用户编号]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2020-12-24 10:31:45
+     */
+    SystemUserEntity getSystemUserByUserId(@Param("userId") Long userId);
+
+    /**
      * @param userNickname 用户昵称
      * @return 根据[用户昵称]返回[后台用户实体类]
      * @author KevenPotter

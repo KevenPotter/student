@@ -4,7 +4,9 @@ import com.kevenpotter.student.dao.SystemUserDao;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import com.kevenpotter.student.utils.NumericUtils;
+import com.kevenpotter.student.utils.SaltUtils;
 import com.kevenpotter.student.utils.StringUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,22 +48,22 @@ public class SystemUserService {
      */
     public SystemUserEntity addSystemUser(SystemUserDto systemUserDto) {
         if (null == systemUserDto) return null;
-        if (!StringUtils.isEmpty(systemUserDto.getUserNickName())) {
-            SystemUserEntity systemUserEntity = this.getSystemUserByNickname(systemUserDto.getUserNickName());
-            if (null != systemUserEntity) return null;
+        if (!StringUtils.isEmpty(systemUserDto.getUserNickName())) {                                                    // 判断[用户昵称]是否不为空
+            SystemUserEntity systemUserEntity = this.getSystemUserByNickname(systemUserDto.getUserNickName());          // 不为空的话就通过该[用户昵称]去数据库内进行查找
+            if (null != systemUserEntity) return null;                                                                  // 如果查到的结果也不为空，说明有人已经用了此昵称，那么返回空不执行即可
         }
-        if (!StringUtils.isEmpty(systemUserDto.getUserEmail())) {
-            SystemUserEntity systemUserEntity = this.getSystemUserByEmail(systemUserDto.getUserEmail());
-            if (null != systemUserEntity) return null;
+        if (!StringUtils.isEmpty(systemUserDto.getUserEmail())) {                                                       // 判断[用户邮箱]是否不为空
+            SystemUserEntity systemUserEntity = this.getSystemUserByEmail(systemUserDto.getUserEmail());                // 不为空的话就通过该[用户邮箱]去数据库内进行查找
+            if (null != systemUserEntity) return null;                                                                  // 如果查到的结果也不为空，说明有人已经用了此邮箱，那么返回空不执行即可
         }
-        if (null != systemUserDto.getUserMobile()) {
-            SystemUserEntity systemUserEntity = this.getSystemUserByMobile(systemUserDto.getUserMobile());
-            if (null != systemUserEntity) return null;
+        if (null != systemUserDto.getUserMobile()) {                                                                    // 判断[用户手机]是否不为空
+            SystemUserEntity systemUserEntity = this.getSystemUserByMobile(systemUserDto.getUserMobile());              // 不为空的话就通过该[用户手机]去数据库内进行查找
+            if (null != systemUserEntity) return null;                                                                  // 如果查到的结果也不为空，说明有人已经用了此手机，那么返回空不执行即可
         }
-        if (null != systemUserDto.getUserPassword()) {
-            systemUserDto.setUserPassword("111");
-        }
-        systemUserDto.setUserId(NumericUtils.generateRandomNumber(18));
+        String salt = SaltUtils.getRandomSalt(8);                                                                    // 获取8位随机盐值
+        systemUserDto.setUserPassword(new Md5Hash(systemUserDto.getUserPassword(), salt, 1024).toHex());    // 对[用户密码进行设置]
+        systemUserDto.setUserId(NumericUtils.generateRandomNumber(18));                                              // 设置默认18位随机[用户编号]
+        systemUserDto.setSalt(SaltUtils.getEncodeSaltValue(salt));                                                      // 进行系统用户的添加
         systemUserDao.addSystemUser(systemUserDto);
         return this.getSystemUserById(systemUserDto.getId());
     }
