@@ -15,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * 学生控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-11-22 11:26:36
- * @description 学生控制层类
  */
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
 @RestController

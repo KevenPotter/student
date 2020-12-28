@@ -20,10 +20,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
+ * 系别控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-06 17:01:34
- * @description 系别控制层类
  */
 @CrossOrigin
 @RestController

@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * 菜单实体类
+ * 系统菜单实体类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class MenuEntity implements Serializable {
+public class SystemMenuEntity implements Serializable {
 
     /*自增ID*/
     private Long id;

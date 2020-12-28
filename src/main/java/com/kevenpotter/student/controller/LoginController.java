@@ -17,10 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 登录控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-11 16:07:40
- * @description 登录控制层类
  */
 @CrossOrigin
 @RestController

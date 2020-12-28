@@ -8,22 +8,26 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * 系统角色实体类
+ * 系统角色-菜单-模块-权限实体类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2019-12-11 16:16:54
+ * @date 2020-12-28 13:31:26
  */
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class SystemRoleEntity implements Serializable {
+public class SystemRoleMenuModulePermissionEntity implements Serializable {
 
     /*主键ID*/
     private Long id;
     /*角色编号*/
     private Long roleId;
-    /*角色名称*/
-    private String roleName;
+    /*菜单编号*/
+    private Long menuId;
+    /*模块编号*/
+    private Long moduleId;
+    /*权限功能*/
+    private Long permission;
 }

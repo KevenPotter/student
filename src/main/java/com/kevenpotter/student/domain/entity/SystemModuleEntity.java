@@ -8,22 +8,20 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * 系统角色实体类
+ * 系统模块实体类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2019-12-11 16:16:54
+ * @date 2020-12-28 10:49:58
  */
 @Data
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class SystemRoleEntity implements Serializable {
+public class SystemModuleEntity implements Serializable {
 
     /*主键ID*/
     private Long id;
-    /*角色编号*/
-    private Long roleId;
-    /*角色名称*/
-    private String roleName;
+    /*模块名称*/
+    private String moduleName;
 }

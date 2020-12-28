@@ -15,10 +15,11 @@ import javax.websocket.server.ServerEndpoint;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 /**
+ * 首页仪表盘控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-23 16:16:56
- * @description 首页仪表盘控制层类
  */
 @ServerEndpoint(value = "/dashboard", configurator = WebSocketConfig.MySpringConfigurator.class)
 @RestController

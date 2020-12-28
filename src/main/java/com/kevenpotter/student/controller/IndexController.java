@@ -19,10 +19,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * 首页控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-20 16:34:58
- * @description 首页控制层类
  */
 @CrossOrigin
 @RestController

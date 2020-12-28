@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 专业控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-09 10:03:56
- * @description 专业控制层类
  */
 @CrossOrigin
 @RestController

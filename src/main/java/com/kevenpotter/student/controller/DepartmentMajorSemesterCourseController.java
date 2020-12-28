@@ -18,10 +18,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 系部专业学期课程控制层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2020-02-04 09:57:07
- * @description 系部专业学期课程控制层类
  */
 @CrossOrigin
 @RestController

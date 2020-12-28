@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * 后台用户-角色实体类
+ * 系统用户-角色实体类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
