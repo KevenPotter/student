@@ -3,6 +3,7 @@ package com.kevenpotter.student.service;
 import com.kevenpotter.student.dao.SystemUserDao;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
+import com.kevenpotter.student.utils.AccountVerification;
 import com.kevenpotter.student.utils.NumericUtils;
 import com.kevenpotter.student.utils.SaltUtils;
 import com.kevenpotter.student.utils.StringUtils;
@@ -26,18 +27,6 @@ public class SystemUserService {
 
     @Autowired
     private SystemUserDao systemUserDao;
-
-    /**
-     * @param systemUserDto 后台用户数据传输类
-     * @return 根据[后台用户数据传输类]返回[后台用户实体类]
-     * @author KevenPotter
-     * @date 2019-12-11 22:50:39
-     * @description 根据[后台用户数据传输类]返回[后台用户实体类]
-     */
-    public SystemUserEntity getSystemUser(SystemUserDto systemUserDto) {
-        if (null == systemUserDto) return null;
-        return systemUserDao.getSystemUser(systemUserDto);
-    }
 
     /**
      * @param systemUserDto 后台用户数据传输类
@@ -124,5 +113,34 @@ public class SystemUserService {
      */
     public Long getTheTotalNumberOfAccounts() {
         return systemUserDao.getCount();
+    }
+
+    /**
+     * @param systemUserDto 后台用户数据传输类
+     * @return 根据[后台用户数据传输类]返回[后台用户实体类]
+     * @author KevenPotter
+     * @date 2019-12-11 22:50:39
+     * @description 根据[后台用户数据传输类]返回[后台用户实体类]
+     */
+    public SystemUserEntity getSystemUser(SystemUserDto systemUserDto) {
+        if (null == systemUserDto) return null;
+        return systemUserDao.getSystemUser(systemUserDto);
+    }
+
+    /**
+     * 根据[用户名称]获取[系统用户实体类]
+     *
+     * @param userName [用户名称]
+     * @return 返回根据[用户名称]获取[系统用户实体类]
+     * @author KevenPotter
+     * @date 2020-12-28 15:09:56
+     */
+    public SystemUserEntity getSystemUser(String userName) {
+        SystemUserEntity systemUserEntity = null;
+        if (AccountVerification.isStudentNo(userName)) systemUserEntity = systemUserDao.getSystemUserByUserId(Long.valueOf(userName));
+        if (AccountVerification.isEmail(userName)) systemUserEntity = systemUserDao.getSystemUserByEmail(userName);
+        if (AccountVerification.isMobile(userName)) systemUserEntity = systemUserDao.getSystemUserByMobile(Long.valueOf(userName));
+        if (AccountVerification.isNickname(userName)) systemUserEntity = systemUserDao.getSystemUserByNickname(userName);
+        return systemUserEntity;
     }
 }

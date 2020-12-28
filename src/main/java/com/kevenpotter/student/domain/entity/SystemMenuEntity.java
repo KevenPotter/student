@@ -23,7 +23,7 @@ public class SystemMenuEntity implements Serializable {
     /*自增ID*/
     private Long id;
     /*菜单名称*/
-    private String menuMame;
+    private String menuName;
     /*菜单连接*/
     private String menuLinkUrl;
     /*菜单图标*/

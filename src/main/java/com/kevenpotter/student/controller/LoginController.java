@@ -1,7 +1,9 @@
 package com.kevenpotter.student.controller;
 
+import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
+import com.kevenpotter.student.service.SystemUserService;
 import com.kevenpotter.student.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -10,6 +12,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +34,9 @@ public class LoginController {
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private SystemUserService systemUserService;
+
     /**
      * 登录操作
      *
@@ -47,7 +53,8 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(new UsernamePasswordToken(username, password));
-            return ApiResult.buildSuccess();
+            SystemUserEntity systemUserEntity = systemUserService.getSystemUser(username);
+            return ApiResult.buildSuccess(systemUserEntity.getUserId());
         } catch (UnknownAccountException e) {
             e.printStackTrace();
             System.out.println("用户名错误");
