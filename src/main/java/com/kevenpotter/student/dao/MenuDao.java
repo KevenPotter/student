@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
+import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import org.apache.ibatis.annotations.*;
@@ -25,12 +26,24 @@ public interface MenuDao {
     /**
      * 根据给定的参数进行[系统菜单实体]列表的查询
      *
+     * @param menuName   菜单名称
+     * @param menuStatus 菜单状态
      * @return 返回根据给定的参数进行[系统菜单实体]列表的查询
      * @author KevenPotter
      * @date 2020-12-28 15:46:18
      */
-    @Select("SELECT * FROM system_menu sm")
-    Page<SystemMenuEntity> getMenus();
+    @Select("<script> " +
+            "SELECT * FROM system_menu sm " +
+            "<where> " +
+            "<if test='menuName != null'> " +
+            "AND sm.menu_name LIKE CONCAT('%',#{menuName},'%') " +
+            "</if>" +
+            "<if test='menuStatus != null'> " +
+            "AND sm.menu_status = #{menuStatus}  " +
+            "</if> " +
+            "</where>" +
+            "</script>")
+    Page<SystemMenuEntity> getMenus(@Param("menuName") String menuName, @Param("menuStatus") Integer menuStatus);
 
     /**
      * @param id 主键ID
@@ -43,14 +56,15 @@ public interface MenuDao {
     StudentEntity getStudentById(@Param("id") Long id);
 
     /**
-     * @param studentId 学生编号
-     * @return 返回一个[学生实体]
+     * 根据[学生编号]查询[系统菜单实体]
+     *
+     * @param id 菜单编号
+     * @return 返回一个[系统菜单实体]
      * @author KevenPotter
-     * @date 2019-11-22 13:22:38
-     * @description 根据[学生编号]查询[学生实体]
+     * @date 2020-12-29 13:49:20
      */
-    @Select("SELECT * FROM student s WHERE s.student_id = #{studentId}")
-    StudentEntity getStudentByStudentId(@Param("studentId") String studentId);
+    @Select("SELECT * FROM system_menu sm WHERE sm.id = #{id}")
+    SystemMenuEntity getSystemMenuById(@Param("id") Long id);
 
     /**
      * @param studentId 学生编号
@@ -72,14 +86,13 @@ public interface MenuDao {
     void addStudent(@Param("studentDto") StudentDto studentDto);
 
     /**
-     * @param studentDto 学生数据传输类
+     * 更新[系统菜单实体]
+     *
+     * @param systemMenuDto 系统菜单数据传输类
      * @author KevenPotter
-     * @date 2019-11-22 16:05:38
-     * @description 更新[学生实体]
+     * @date 2020-12-29 14:02:36
      */
-    @Update("UPDATE `student`.`student` SET `student_id`=#{studentDto.studentId}, `department_id`=#{studentDto.departmentId}, `major_id`=#{studentDto.majorId}, `grade`=#{studentDto.grade}, `clazz`=#{studentDto.clazz}, `sex`=#{studentDto.sex}, `name`=#{studentDto.name}, `age`=#{studentDto.age}, `address`=#{studentDto.address} WHERE (`student_id`=#{studentDto.studentId});")
-    @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "1")
-    void updateStudent(@Param("studentDto") StudentDto studentDto);
+    void updateMenu(@Param("systemMenuDto") SystemMenuDto systemMenuDto);
 
     /**
      * @return 返回学生记录总条数

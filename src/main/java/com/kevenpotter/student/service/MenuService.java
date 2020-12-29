@@ -6,6 +6,7 @@ import com.kevenpotter.student.dao.StudentDao;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
+import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.utils.ListUtils;
@@ -54,12 +55,14 @@ public class MenuService {
     /**
      * 获取[系统菜单实体]分页数据
      *
+     * @param menuName   菜单名称
+     * @param menuStatus 菜单状态
      * @return 返回获取[系统菜单实体]分页数据
      * @author KevenPotter
      * @date 2020-12-28 15:44:03
      */
-    public Page<SystemMenuEntity> getMenus() {
-        return menuDao.getMenus();
+    public Page<SystemMenuEntity> getMenus(String menuName, Integer menuStatus) {
+        return menuDao.getMenus(menuName, menuStatus);
     }
 
     /**
@@ -90,18 +93,19 @@ public class MenuService {
     }
 
     /**
-     * @param studentDto 学生数据传输类
-     * @return 返回更新之前的学生实体
+     * 更新[系统菜单实体]并返回更新之前的[系统菜单实体]
+     *
+     * @param systemMenuDto 系统菜单数据传输类
+     * @return 返回更新之前的系统菜单实体
      * @author KevenPotter
-     * @date 2019-11-22 16:05:38
-     * @description 更新[学生实体]并返回更新之前的[学生实体]
+     * @date 2020-12-29 13:43:24
      */
-    public StudentEntity updateStudent(StudentDto studentDto) {
-        if (null == studentDto) return null;
-        StudentEntity studentEntity = studentDao.getStudentByStudentId(studentDto.getStudentId());
-        if (null == studentEntity) return null;
-        studentDao.updateStudent(studentDto);
-        return studentDao.getStudentById(studentDto.getId());
+    public SystemMenuEntity updateSystemMenu(SystemMenuDto systemMenuDto) {
+        if (null == systemMenuDto) return null;
+        SystemMenuEntity systemMenuEntity = menuDao.getSystemMenuById(systemMenuDto.getId());
+        if (null == systemMenuEntity) return null;
+        menuDao.updateMenu(systemMenuDto);
+        return menuDao.getSystemMenuById(systemMenuDto.getId());
     }
 
     /**

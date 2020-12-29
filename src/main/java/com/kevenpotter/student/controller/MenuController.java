@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.kevenpotter.student.domain.dto.StudentDto;
 import com.kevenpotter.student.domain.dto.StudentProfileDto;
+import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.result.ApiConstant;
@@ -39,8 +40,10 @@ public class MenuController {
     /**
      * 获取[系统菜单实体类]
      *
-     * @param pageNo   当前页码
-     * @param pageSize 分页大小
+     * @param menuName   菜单名称
+     * @param menuStatus 菜单状态
+     * @param pageNo     当前页码
+     * @param pageSize   分页大小
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2020-12-28 15:42:02
@@ -48,12 +51,14 @@ public class MenuController {
     @ResponseBody
     @GetMapping("/menus")
     public ApiResult getMenus(
+            @RequestParam(value = "menuName", required = false) String menuName,
+            @RequestParam(value = "menuStatus", required = false) Integer menuStatus,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<SystemMenuEntity> pageInfo = new PageInfo<SystemMenuEntity>(menuService.getMenus());
-        if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到菜单信息");
+        PageInfo<SystemMenuEntity> pageInfo = new PageInfo<SystemMenuEntity>(menuService.getMenus(menuName, menuStatus));
+        if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到菜单信息");
         return ApiResult.buildSuccess(pageInfo);
     }
 
@@ -89,17 +94,18 @@ public class MenuController {
     }
 
     /**
-     * @param studentDto 学生数据传输类
+     * 更新[系统菜单实体]并返回更新之前的[系统菜单实体]
+     *
+     * @param systemMenuDto 系统菜单数据传输类
      * @return 返回一个结果集
      * @author KevenPotter
-     * @date 2019-11-22 16:07:38
-     * @description 更新[学生实体]并返回更新之前的[学生实体]
+     * @date 2020-12-29 13:42:54
      */
-    @PutMapping("/student")
-    public ApiResult updateStudent(@RequestBody StudentDto studentDto) {
-        if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        StudentEntity studentEntity = studentService.updateStudent(studentDto);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功更新学生信息,学生信息可能不存在");
-        return ApiResult.buildSuccess(studentEntity);
+    @PutMapping("/menu")
+    public ApiResult updateStudent(@RequestBody SystemMenuDto systemMenuDto) {
+        if (null == systemMenuDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        SystemMenuEntity systemMenuEntity = menuService.updateSystemMenu(systemMenuDto);
+        if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功更新系统菜单信息,系统菜单信息可能不存在");
+        return ApiResult.buildSuccess(systemMenuEntity);
     }
 }

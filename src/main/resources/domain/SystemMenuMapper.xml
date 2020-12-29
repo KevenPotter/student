@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kevenpotter.student.dao.MenuDao">
+
+    <!-- 更新[系统菜单实体] -->
+    <update id="updateMenu" parameterType="com.kevenpotter.student.domain.dto.SystemMenuDto" useGeneratedKeys="true" keyProperty="systemMenuDto.id" keyColumn="1">
+        UPDATE `student`.`system_menu`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="systemMenuDto.menuName != null">
+                `menu_name`=#{systemMenuDto.menuName},
+            </if>
+            <if test="systemMenuDto.menuLinkUrl != null">
+                `menu_link_url`=#{systemMenuDto.menuLinkUrl},
+            </if>
+            <if test="systemMenuDto.menuIcon != null">
+                `menu_icon`=#{systemMenuDto.menuIcon},
+            </if>
+            <if test="systemMenuDto.menuSortNumber != null">
+                `menu_sort_number`=#{systemMenuDto.menuSortNumber},
+            </if>
+            <if test="systemMenuDto.menuStatus != null">
+                `menu_status`=#{systemMenuDto.menuStatus}
+            </if>
+        </trim>
+        WHERE (`id`=#{systemMenuDto.id});
+    </update>
+
+</mapper>
