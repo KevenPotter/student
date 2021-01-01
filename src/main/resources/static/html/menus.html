@@ -113,31 +113,31 @@
 <div id="menuLayer" style="display: none;">
     <div class="vertical-align-wrap">
         <div class="vertical-align-middle">
-            <div class="auth-box" style="height: 80%;">
+            <div class="auth-box" style="height: 80%; padding: 2%;">
                 <div class="content">
-                    <div id="menuLayer_menuName_border" class="form-group col-md-12">
+                    <div id="menuLayer_menuName_border" class="form-group">
                         <label for="menuLayer_menuName" class="control-label sr-only">menuLayerMenuName</label>
                         <input id="menuLayer_menuName" type="text" class="form-control" name="menuLayer_menuName" placeholder="菜单名称" onblur="checkSystemMenuMenuName()">
                         <span id="menuLayer_menuName_icon"></span>
                     </div>
-                    <div id="menuLayer_menuLinkUrl_border" class="form-group col-md-12">
+                    <div id="menuLayer_menuLinkUrl_border" class="form-group">
                         <label for="menuLayer_menuLinkUrl" class="control-label sr-only">menuLayerMenuLinkUrl</label>
-                        <input id="menuLayer_menuLinkUrl" type="text" class="form-control" name="menuLayer_menuLinkUrl" placeholder="菜单连接" onblur="checkRegisterMobile()">
+                        <input id="menuLayer_menuLinkUrl" type="text" class="form-control" name="menuLayer_menuLinkUrl" placeholder="菜单连接" onblur="checkSystemMenuMenuLink()">
                         <span id="menuLayer_menuLinkUrl_icon"></span>
                     </div>
-                    <div id="menuLayer_menuIcon_border" class="form-group col-md-12">
+                    <div id="menuLayer_menuIcon_border" class="form-group">
                         <label for="menuLayer_menuIcon" class="control-label sr-only">menuLayerMenuIcon</label>
-                        <input id="menuLayer_menuIcon" type="text" class="form-control tinyHand" name="menuLayerMenuName" onclick="openMenuLayerMenuIconMenuIconsLayer()" placeholder="菜单图标" onblur="checkRegisterMobile()">
+                        <input id="menuLayer_menuIcon" type="text" class="form-control tinyHand" name="menuLayer_menuIcon" onclick="openMenuLayerMenuIconMenuIconsLayer()" placeholder="菜单图标">
                         <span id="menuLayer_menuIcon_icon"></span>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                         <select id="menuLayer_menuSortNumber" class="form-control"></select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group">
                         <select id="menuLayer_menuStatus" class="form-control"></select>
                     </div>
-                    <div class="col-md-12">
-                        <p class="btn btn-info btn-lg btn-block" onclick="insertMajor()">添加</p>
+                    <div>
+                        <p class="btn btn-info btn-lg btn-block" onclick="insertMenu()">添加</p>
                     </div>
                 </div>
             </div>
