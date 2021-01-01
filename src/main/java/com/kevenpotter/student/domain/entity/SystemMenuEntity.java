@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统菜单实体类
@@ -32,4 +33,8 @@ public class SystemMenuEntity implements Serializable {
     private Integer menuSortNumber;
     /*菜单状态(0.不启用 1.启用)*/
     private Integer menuStatus;
+    /*菜单创建时间*/
+    private LocalDateTime menuCreateTime;
+    /*菜单更新时间*/
+    private LocalDateTime menuUpdateTime;
 }

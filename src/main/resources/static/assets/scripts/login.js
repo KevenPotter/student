@@ -18,8 +18,6 @@ function login() {
         type: "POST",
         data: "username=" + username + "&password=" + password,
         success: function (data) {
-            debugger;
-            log(data);
             if (SUCCESS_MARK === data.code) {
                 window.location.href = studentManagementSystem + "/index.html?username=" + data.data;
             } else if (USER_INFORMATION_EMPTY === data.code) {

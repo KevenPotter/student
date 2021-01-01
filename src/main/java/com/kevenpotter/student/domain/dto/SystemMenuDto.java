@@ -1,15 +1,20 @@
 package com.kevenpotter.student.domain.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 系统菜单数据传输类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2020-12-29 13:38:25
+ * @date 2021-01-01 20:02:36
  */
 @Data
+@Accessors(chain = true)
 public class SystemMenuDto {
 
     /*自增ID*/
@@ -24,4 +29,8 @@ public class SystemMenuDto {
     private Integer menuSortNumber;
     /*菜单状态(0.不启用 1.启用)*/
     private Integer menuStatus;
+    /*菜单创建时间*/
+    private LocalDateTime menuCreateTime;
+    /*菜单更新时间*/
+    private LocalDateTime menuUpdateTime;
 }

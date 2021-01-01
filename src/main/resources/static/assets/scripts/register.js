@@ -161,7 +161,7 @@ function register() {
             contentType: 'application/json',
             dataType: "JSON",
             success: function (data) {
-                if (data.code == SUCCESS_MARK) {
+                if (SUCCESS_MARK === data.code) {
                     $('#register_nickname').val('');
                     $('#register_email').val('');
                     $('#register_mobile').val('');

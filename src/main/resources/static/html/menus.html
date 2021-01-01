@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>菜单信息</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- Javascript -->
+    <script type="text/javascript" src="../assets/vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="../assets/vendor/bootstrap/js/bootstrap-paginator.js"></script>
+    <script type="text/javascript" src="../assets/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="../assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="../assets/vendor/layer/layer.js"></script>
+    <script type="text/javascript" src="../assets/vendor/blowup/blowup.js"></script>
+    <script type="text/javascript" src="../assets/scripts/klorofil-common.js"></script>
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/vendor/linearicons/style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <!-- CUSTOMIZE CSS -->
+    <link rel="stylesheet" href="../assets/css/roundButton.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="../assets/css/demo.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon.png">
+</head>
+
+<body>
+<!-- MAIN -->
+<div class="main">
+    <!-- MAIN CONTENT -->
+    <div id="main_content" class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- TABLE HOVER -->
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">菜单信息</h3>
+                            <div class="right">
+                                <button type="button" class="btn-default" onclick="openAddMenuLayer()" title="添加菜单"><i class="lnr lnr-plus-circle"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input id="menuName" type="text" value="" class="form-control" placeholder="请输入菜单名称" onkeypress="search()">
+                            </div>
+                        </div>
+                        <div class="col-md-2" onchange="search()">
+                            <select id="menuStatusSelect" class="selectpicker">
+                                <option value="null">请选择菜单状态</option>
+                                <option value="1">启用</option>
+                                <option value="0">停用</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="btn-group">
+                                <button id="search" onclick="search()" type="button" class="btn btn-primary">Go</button>
+                            </div>
+                        </div>
+                        <!-- START STUDENTS LIST -->
+                        <div class="panel-body">
+                            <div>
+                                <h5 class="page-header"></h5>
+                                <table id="studentsTable" class="table table-hover project-table">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>菜单名称</th>
+                                        <th>菜单连接</th>
+                                        <th>菜单图标</th>
+                                        <th>菜单排序编号</th>
+                                        <th>菜单状态</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="menusTableTBody">
+                                    <tr>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pull-left">
+                                <span id="pageInfo"></span>
+                            </div>
+                            <div class="pull-right">
+                                <ul id="menusPage">
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- END STUDENTS LIST -->
+                    </div>
+                    <!-- END TABLE HOVER -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+<!-- END MAIN -->
+<div class="clearfix"></div>
+
+<!-- START MENU LAYER -->
+<div id="menuLayer" style="display: none;">
+    <div class="vertical-align-wrap">
+        <div class="vertical-align-middle">
+            <div class="auth-box" style="height: 80%;">
+                <div class="content">
+                    <div id="menuLayer_menuName_border" class="form-group col-md-12">
+                        <label for="menuLayer_menuName" class="control-label sr-only">menuLayerMenuName</label>
+                        <input id="menuLayer_menuName" type="text" class="form-control" name="menuLayer_menuName" placeholder="菜单名称" onblur="checkSystemMenuMenuName()">
+                        <span id="menuLayer_menuName_icon"></span>
+                    </div>
+                    <div id="menuLayer_menuLinkUrl_border" class="form-group col-md-12">
+                        <label for="menuLayer_menuLinkUrl" class="control-label sr-only">menuLayerMenuLinkUrl</label>
+                        <input id="menuLayer_menuLinkUrl" type="text" class="form-control" name="menuLayer_menuLinkUrl" placeholder="菜单连接" onblur="checkRegisterMobile()">
+                        <span id="menuLayer_menuLinkUrl_icon"></span>
+                    </div>
+                    <div id="menuLayer_menuIcon_border" class="form-group col-md-12">
+                        <label for="menuLayer_menuIcon" class="control-label sr-only">menuLayerMenuIcon</label>
+                        <input id="menuLayer_menuIcon" type="text" class="form-control tinyHand" name="menuLayerMenuName" onclick="openMenuLayerMenuIconMenuIconsLayer()" placeholder="菜单图标" onblur="checkRegisterMobile()">
+                        <span id="menuLayer_menuIcon_icon"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <select id="menuLayer_menuSortNumber" class="form-control"></select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <select id="menuLayer_menuStatus" class="form-control"></select>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="btn btn-info btn-lg btn-block" onclick="insertMajor()">添加</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MENU LAYER -->
+
+<!-- 系统菜单图层-菜单图标-菜单图标详情 -->
+<div id="menuLayer_menuIcon_menuIcons" class="panel" style="display: none;">
+    <div class="panel panel-headline demo-icons">
+        <div class="panel-body">
+            <ul class="list-unstyled row">
+                <li class="col-md-2 col-sm-4 col-xs-6 tinyHand" onclick="chooseIcon('lnr_home')">
+                    <span class="lnr lnr-home"></span> <span id="lnr_home" class="cssclass">lnr lnr-home</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6 tinyHand" onclick="chooseIcon('lnr_thumbs_up')">
+                    <span class="lnr lnr-thumbs-up"></span> <span id="lnr_thumbs_up" class="cssclass">lnr lnr-thumbs-up</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-pencil"></span> <span class="cssclass">lnr lnr-pencil</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-magic-wand"></span> <span class="cssclass">lnr lnr-magic-wand</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-drop"></span> <span class="cssclass">lnr lnr-drop</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-lighter"></span> <span class="cssclass">lnr lnr-lighter</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-sun"></span> <span class="cssclass">lnr lnr-sun</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-heart"></span> <span class="cssclass">lnr lnr-heart</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-inbox"></span> <span class="cssclass">lnr lnr-inbox</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-trash"></span> <span class="cssclass">lnr lnr-trash</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-cart"></span> <span class="cssclass">lnr lnr-cart</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-user"></span> <span class="cssclass">lnr lnr-user</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-bookmark"></span> <span class="cssclass">lnr lnr-bookmark</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-map"></span> <span class="cssclass">lnr lnr-map</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-map-marker"></span> <span class="cssclass">lnr lnr-map-marker</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-location"></span> <span class="cssclass">lnr lnr-location</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-rocket"></span> <span class="cssclass">lnr lnr-rocket</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-download"></span> <span class="cssclass">lnr lnr-download</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-home"></span> <span class="cssclass">lnr lnr-home</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-thumbs-up"></span> <span class="cssclass">lnr lnr-thumbs-up</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-pencil"></span> <span class="cssclass">lnr lnr-pencil</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-magic-wand"></span> <span class="cssclass">lnr lnr-magic-wand</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-drop"></span> <span class="cssclass">lnr lnr-drop</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-lighter"></span> <span class="cssclass">lnr lnr-lighter</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-sun"></span> <span class="cssclass">lnr lnr-sun</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-heart"></span> <span class="cssclass">lnr lnr-heart</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-inbox"></span> <span class="cssclass">lnr lnr-inbox</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-trash"></span> <span class="cssclass">lnr lnr-trash</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-cart"></span> <span class="cssclass">lnr lnr-cart</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-user"></span> <span class="cssclass">lnr lnr-user</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-bookmark"></span> <span class="cssclass">lnr lnr-bookmark</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-map"></span> <span class="cssclass">lnr lnr-map</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-map-marker"></span> <span class="cssclass">lnr lnr-map-marker</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-location"></span> <span class="cssclass">lnr lnr-location</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-rocket"></span> <span class="cssclass">lnr lnr-rocket</span>
+                </li>
+                <li class="col-md-2 col-sm-4 col-xs-6">
+                    <span class="lnr lnr-download"></span> <span class="cssclass">lnr lnr-download</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- CUSTOM JAVASCRIPT -->
+<script type="text/javascript" src="../assets/scripts/common-method.js"></script>
+<script type="text/javascript" src="../assets/scripts/base.js"></script>
+<script type="text/javascript" src="../assets/scripts/responseStatusCode.js"></script>
+<script type="text/javascript" src="../assets/scripts/menus.js"></script>
+</body>
+</html>

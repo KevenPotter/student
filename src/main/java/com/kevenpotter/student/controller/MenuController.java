@@ -2,20 +2,20 @@ package com.kevenpotter.student.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.kevenpotter.student.domain.dto.StudentDto;
-import com.kevenpotter.student.domain.dto.StudentProfileDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
-import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.MenuService;
-import com.kevenpotter.student.service.StudentService;
 import com.kevenpotter.student.utils.ListUtils;
+import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * 菜单控制层类
@@ -32,8 +32,6 @@ public class MenuController {
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private StudentService studentService;
     @Autowired
     private MenuService menuService;
 
@@ -63,34 +61,20 @@ public class MenuController {
     }
 
     /**
-     * @param studentId 学生编号
+     * 插入一条新的[系统菜单实体]并返回该[系统菜单实体]
+     *
+     * @param systemMenuDto 系统菜单数据传输类
      * @return 返回一个结果集
      * @author KevenPotter
-     * @date 2020-01-03 14:56:47
-     * @description 根据[学生编号]查询[学生实体]
+     * @date 2020-12-30 10:02:23
      */
     @ResponseBody
-    @GetMapping("/student/{studentId}")
-    public ApiResult getStudent(@PathVariable String studentId) {
-        if (null == studentId) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        StudentProfileDto studentProfileDto = studentService.getStudentProfileByStudentId(studentId);
-        if (null == studentProfileDto) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到学生信息");
-        return ApiResult.buildSuccess(studentProfileDto);
-    }
-
-    /**
-     * @param studentDto 学生数据传输类
-     * @return 返回一个结果集
-     * @author KevenPotter
-     * @date 2019-11-22 13:34:21
-     * @description 插入一条新的[学生实体]并返回该[学生实体]
-     */
-    @PostMapping("/student")
-    public ApiResult addStudent(@RequestBody StudentDto studentDto) {
-        if (null == studentDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        StudentEntity studentEntity = studentService.addStudent(studentDto);
-        if (null == studentEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加学生信息,学生信息可能已重复");
-        return ApiResult.buildSuccess(studentEntity);
+    @PostMapping("/menus")
+    public ApiResult addStudent(@RequestBody SystemMenuDto systemMenuDto) {
+        if (null == systemMenuDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        SystemMenuEntity systemMenuEntity = menuService.addSystemMenu(systemMenuDto);
+        if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_4, "该菜单已存在");
+        return ApiResult.buildSuccess(systemMenuEntity);
     }
 
     /**
@@ -101,11 +85,66 @@ public class MenuController {
      * @author KevenPotter
      * @date 2020-12-29 13:42:54
      */
-    @PutMapping("/menu")
+    @ResponseBody
+    @PutMapping("/menus")
     public ApiResult updateStudent(@RequestBody SystemMenuDto systemMenuDto) {
         if (null == systemMenuDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         SystemMenuEntity systemMenuEntity = menuService.updateSystemMenu(systemMenuDto);
         if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功更新系统菜单信息,系统菜单信息可能不存在");
+        return ApiResult.buildSuccess(systemMenuEntity);
+    }
+
+    /**
+     * 根据[菜单名称]返回[系统菜单实体]
+     *
+     * @param menuName 菜单名称
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-12-30 13:41:26
+     */
+    @ResponseBody
+    @GetMapping("/menuNa/{menuName}")
+    public ApiResult getSystemMenuByMenuName(@PathVariable String menuName) throws UnsupportedEncodingException {
+        if (StringUtils.isEmpty(menuName)) return ApiResult.buildFailure(ApiConstant.CODE_1, "[菜单名称]为空");
+        menuName = URLDecoder.decode(menuName, "utf-8").trim();
+        SystemMenuEntity systemMenuEntity = menuService.getMenuByMenuName(menuName);
+        if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到系统菜单名称信息");
+        return ApiResult.buildSuccess(systemMenuEntity);
+    }
+
+    /**
+     * 根据[菜单连接]返回[系统菜单实体]
+     *
+     * @param menuLinkUrl 菜单连接
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-12-30 13:44:48
+     */
+    @ResponseBody
+    @PostMapping("/menuLi")
+    public ApiResult getSystemUserByEmail(@RequestParam("menuLinkUrl") String menuLinkUrl) throws UnsupportedEncodingException {
+        if (StringUtils.isEmpty(menuLinkUrl)) return ApiResult.buildFailure(ApiConstant.CODE_1, "[菜单连接]为空");
+        menuLinkUrl = URLDecoder.decode(menuLinkUrl, "utf-8").trim();
+        SystemMenuEntity systemMenuEntity = menuService.getMenuByMenuLinkUrl(menuLinkUrl);
+        if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到系统菜单链接信息");
+        return ApiResult.buildSuccess(systemMenuEntity);
+    }
+
+    /**
+     * 根据[菜单图标]返回[系统菜单实体]
+     *
+     * @param menuIcon 菜单图标
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2020-12-30 13:47:29
+     */
+    @ResponseBody
+    @GetMapping("/menuIc/{menuIcon}")
+    public ApiResult getSystemUserByMobile(@PathVariable String menuIcon) throws UnsupportedEncodingException {
+        if (StringUtils.isEmpty(menuIcon)) return ApiResult.buildFailure(ApiConstant.CODE_1, "[菜单图标]为空");
+        menuIcon = URLDecoder.decode(menuIcon, "utf-8").trim();
+        SystemMenuEntity systemMenuEntity = menuService.getMenuByMenuIcon(menuIcon);
+        if (null == systemMenuEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到系统菜单图标信息");
         return ApiResult.buildSuccess(systemMenuEntity);
     }
 }

@@ -6,7 +6,8 @@ $(document).ready(function () {
         .append('<li class="tinyHand" onclick="changeHtml(\'html/main.html\',\'indexHtml\')"><a id="indexHtml" class="active"><i class="lnr lnr-home"></i> <span>首页</span></a></li>')
         .append('<li class="tinyHand" onclick="changeHtml(\'html/students.html\',\'studentHtml\')"><a id="studentHtml" ><i class="lnr lnr-users"></i> <span>学生信息</span></a></li>')
         .append('<li class="tinyHand" onclick="changeHtml(\'html/teachers.html\',\'teacherHtml\')"><a id="teacherHtml" ><i class="lnr lnr-graduation-hat"></i> <span>教师信息</span></a></li>')
-        .append('<li class="tinyHand" onclick="changeHtml(\'html/department_major.html\',\'department_majorHtml\')"><a id="department_majorHtml" ><i class="lnr lnr-inbox"></i> <span>系部专业</span></a></li>');
+        .append('<li class="tinyHand" onclick="changeHtml(\'html/department_major.html\',\'department_majorHtml\')"><a id="department_majorHtml" ><i class="lnr lnr-inbox"></i> <span>系部专业</span></a></li>')
+        .append('<li class="tinyHand" onclick="changeHtml(\'html/menus.html\',\'menusHtml\')"><a id="menusHtml" ><i class="lnr lnr-menu"></i> <span>菜单信息</span></a></li>');
     initialHighlyExpanded();
 });
 

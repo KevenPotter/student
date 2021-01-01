@@ -3,7 +3,7 @@
 <mapper namespace="com.kevenpotter.student.dao.MenuDao">
 
     <!-- 更新[系统菜单实体] -->
-    <update id="updateMenu" parameterType="com.kevenpotter.student.domain.dto.SystemMenuDto" useGeneratedKeys="true" keyProperty="systemMenuDto.id" keyColumn="1">
+    <update id="updateSystemMenu" parameterType="com.kevenpotter.student.domain.dto.SystemMenuDto" useGeneratedKeys="true" keyProperty="systemMenuDto.id" keyColumn="1">
         UPDATE `student`.`system_menu`
         <trim prefix="SET" suffixOverrides=",">
             <if test="systemMenuDto.menuName != null">
@@ -19,10 +19,13 @@
                 `menu_sort_number`=#{systemMenuDto.menuSortNumber},
             </if>
             <if test="systemMenuDto.menuStatus != null">
-                `menu_status`=#{systemMenuDto.menuStatus}
+                `menu_status`=#{systemMenuDto.menuStatus},
+            </if>
+            <if test="systemMenuDto.menuUpdateTime != null">
+                `menu_update_time`=#{systemMenuDto.menuUpdateTime}
             </if>
         </trim>
-        WHERE (`id`=#{systemMenuDto.id});
+        WHERE (`id`=#{systemMenuDto.id})
     </update>
 
 </mapper>

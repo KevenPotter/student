@@ -25,6 +25,7 @@ public class ShiroConfig {
     private static Map<String, String> RESTRICTED_RESOURCES = new HashMap<String, String>() {{
         put("/register.html", "anon");
         put("/register-success.html", "anon");
+        put("/swagger-ui.html", "anon");
         put("/**.html", "authc");
         put("/**/**.html", "authc");
     }};

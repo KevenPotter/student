@@ -1,16 +1,10 @@
 package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
-import com.kevenpotter.student.domain.dto.StudentDto;
-import com.kevenpotter.student.domain.dto.StudentProfileDto;
-import com.kevenpotter.student.domain.dto.StudentSexStatisticsDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
-import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * 菜单持久层类
@@ -46,14 +40,37 @@ public interface MenuDao {
     Page<SystemMenuEntity> getMenus(@Param("menuName") String menuName, @Param("menuStatus") Integer menuStatus);
 
     /**
-     * @param id 主键ID
-     * @return 返回一个[学生实体]
+     * 根据[菜单名称]查询[系统菜单实体]
+     *
+     * @param menuName 菜单名称
+     * @return 返回根据[菜单名称]查询[系统菜单实体]
      * @author KevenPotter
-     * @date 2019-11-29 10:45:09
-     * @description 根据[主键ID]查询[学生实体]
+     * @date 2020-12-30 10:35:21
      */
-    @Select("SELECT * FROM student s WHERE s.id = #{id}")
-    StudentEntity getStudentById(@Param("id") Long id);
+    @Select("SELECT * FROM system_menu sm WHERE sm.menu_name = #{menuName}")
+    SystemMenuEntity getMenuByMenuName(@Param("menuName") String menuName);
+
+    /**
+     * 根据[菜单连接]查询[系统菜单实体]
+     *
+     * @param menuLinkUrl 菜单连接
+     * @return 返回根据[菜单连接]查询[系统菜单实体]
+     * @author KevenPotter
+     * @date 2020-12-30 10:37:18
+     */
+    @Select("SELECT * FROM system_menu sm WHERE sm.menu_link_url = #{menuLinkUrl}")
+    SystemMenuEntity getMenuByMenuLinkUrl(@Param("menuLinkUrl") String menuLinkUrl);
+
+    /**
+     * 根据[菜单图标]查询[系统菜单实体]
+     *
+     * @param menuIcon 菜单图标
+     * @return 返回根据[菜单图标]查询[系统菜单实体]
+     * @author KevenPotter
+     * @date 2020-12-30 10:45:45
+     */
+    @Select("SELECT * FROM system_menu sm WHERE sm.menu_icon = #{menuIcon}")
+    SystemMenuEntity getMenuByMenuIcon(@Param("menuIcon") String menuIcon);
 
     /**
      * 根据[学生编号]查询[系统菜单实体]
@@ -67,23 +84,15 @@ public interface MenuDao {
     SystemMenuEntity getSystemMenuById(@Param("id") Long id);
 
     /**
-     * @param studentId 学生编号
-     * @return 返回一个[学生详情数据传输类]
+     * 插入一条新的[系统菜单实体]
+     *
+     * @param systemMenuDto 系统菜单数据传输类
      * @author KevenPotter
-     * @date 2020-01-04 00:20:34
-     * @description 根据[学生编号]查询[学生详情数据传输类]
+     * @date 2020-12-30 10:17:22
      */
-    StudentProfileDto getStudentProfileByStudentId(@Param("studentId") String studentId);
-
-    /**
-     * @param studentDto 学生数据传输类
-     * @author KevenPotter
-     * @date 2019-11-22 15:48:44
-     * @description 插入一条新的[学生实体]
-     */
-    @Insert("INSERT INTO `student`.`student` (`student_id`, `department_id`, `major_id`, `grade`, `clazz`, `sex`, `name`, `age`, `address`, `addtime`) VALUES (#{studentDto.studentId}, #{studentDto.departmentId}, #{studentDto.majorId}, #{studentDto.grade}, #{studentDto.clazz}, #{studentDto.sex}, #{studentDto.name}, #{studentDto.age}, #{studentDto.address}, now());")
-    @Options(useGeneratedKeys = true, keyProperty = "studentDto.id", keyColumn = "id")
-    void addStudent(@Param("studentDto") StudentDto studentDto);
+    @Insert("INSERT INTO `student`.`system_menu` (`menu_name`, `menu_link_url`, `menu_icon`, `menu_sort_number`, `menu_status`, `menu_create_time`, `menu_update_time`) VALUES (#{systemMenuDto.menuName}, #{systemMenuDto.menuLinkUrl}, #{systemMenuDto.menuIcon}, #{systemMenuDto.menuSortNumber}, #{systemMenuDto.menuStatus}, NOW(), NOW());")
+    @Options(useGeneratedKeys = true, keyProperty = "systemMenuDto.id", keyColumn = "id")
+    void addMenu(@Param("systemMenuDto") SystemMenuDto systemMenuDto);
 
     /**
      * 更新[系统菜单实体]
@@ -92,23 +101,7 @@ public interface MenuDao {
      * @author KevenPotter
      * @date 2020-12-29 14:02:36
      */
-    void updateMenu(@Param("systemMenuDto") SystemMenuDto systemMenuDto);
+    void updateSystemMenu(@Param("systemMenuDto") SystemMenuDto systemMenuDto);
 
-    /**
-     * @return 返回学生记录总条数
-     * @author KevenPotter
-     * @date 2019-12-20 16:45:46
-     * @description 返回学生记录总条数
-     */
-    @Select("SELECT COUNT(*) FROM student;")
-    Long getCount();
-
-    /**
-     * @return 返回各系部男女学生人数
-     * @author KevenPotter
-     * @date 2020-01-02 14:21:46
-     * @description 统计各系部男女学生人数并将其返回
-     */
-    List<StudentSexStatisticsDto> getSexStatisticsByDepartment();
 }
 
