@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @Mapper
-public interface MenuDao {
+public interface SystemMenuDao {
 
     /**
      * 根据给定的参数进行[系统菜单实体]列表的查询

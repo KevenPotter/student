@@ -1,6 +1,7 @@
 package com.kevenpotter.student.domain.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
  * @description 系别专业数量数据传输类
  */
 @Data
+@Accessors(chain = true)
 public class DepartmentNestedPiesDto {
 
     /*专业名称*/

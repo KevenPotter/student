@@ -1,6 +1,7 @@
 package com.kevenpotter.student.domain.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 
@@ -11,6 +12,7 @@ import java.math.BigDecimal;
  * @description 考试类目数据传输类
  */
 @Data
+@Accessors(chain = true)
 public class ExaminationCategoryDto {
 
     /*考试场次编号*/

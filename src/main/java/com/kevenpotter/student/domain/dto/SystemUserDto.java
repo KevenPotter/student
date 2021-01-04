@@ -1,6 +1,7 @@
 package com.kevenpotter.student.domain.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @author KevenPotter
@@ -9,6 +10,7 @@ import lombok.Data;
  * @description 后台用户数据传输类
  */
 @Data
+@Accessors(chain = true)
 public class SystemUserDto {
 
     /*主键ID*/

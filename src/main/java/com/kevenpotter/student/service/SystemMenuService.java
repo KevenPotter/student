@@ -1,9 +1,8 @@
 package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
-import com.kevenpotter.student.dao.MenuDao;
+import com.kevenpotter.student.dao.SystemMenuDao;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
-import com.kevenpotter.student.domain.entity.StudentEntity;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.utils.StringUtils;
 import org.apache.ibatis.annotations.Select;
@@ -22,13 +21,13 @@ import java.time.LocalDateTime;
  * @date 2019-11-22 11:30:11
  */
 @Service
-public class MenuService {
+public class SystemMenuService {
 
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private MenuDao menuDao;
+    private SystemMenuDao menuDao;
 
     /**
      * 获取[系统菜单实体]分页数据

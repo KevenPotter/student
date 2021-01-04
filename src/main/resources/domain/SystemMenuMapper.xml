@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kevenpotter.student.dao.MenuDao">
+<mapper namespace="com.kevenpotter.student.dao.SystemMenuDao">
 
     <!-- 更新[系统菜单实体] -->
     <update id="updateSystemMenu" parameterType="com.kevenpotter.student.domain.dto.SystemMenuDto" useGeneratedKeys="true" keyProperty="systemMenuDto.id" keyColumn="1">
