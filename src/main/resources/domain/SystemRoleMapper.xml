@@ -4,7 +4,7 @@
 
     <!-- 更新[系统角色实体] -->
     <update id="updateSystemRole" parameterType="com.kevenpotter.student.domain.dto.SystemRoleDto" useGeneratedKeys="true" keyProperty="systemRoleDto.id" keyColumn="1">
-        UPDATE `student`.`system_menu`
+        UPDATE `student`.`system_role`
         <trim prefix="SET" suffixOverrides=",">
             <if test="systemRoleDto.roleName != null">
                 `role_name`=#{systemRoleDto.roleName},

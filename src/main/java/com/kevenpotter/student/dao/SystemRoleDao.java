@@ -67,8 +67,8 @@ public interface SystemRoleDao {
      * @author KevenPotter
      * @date 2021-01-04 09:28:51
      */
-    @Insert("INSERT INTO `student`.`system_menu` (`menu_name`, `menu_link_url`, `menu_icon`, `menu_sort_number`, `menu_status`, `menu_create_time`, `menu_update_time`) VALUES (#{systemMenuDto.menuName}, #{systemMenuDto.menuLinkUrl}, #{systemMenuDto.menuIcon}, #{systemMenuDto.menuSortNumber}, #{systemMenuDto.menuStatus}, NOW(), NOW());")
-    @Options(useGeneratedKeys = true, keyProperty = "systemMenuDto.id", keyColumn = "id")
+    @Insert("INSERT INTO `student`.`system_role` (`role_name`, `role_status`, `role_create_time`, `role_update_time`) VALUES (#{systemRoleDto.roleName}, #{systemRoleDto.roleStatus}, NOW(), NOW());")
+    @Options(useGeneratedKeys = true, keyProperty = "systemRoleDto.id", keyColumn = "id")
     void addSystemRole(@Param("systemRoleDto") SystemRoleDto systemRoleDto);
 
     /**
@@ -78,6 +78,6 @@ public interface SystemRoleDao {
      * @author KevenPotter
      * @date 2021-01-04 09:41:19
      */
-    void updateSystemRole(@Param("systemMenuDto") SystemRoleDto systemRoleDto);
+    void updateSystemRole(@Param("systemRoleDto") SystemRoleDto systemRoleDto);
 }
 

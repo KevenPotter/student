@@ -36,15 +36,15 @@ public class SystemRoleController {
     private SystemRoleService systemRoleService;
 
     /**
-     * 获取[系统菜单实体类]
+     * 获取[系统角色实体类]
      *
-     * @param roleName   菜单名称
-     * @param roleStatus 菜单状态
+     * @param roleName   角色名称
+     * @param roleStatus 角色状态
      * @param pageNo     当前页码
      * @param pageSize   分页大小
      * @return 返回一个结果集
      * @author KevenPotter
-     * @date 2020-12-28 15:42:02
+     * @date 2021-01-03 15:23:22
      */
     @ResponseBody
     @GetMapping("/roles")
