@@ -7,10 +7,11 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 /**
+ * 系统角色持久层类
+ *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
  * @date 2019-12-11 21:14:26
- * @description 后台角色持久层类
  */
 @Repository
 @Mapper
