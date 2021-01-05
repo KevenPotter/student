@@ -10,6 +10,7 @@ $(document).ready(function () {
     pageLoadCounts = 0;
     loadMenusList(MENU_NAME, MENUS_STATUS, pageIndex);
     ++pageLoadCounts;
+    initialLnrIcon();
 });
 
 /**
@@ -25,7 +26,7 @@ function loadMenusList(menuName, menuStatus, pageIndex) {
     var menusPage = $('#menusPage');
     clearHtml(menusTableTBody);
     clearHtml(menusPage);
-    var requestParam = {"menuName": MENU_NAME, "menuStatus": MENUS_STATUS, "pageNo": pageIndex, "pageSize": 10};
+    var requestParam = {"menuName": menuName, "menuStatus": menuStatus, "pageNo": pageIndex, "pageSize": 10};
     $.ajax({
         url: urlFiltering(studentManagementSystem + "/menu/menus"),
         type: "GET",
@@ -52,6 +53,7 @@ function loadMenusList(menuName, menuStatus, pageIndex) {
                     '<td class="tinyHand"> <i class="' + menuIcon + '"></i></td>' +
                     '<td>' + menuSortNumber + '</td>' +
                     '<td><input type="checkbox" value="' + menuStatus + '" name="menu_status_' + menuIndex + '"></td>' +
+                    '<td><span title="编辑" class="lnr lnr-pencil tinyHand"></span></td>' +
                     '</tr>');
                 var menuStatusCheckBoxVal = $("[name='menu_status_" + menuIndex + "']").val();
                 if ("1" === menuStatusCheckBoxVal) bootstrapSwitchOnInit(menuId, menuIndex, true);
@@ -157,6 +159,9 @@ function openAddMenuLayer() {
     clearValue(menuLayerMenuIcon);
     clearHtml(menuLayerMenuSortNumber);
     clearHtml(menuLayerMenuStatus);
+    clearBorderStyle($('#menuLayer_menuName_border'), $('#menuLayer_menuName_icon'));
+    clearBorderStyle($('#menuLayer_menuLinkUrl_border'), $('#menuLayer_menuLinkUrl_icon'));
+    clearBorderStyle($('#menuLayer_menuIcon_border'), $('#menuLayer_menuIcon_icon'));
     menuLayerIndex = layer.open({
         type: 1,
         title: '添加菜单',
@@ -184,7 +189,7 @@ var menuLayerMenuIconMenuIconsLayerIndex;
 function openMenuLayerMenuIconMenuIconsLayer() {
     menuLayerMenuIconMenuIconsLayerIndex = layer.open({
         type: 1,
-        title: 'fas',
+        title: '选择图标',
         content: $('#menuLayer_menuIcon_menuIcons'),
         area: ['80%', '70%'],
         move: false,
@@ -222,7 +227,6 @@ function checkSystemMenuMenuName() {
             type: "GET",
             dataType: "JSON",
             success: function (data) {
-                debugger;
                 if (REQUEST_PARAMETER_EMPTY === data.code || TARGET_INFORMATION_EMPTY === data.code) {
                     addSuccessStyle(menuLayerMenuNameBorder, menuLayerMenuNameIcon);
                 } else {
@@ -254,7 +258,6 @@ function checkSystemMenuMenuLink() {
             dataType: "JSON",
             data: requestParam,
             success: function (data) {
-                debugger;
                 if (REQUEST_PARAMETER_EMPTY === data.code || TARGET_INFORMATION_EMPTY === data.code) {
                     addSuccessStyle(menuLayerMenuLinkUrlBorder, menuLayerMenuLinkUrlIcon);
                 } else {
@@ -284,7 +287,6 @@ function checkSystemMenuMenuIcon() {
             type: "GET",
             dataType: "JSON",
             success: function (data) {
-                debugger;
                 if (REQUEST_PARAMETER_EMPTY === data.code || TARGET_INFORMATION_EMPTY === data.code) {
                     addSuccessStyle(menuLayerMenuIconBorder, menuLayerMenuIconIcon);
                 } else {
@@ -341,6 +343,31 @@ function insertMenu() {
                 search();
             } else if (DUPLICATE_TARGET_INFORMATION === data.code) {
                 layerMsg(data.msg, RED_ERROR_MARK, 1500);
+            }
+        }
+    });
+}
+
+/**
+ * 初始化linearicons图标
+ * @author KevenPotter
+ * @date 2021-01-04 15:56:19
+ */
+function initialLnrIcon() {
+    $.ajax({
+        url: "../assets/vendor/lineariconsFree/Web%20Font/style.css",
+        dataType: "text",
+        success: function (css) {
+            var cssArray = css.match(/lnr-(\S*):/g);
+            var lnrIconUl = $('#lnrIcon');
+            for (var index = 0; index < cssArray.length; index++) {
+                var lnrIcon = cssArray[index].substring(0, cssArray[index].indexOf(":"));
+                var lnrIconForSpanId = lnrIcon.replace("-", "_");
+                lnrIconUl.append(
+                    '<li class="col-md-2 col-sm-4 col-xs-6 tinyHand" onclick="chooseIcon(\'' + lnrIconForSpanId + '\')">' +
+                    '<span class="lnr ' + lnrIcon + '"></span> <span id="' + lnrIconForSpanId + '" class="cssclass">lnr ' + lnrIcon + '</span>' +
+                    '</li>'
+                );
             }
         }
     });
