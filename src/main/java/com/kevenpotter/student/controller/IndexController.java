@@ -90,7 +90,7 @@ public class IndexController {
      */
     @ResponseBody
     @GetMapping("/all/menus")
-    public ApiResult getAllMenus() {
+    public ApiResult getAllMenusForIndex() {
         return ApiResult.buildSuccess(systemMenuService.getAllMenusForIndex());
     }
 }
