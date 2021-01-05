@@ -50,7 +50,7 @@ public interface SystemMenuDao {
      * @author KevenPotter
      * @date 2021-01-05 09:49:40
      */
-    @Select("SELECT sm.id AS 'menuId',sm.menu_name AS 'menuName' FROM system_menu sm")
+    @Select("SELECT sm.id AS 'menuId', sm.menu_name AS 'menuName', sm.menu_sort_number AS 'menuSortNumber' FROM system_menu sm")
     List<SystemAllMenuDto> getAllMenus();
 
     /**

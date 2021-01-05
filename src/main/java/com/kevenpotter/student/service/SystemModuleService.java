@@ -2,9 +2,11 @@ package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.SystemModuleDao;
+import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
 import com.kevenpotter.student.domain.dto.SystemAllModuleDto;
 import com.kevenpotter.student.domain.dto.SystemModuleDto;
 import com.kevenpotter.student.domain.entity.SystemModuleEntity;
+import com.kevenpotter.student.utils.ListUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 /**
  * 系统模块服务层类
@@ -29,6 +31,8 @@ public class SystemModuleService {
     /*定义日志记录器，用来记录必要信息*/
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private SystemMenuService systemMenuService;
     @Autowired
     private SystemModuleDao systemModuleDao;
 
@@ -53,19 +57,35 @@ public class SystemModuleService {
      * @author KevenPotter
      * @date 2021-01-05 13:30:04
      */
-    public List<SystemAllModuleDto> getAllModules() {
-        return systemModuleDao.getAllModules();
+    public List<Map<Long, List<SystemAllModuleDto>>> getAllModules() {
+        List<SystemAllMenuDto> systemAllMenuDtoList = systemMenuService.getAllMenus();                              // 获取所有菜单数据
+        if (ListUtils.isEmpty(systemAllMenuDtoList)) return null;                                                   // 如果菜单数据为空，则返回空
+        List<Map<Long, List<SystemAllModuleDto>>> list = new ArrayList<>();
+        for (SystemAllMenuDto systemAllMenuDto : systemAllMenuDtoList) {
+            List<SystemAllModuleDto> systemAllModuleDtoList = this.getModuleByMenuId(systemAllMenuDto.getMenuId());
+            Map<Long, List<SystemAllModuleDto>> systemModuleMap = new TreeMap<>(
+                    new Comparator<Long>() {
+                        @Override
+                        public int compare(Long o1, Long o2) {
+                            return o1.intValue() - o2.intValue();
+                        }
+                    }
+            );
+            systemModuleMap.put(systemAllMenuDto.getMenuId(), systemAllModuleDtoList);
+            list.add(systemModuleMap);
+        }
+        return list;
     }
 
     /**
-     * 根据[菜单编号]查询[系统模块实体]
+     * 根据[菜单编号]查询[全部系统模块数据传输类]
      *
      * @param menuId 菜单编号
-     * @return 返回根据[菜单编号]查询[系统模块实体]
+     * @return 返回根据[菜单编号]查询[全部系统模块数据传输类]
      * @author KevenPotter
      * @date 2021-01-05 09:16:25
      */
-    List<SystemModuleEntity> getModuleByMenuId(Long menuId) {
+    List<SystemAllModuleDto> getModuleByMenuId(Long menuId) {
         if (null == menuId) return null;
         return systemModuleDao.getModuleByMenuId(menuId);
     }

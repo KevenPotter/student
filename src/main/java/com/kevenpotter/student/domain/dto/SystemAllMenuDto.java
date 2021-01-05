@@ -18,4 +18,6 @@ public class SystemAllMenuDto {
     private Long menuId;
     /*菜单名称*/
     private String menuName;
+    /*菜单排序编号*/
+    private Integer menuSortNumber;
 }

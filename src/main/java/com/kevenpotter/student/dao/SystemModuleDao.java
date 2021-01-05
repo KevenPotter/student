@@ -47,25 +47,15 @@ public interface SystemModuleDao {
     Page<SystemModuleEntity> getModules(@Param("menuId") Long menuId, @Param("moduleName") String moduleName, @Param("moduleStatus") Integer moduleStatus);
 
     /**
-     * 获取所有[全部系统模块数据传输类]
-     *
-     * @return 返回所有[全部系统模块数据传输类]
-     * @author KevenPotter
-     * @date 2021-01-05 13:32:05
-     */
-    @Select("SELECT sm.id AS 'moduleId', sm.menu_id AS 'menuId', sm.module_name AS 'moduleName' FROM system_module sm")
-    List<SystemAllModuleDto> getAllModules();
-
-    /**
-     * 根据[菜单编号]查询[系统模块实体]
+     * 根据[菜单编号]查询[全部系统模块数据传输类]
      *
      * @param menuId 菜单编号
-     * @return 返回根据[菜单编号]查询[系统模块实体]
+     * @return 返回根据[菜单编号]查询[全部系统模块数据传输类]
      * @author KevenPotter
      * @date 2021-01-05 09:10:14
      */
-    @Select("SELECT * FROM system_module sm WHERE sm.menu_id = #{menuId}")
-    List<SystemModuleEntity> getModuleByMenuId(@Param("menuId") Long menuId);
+    @Select("SELECT sm.id AS 'menuId', sm.menu_name AS 'menuName', smo.id AS 'moduleId', smo.module_name AS 'moduleName' FROM system_menu sm LEFT JOIN system_module smo ON sm.id = smo.menu_id WHERE sm.id = #{menuId}")
+    List<SystemAllModuleDto> getModuleByMenuId(@Param("menuId") Long menuId);
 
     /**
      * 根据[模块名称]查询[系统模块实体]
