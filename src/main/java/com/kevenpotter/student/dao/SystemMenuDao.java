@@ -1,10 +1,13 @@
 package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
+import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 菜单持久层类
@@ -38,6 +41,16 @@ public interface SystemMenuDao {
             "</where>" +
             "</script>")
     Page<SystemMenuEntity> getMenus(@Param("menuName") String menuName, @Param("menuStatus") Integer menuStatus);
+
+    /**
+     * 获取所有[全部系统菜单数据传输类]
+     *
+     * @return 返回所有[全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 09:49:40
+     */
+    @Select("SELECT sm.id AS 'menuId',sm.menu_name AS 'menuName' FROM system_menu sm")
+    List<SystemAllMenuDto> getAllMenus();
 
     /**
      * 根据[菜单名称]查询[系统菜单实体]

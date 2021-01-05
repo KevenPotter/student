@@ -61,6 +61,19 @@ public class SystemMenuController {
     }
 
     /**
+     * 获取所有[全部系统菜单数据传输类]
+     *
+     * @return 返回所有[全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 10:07:47
+     */
+    @ResponseBody
+    @GetMapping("/all/menus")
+    public ApiResult getAllMenus() {
+        return ApiResult.buildSuccess(systemMenuService.getAllMenus());
+    }
+
+    /**
      * 插入一条新的[系统菜单实体]并返回该[系统菜单实体]
      *
      * @param systemMenuDto 系统菜单数据传输类

@@ -6,6 +6,9 @@
     <update id="updateSystemModule" parameterType="com.kevenpotter.student.domain.dto.SystemModuleDto" useGeneratedKeys="true" keyProperty="systemModuleDto.id" keyColumn="1">
         UPDATE `student`.`system_module`
         <trim prefix="SET" suffixOverrides=",">
+            <if test="systemModuleDto.menuId != null">
+                `menu_id`=#{systemModuleDto.menuId},
+            </if>
             <if test="systemModuleDto.moduleName != null">
                 `module_name`=#{systemModuleDto.moduleName},
             </if>

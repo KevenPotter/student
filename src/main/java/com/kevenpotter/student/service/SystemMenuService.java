@@ -2,6 +2,7 @@ package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.SystemMenuDao;
+import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.utils.StringUtils;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 菜单服务层类
@@ -27,7 +29,7 @@ public class SystemMenuService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private SystemMenuDao menuDao;
+    private SystemMenuDao systemMenuDao;
 
     /**
      * 获取[系统菜单实体]分页数据
@@ -39,7 +41,18 @@ public class SystemMenuService {
      * @date 2020-12-28 15:44:03
      */
     public Page<SystemMenuEntity> getMenus(String menuName, Integer menuStatus) {
-        return menuDao.getMenus(menuName, menuStatus);
+        return systemMenuDao.getMenus(menuName, menuStatus);
+    }
+
+    /**
+     * 获取所有[全部系统菜单数据传输类]
+     *
+     * @return 返回所有[全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 09:48:16
+     */
+    public List<SystemAllMenuDto> getAllMenus() {
+        return systemMenuDao.getAllMenus();
     }
 
     /**
@@ -52,7 +65,7 @@ public class SystemMenuService {
      */
     public SystemMenuEntity getMenuByMenuName(String menuName) {
         if (StringUtils.isEmpty(menuName)) return null;
-        return menuDao.getMenuByMenuName(menuName);
+        return systemMenuDao.getMenuByMenuName(menuName);
     }
 
     /**
@@ -66,7 +79,7 @@ public class SystemMenuService {
     @Select("SELECT * FROM system_menu sm WHERE sm.menu_link_url = #{menuLinkUrl}")
     public SystemMenuEntity getMenuByMenuLinkUrl(String menuLinkUrl) {
         if (StringUtils.isEmpty(menuLinkUrl)) return null;
-        return menuDao.getMenuByMenuLinkUrl(menuLinkUrl);
+        return systemMenuDao.getMenuByMenuLinkUrl(menuLinkUrl);
     }
 
     /**
@@ -79,7 +92,7 @@ public class SystemMenuService {
      */
     public SystemMenuEntity getMenuByMenuIcon(String menuIcon) {
         if (StringUtils.isEmpty(menuIcon)) return null;
-        return menuDao.getMenuByMenuIcon(menuIcon);
+        return systemMenuDao.getMenuByMenuIcon(menuIcon);
     }
 
     /**
@@ -94,8 +107,8 @@ public class SystemMenuService {
         if (null == systemMenuDto) return null;
         SystemMenuEntity systemMenuEntity = this.getMenuByMenuName(systemMenuDto.getMenuName());
         if (null != systemMenuEntity) return null;
-        menuDao.addMenu(systemMenuDto);
-        return menuDao.getSystemMenuById(systemMenuDto.getId());
+        systemMenuDao.addMenu(systemMenuDto);
+        return systemMenuDao.getSystemMenuById(systemMenuDto.getId());
     }
 
     /**
@@ -108,10 +121,10 @@ public class SystemMenuService {
      */
     public SystemMenuEntity updateSystemMenu(SystemMenuDto systemMenuDto) {
         if (null == systemMenuDto) return null;
-        SystemMenuEntity systemMenuEntity = menuDao.getSystemMenuById(systemMenuDto.getId());
+        SystemMenuEntity systemMenuEntity = systemMenuDao.getSystemMenuById(systemMenuDto.getId());
         if (null == systemMenuEntity) return null;
-        menuDao.updateSystemMenu(systemMenuDto.setMenuUpdateTime(LocalDateTime.now()));
-        return menuDao.getSystemMenuById(systemMenuDto.getId());
+        systemMenuDao.updateSystemMenu(systemMenuDto.setMenuUpdateTime(LocalDateTime.now()));
+        return systemMenuDao.getSystemMenuById(systemMenuDto.getId());
     }
 
 }

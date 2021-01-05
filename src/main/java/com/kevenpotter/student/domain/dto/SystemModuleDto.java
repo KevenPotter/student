@@ -18,6 +18,8 @@ public class SystemModuleDto {
 
     /*主键ID*/
     private Long id;
+    /*菜单编号*/
+    private Long menuId;
     /*模块名称*/
     private String moduleName;
     /*模块状态(0.不启用 1.启用)*/

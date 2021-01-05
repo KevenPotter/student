@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 系统模块服务层类
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
  * @date 2021-01-04 23:07:42
  */
 @Service
+@Transactional
 public class SystemModuleService {
 
     /*定义日志记录器，用来记录必要信息*/
@@ -31,14 +34,28 @@ public class SystemModuleService {
     /**
      * 获取[系统模块实体]分页数据
      *
+     * @param menuId       菜单编号
      * @param moduleName   模块名称
      * @param moduleStatus 模块状态
      * @return 返回获取[系统模块实体]分页数据
      * @author KevenPotter
      * @date 2021-01-04 23:08:57
      */
-    public Page<SystemModuleEntity> getModules(String moduleName, Integer moduleStatus) {
-        return systemModuleDao.getModules(moduleName, moduleStatus);
+    public Page<SystemModuleEntity> getModules(Long menuId, String moduleName, Integer moduleStatus) {
+        return systemModuleDao.getModules(menuId, moduleName, moduleStatus);
+    }
+
+    /**
+     * 根据[菜单编号]查询[系统模块实体]
+     *
+     * @param menuId 菜单编号
+     * @return 返回根据[菜单编号]查询[系统模块实体]
+     * @author KevenPotter
+     * @date 2021-01-05 09:16:25
+     */
+    List<SystemModuleEntity> getModuleByMenuId(Long menuId) {
+        if (null == menuId) return null;
+        return systemModuleDao.getModuleByMenuId(menuId);
     }
 
     /**

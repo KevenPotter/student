@@ -38,6 +38,7 @@ public class SystemModuleController {
     /**
      * 获取[系统模块实体类]
      *
+     * @param menuId       菜单编号
      * @param moduleName   模块名称
      * @param moduleStatus 模块状态
      * @param pageNo       当前页码
@@ -49,13 +50,14 @@ public class SystemModuleController {
     @ResponseBody
     @GetMapping("/modules")
     public ApiResult getModules(
+            @RequestParam(value = "menuId", required = false) Long menuId,
             @RequestParam(value = "moduleName", required = false) String moduleName,
             @RequestParam(value = "moduleStatus", required = false) Integer moduleStatus,
             @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
             @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
     ) {
         PageHelper.startPage(pageNo, pageSize);
-        PageInfo<SystemModuleEntity> pageInfo = new PageInfo<SystemModuleEntity>(systemModuleService.getModules(moduleName, moduleStatus));
+        PageInfo<SystemModuleEntity> pageInfo = new PageInfo<SystemModuleEntity>(systemModuleService.getModules(menuId, moduleName, moduleStatus));
         if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到模块信息");
         return ApiResult.buildSuccess(pageInfo);
     }
