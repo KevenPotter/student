@@ -63,6 +63,19 @@ public class SystemModuleController {
     }
 
     /**
+     * 获取所有[全部系统模块数据传输类]
+     *
+     * @return 返回所有[全部系统模块数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:28:38
+     */
+    @ResponseBody
+    @GetMapping("/all/modules")
+    public ApiResult getAllModules() {
+        return ApiResult.buildSuccess(systemModuleService.getAllModules());
+    }
+
+    /**
      * 插入一条新的[系统模块实体]并返回该[系统模块实体]
      *
      * @param systemModuleDto 系统模块数据传输类

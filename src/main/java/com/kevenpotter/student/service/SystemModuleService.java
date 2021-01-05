@@ -2,6 +2,7 @@ package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.SystemModuleDao;
+import com.kevenpotter.student.domain.dto.SystemAllModuleDto;
 import com.kevenpotter.student.domain.dto.SystemModuleDto;
 import com.kevenpotter.student.domain.entity.SystemModuleEntity;
 import com.kevenpotter.student.utils.StringUtils;
@@ -43,6 +44,17 @@ public class SystemModuleService {
      */
     public Page<SystemModuleEntity> getModules(Long menuId, String moduleName, Integer moduleStatus) {
         return systemModuleDao.getModules(menuId, moduleName, moduleStatus);
+    }
+
+    /**
+     * 获取所有[全部系统模块数据传输类]
+     *
+     * @return 返回所有[全部系统模块数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:30:04
+     */
+    public List<SystemAllModuleDto> getAllModules() {
+        return systemModuleDao.getAllModules();
     }
 
     /**

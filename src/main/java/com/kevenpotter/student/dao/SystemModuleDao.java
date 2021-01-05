@@ -1,6 +1,7 @@
 package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
+import com.kevenpotter.student.domain.dto.SystemAllModuleDto;
 import com.kevenpotter.student.domain.dto.SystemModuleDto;
 import com.kevenpotter.student.domain.entity.SystemModuleEntity;
 import org.apache.ibatis.annotations.*;
@@ -44,6 +45,16 @@ public interface SystemModuleDao {
             "</where>" +
             "</script>")
     Page<SystemModuleEntity> getModules(@Param("menuId") Long menuId, @Param("moduleName") String moduleName, @Param("moduleStatus") Integer moduleStatus);
+
+    /**
+     * 获取所有[全部系统模块数据传输类]
+     *
+     * @return 返回所有[全部系统模块数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:32:05
+     */
+    @Select("SELECT sm.id AS 'moduleId', sm.menu_id AS 'menuId', sm.module_name AS 'moduleName' FROM system_module sm")
+    List<SystemAllModuleDto> getAllModules();
 
     /**
      * 根据[菜单编号]查询[系统模块实体]

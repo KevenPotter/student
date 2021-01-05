@@ -3,6 +3,7 @@ package com.kevenpotter.student.service;
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.SystemMenuDao;
 import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
+import com.kevenpotter.student.domain.dto.SystemAllMenuForIndexDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import com.kevenpotter.student.utils.StringUtils;
@@ -53,6 +54,17 @@ public class SystemMenuService {
      */
     public List<SystemAllMenuDto> getAllMenus() {
         return systemMenuDao.getAllMenus();
+    }
+
+    /**
+     * 获取所有[首页全部系统菜单数据传输类]
+     *
+     * @return 返回所有[首页全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:44:00
+     */
+    public List<SystemAllMenuForIndexDto> getAllMenusForIndex() {
+        return systemMenuDao.getAllMenusForIndex();
     }
 
     /**

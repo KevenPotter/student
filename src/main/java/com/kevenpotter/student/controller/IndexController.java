@@ -6,14 +6,12 @@ import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.IndexService;
 import com.kevenpotter.student.service.StudentService;
+import com.kevenpotter.student.service.SystemMenuService;
 import com.kevenpotter.student.utils.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +35,8 @@ public class IndexController {
     private IndexService indexService;
     @Autowired
     private StudentService studentService;
+    @Autowired
+    private SystemMenuService systemMenuService;
 
     /**
      * @return 返回一个结果集
@@ -79,5 +79,18 @@ public class IndexController {
             e.printStackTrace();
         }
         return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到用户登录记录");
+    }
+
+    /**
+     * 获取所有[首页全部系统菜单数据传输类]
+     *
+     * @return 返回所有[首页全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:43:34
+     */
+    @ResponseBody
+    @GetMapping("/all/menus")
+    public ApiResult getAllMenus() {
+        return ApiResult.buildSuccess(systemMenuService.getAllMenusForIndex());
     }
 }

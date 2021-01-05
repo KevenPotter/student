@@ -2,6 +2,7 @@ package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
+import com.kevenpotter.student.domain.dto.SystemAllMenuForIndexDto;
 import com.kevenpotter.student.domain.dto.SystemMenuDto;
 import com.kevenpotter.student.domain.entity.SystemMenuEntity;
 import org.apache.ibatis.annotations.*;
@@ -51,6 +52,16 @@ public interface SystemMenuDao {
      */
     @Select("SELECT sm.id AS 'menuId',sm.menu_name AS 'menuName' FROM system_menu sm")
     List<SystemAllMenuDto> getAllMenus();
+
+    /**
+     * 获取所有[首页全部系统菜单数据传输类]
+     *
+     * @return 返回所有[首页全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:44:10
+     */
+    @Select("SELECT sm.id AS 'menuId', sm.menu_name AS 'menuName', sm.menu_link_url AS 'menuLinkUrl', sm.menu_icon AS 'menuIcon', sm.menu_sort_number AS 'menuSortNumber' FROM system_menu sm WHERE sm.menu_status = 1")
+    List<SystemAllMenuForIndexDto> getAllMenusForIndex();
 
     /**
      * 根据[菜单名称]查询[系统菜单实体]
