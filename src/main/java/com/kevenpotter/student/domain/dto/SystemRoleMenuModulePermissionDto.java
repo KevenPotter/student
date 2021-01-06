@@ -1,25 +1,20 @@
-package com.kevenpotter.student.domain.entity;
+package com.kevenpotter.student.domain.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 系统角色-菜单-模块-权限实体类
+ * 系统角色-菜单-模块-权限数据传输类
  *
  * @author KevenPotter
  * @compony https://github.com/KevenPotter/student
- * @date 2020-12-28 13:31:26
+ * @date 2021-01-06 10:29:27
  */
 @Data
 @Accessors(chain = true)
-@AllArgsConstructor
-@NoArgsConstructor
-public class SystemRoleMenuModulePermissionEntity implements Serializable {
+public class SystemRoleMenuModulePermissionDto {
 
     /*主键ID*/
     private Long id;

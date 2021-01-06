@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统用户-角色实体类
@@ -22,8 +23,14 @@ public class SystemUserRoleEntity implements Serializable {
 
     /*主键ID*/
     private Long id;
-    /*用户编号(学号、教工号)*/
-    private Long userId;
+    /*系统用户编号*/
+    private Long systemUserId;
     /*角色编号*/
-    private Long roleId;
+    private Long systemRoleId;
+    /*用户角色状态(0.不启用 1.启用)*/
+    private Integer userRoleStatus;
+    /*用户角色创建时间*/
+    private LocalDateTime userRoleCreateTime;
+    /*用户角色更新时间*/
+    private LocalDateTime userRoleUpdateTime;
 }

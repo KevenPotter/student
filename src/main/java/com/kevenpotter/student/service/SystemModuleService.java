@@ -63,14 +63,7 @@ public class SystemModuleService {
         List<Map<Long, List<SystemAllModuleDto>>> list = new ArrayList<>();
         for (SystemAllMenuDto systemAllMenuDto : systemAllMenuDtoList) {
             List<SystemAllModuleDto> systemAllModuleDtoList = this.getModuleByMenuId(systemAllMenuDto.getMenuId());
-            Map<Long, List<SystemAllModuleDto>> systemModuleMap = new TreeMap<>(
-                    new Comparator<Long>() {
-                        @Override
-                        public int compare(Long o1, Long o2) {
-                            return o1.intValue() - o2.intValue();
-                        }
-                    }
-            );
+            Map<Long, List<SystemAllModuleDto>> systemModuleMap = new TreeMap<>(Comparator.comparingInt(Long::intValue));
             systemModuleMap.put(systemAllMenuDto.getMenuId(), systemAllModuleDtoList);
             list.add(systemModuleMap);
         }
