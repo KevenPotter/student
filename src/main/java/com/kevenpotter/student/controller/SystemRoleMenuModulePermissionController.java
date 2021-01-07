@@ -49,19 +49,19 @@ public class SystemRoleMenuModulePermissionController {
     }
 
     /**
-     * 插入一条新的[系统角色-菜单-模块-权限实体]并返回该[系统角色-菜单-模块-权限实体]
+     * 插入新的[系统角色-菜单-模块-权限实体]并返回该[系统角色-菜单-模块-权限实体]
      *
-     * @param systemRoleMenuModulePermissionDto 系统角色-菜单-模块-权限数据传输类
+     * @param systemRoleMenuModulePermissions 系统角色-菜单-模块-权限数据传输类集合
      * @return 返回一个结果集
      * @author KevenPotter
      * @date 2021-01-06 14:43:00
      */
     @ResponseBody
     @PostMapping("/roleMenuModulePermissions")
-    public ApiResult addRoleMenuModulePermissions(@RequestBody SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto) {
-        if (null == systemRoleMenuModulePermissionDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        SystemRoleMenuModulePermissionEntity systemRoleMenuModulePermissionEntity = systemRoleMenuModulePermissionService.addSystemRoleMenuModulePermission(systemRoleMenuModulePermissionDto);
-        if (null == systemRoleMenuModulePermissionEntity) return ApiResult.buildFailure(ApiConstant.CODE_4, "该角色菜单模块权限已存在");
-        return ApiResult.buildSuccess(systemRoleMenuModulePermissionEntity);
+    public ApiResult addRoleMenuModulePermissions(@RequestBody List<SystemRoleMenuModulePermissionDto> systemRoleMenuModulePermissions) {
+        if (ListUtils.isEmpty(systemRoleMenuModulePermissions)) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        systemRoleMenuModulePermissionService.addSystemRoleMenuModulePermission(systemRoleMenuModulePermissions);
+        // if (null == systemRoleMenuModulePermissionEntity) return ApiResult.buildFailure(ApiConstant.CODE_4, "该角色菜单模块权限已存在");
+        return ApiResult.buildSuccess();
     }
 }

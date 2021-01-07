@@ -5,6 +5,8 @@ import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -64,9 +66,10 @@ public class ShiroConfig {
      * @author KevenPotter
      */
     @Bean
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm) {
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm, @Qualifier("sessionManager") DefaultWebSessionManager sessionManager) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(realm);
+        defaultWebSecurityManager.setSessionManager(sessionManager);
         return defaultWebSecurityManager;
     }
 
@@ -85,5 +88,19 @@ public class ShiroConfig {
         credentialsMatcher.setHashIterations(1024);                                     // 设置散列次数
         customerRealm.setCredentialsMatcher(credentialsMatcher);
         return customerRealm;
+    }
+
+    /**
+     * 4.会话管理配置
+     *
+     * @return 返回会话管理器
+     * @author KevenPotter
+     * @date 2021-01-07 09:04:23
+     */
+    @Bean(name = "sessionManager")
+    public DefaultWebSessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionIdUrlRewritingEnabled(false);                         // 去掉jsessionid
+        return sessionManager;
     }
 }

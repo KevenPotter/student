@@ -118,5 +118,14 @@ public interface SystemRoleMenuModulePermissionDao {
     @Insert("INSERT INTO `student`.`system_role_menu_module_permission` (`role_id`, `menu_id`, `module_id`, `permissions`, `status`, `create_time`, `update_time`) VALUES (#{systemRoleMenuModulePermissionDto.roleId}, #{systemRoleMenuModulePermissionDto.menuId}, #{systemRoleMenuModulePermissionDto.moduleId}, #{systemRoleMenuModulePermissionDto.permissions}, #{systemRoleMenuModulePermissionDto.status}, NOW(), NOW());")
     @Options(useGeneratedKeys = true, keyProperty = "systemRoleMenuModulePermissionDto.id", keyColumn = "id")
     void addSystemRoleMenuModulePermission(@Param("systemRoleMenuModulePermissionDto") SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto);
+
+    /**
+     * 更新[系统角色-菜单-模块-权限实体]
+     *
+     * @param systemRoleMenuModulePermissionDto 系统角色-菜单-模块-权限数据传输类
+     * @author KevenPotter
+     * @date 2021-01-04 09:41:19
+     */
+    void updateSystemRoleMenuModulePermission(@Param("systemRoleMenuModulePermissionDto") SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto);
 }
 
