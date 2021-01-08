@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.SystemRoleMenuModulePermissionDto;
 import com.kevenpotter.student.domain.entity.SystemRoleEntity;
 import com.kevenpotter.student.domain.entity.SystemRoleMenuModulePermissionEntity;
-import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -94,7 +96,7 @@ public interface SystemRoleMenuModulePermissionDao {
      * @author KevenPotter
      * @date 2021-01-06 11:28:09
      */
-    @Select("SELECT * FROM system_role_menu_module_permission srmmp WHERE srmmp.role_id = #{roleId}")
+    @Select("SELECT * FROM system_role_menu_module_permission srmmp WHERE srmmp.role_id = #{roleId} AND srmmp.status = 1")
     List<SystemRoleMenuModulePermissionDto> getSystemRoleMenuModulePermissionByRoleId(@Param("roleId") Long roleId);
 
     /**
@@ -109,14 +111,12 @@ public interface SystemRoleMenuModulePermissionDao {
     SystemRoleMenuModulePermissionEntity getSystemRoleMenuModulePermissionById(@Param("id") Long id);
 
     /**
-     * 插入一条新的[系统角色-菜单-模块-权限实体]
+     * 插入[系统角色-菜单-模块-权限实体]
      *
      * @param systemRoleMenuModulePermissionDto 系统角色-菜单-模块-权限数据传输类
      * @author KevenPotter
      * @date 2021-01-06 13:44:09
      */
-    @Insert("INSERT INTO `student`.`system_role_menu_module_permission` (`role_id`, `menu_id`, `module_id`, `permissions`, `status`, `create_time`, `update_time`) VALUES (#{systemRoleMenuModulePermissionDto.roleId}, #{systemRoleMenuModulePermissionDto.menuId}, #{systemRoleMenuModulePermissionDto.moduleId}, #{systemRoleMenuModulePermissionDto.permissions}, #{systemRoleMenuModulePermissionDto.status}, NOW(), NOW());")
-    @Options(useGeneratedKeys = true, keyProperty = "systemRoleMenuModulePermissionDto.id", keyColumn = "id")
     void addSystemRoleMenuModulePermission(@Param("systemRoleMenuModulePermissionDto") SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto);
 
     /**
@@ -127,5 +127,14 @@ public interface SystemRoleMenuModulePermissionDao {
      * @date 2021-01-04 09:41:19
      */
     void updateSystemRoleMenuModulePermission(@Param("systemRoleMenuModulePermissionDto") SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto);
+
+    /**
+     * 删除[系统角色-菜单-模块-权限实体]
+     *
+     * @param systemRoleMenuModulePermissionDto 系统角色-菜单-模块-权限数据传输类
+     * @author KevenPotter
+     * @date 2021-01-08 16:11:00
+     */
+    void deleteSystemRoleMenuModulePermission(@Param("systemRoleMenuModulePermissionDto") SystemRoleMenuModulePermissionDto systemRoleMenuModulePermissionDto);
 }
 

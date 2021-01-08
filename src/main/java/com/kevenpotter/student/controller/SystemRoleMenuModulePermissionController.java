@@ -61,7 +61,6 @@ public class SystemRoleMenuModulePermissionController {
     public ApiResult addRoleMenuModulePermissions(@RequestBody List<SystemRoleMenuModulePermissionDto> systemRoleMenuModulePermissions) {
         if (ListUtils.isEmpty(systemRoleMenuModulePermissions)) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         systemRoleMenuModulePermissionService.addSystemRoleMenuModulePermission(systemRoleMenuModulePermissions);
-        // if (null == systemRoleMenuModulePermissionEntity) return ApiResult.buildFailure(ApiConstant.CODE_4, "该角色菜单模块权限已存在");
         return ApiResult.buildSuccess();
     }
 }
