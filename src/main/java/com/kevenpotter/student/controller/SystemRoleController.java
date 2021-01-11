@@ -61,6 +61,19 @@ public class SystemRoleController {
     }
 
     /**
+     * 获取所有[全部系统角色数据传输类]
+     *
+     * @return 返回所有[全部系统角色数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-11 14:44:07
+     */
+    @ResponseBody
+    @GetMapping("/all/roles")
+    public ApiResult getAllRoles() {
+        return ApiResult.buildSuccess(systemRoleService.getAllRoles());
+    }
+
+    /**
      * 插入一条新的[系统角色实体]并返回该[系统角色实体]
      *
      * @param systemRoleDto 系统角色数据传输类

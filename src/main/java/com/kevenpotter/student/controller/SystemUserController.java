@@ -1,10 +1,14 @@
 package com.kevenpotter.student.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
+import com.kevenpotter.student.domain.dto.SystemUserWithoutImportantInformationDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import com.kevenpotter.student.result.ApiConstant;
 import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.SystemUserService;
+import com.kevenpotter.student.utils.ListUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,18 +34,29 @@ public class SystemUserController {
     private SystemUserService systemUserService;
 
     /**
-     * @param systemUserDto 后台用户数据传输类
+     * 获取[系统用户实体类]
+     *
+     * @param userId       用户编号
+     * @param userNickname 用户昵称
+     * @param pageNo       当前页码
+     * @param pageSize     分页大小
      * @return 返回一个结果集
      * @author KevenPotter
-     * @date 2019-12-12 11:25:50
-     * @description 根据[用户编号]或[用户名称]返回[后台用户实体类]
+     * @date 2021-01-11 10:06:45
      */
-    @GetMapping("/systemUser")
-    public ApiResult getSystemUser(@RequestBody SystemUserDto systemUserDto) {
-        if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
-        SystemUserEntity systemUserEntity = systemUserService.getSystemUser(systemUserDto);
-        if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未获取到后台用户信息");
-        return ApiResult.buildSuccess(systemUserEntity);
+    @ResponseBody
+    @GetMapping("/systemUsers")
+    public ApiResult getSystemUsers(
+            @RequestParam(value = "userId", required = false) Long userId,
+            @RequestParam(value = "userNickName", required = false) String userNickname,
+            @RequestParam(value = "userStatus", required = false) Integer userStatus,
+            @RequestParam(value = "pageNo", defaultValue = "1") Integer pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize
+    ) {
+        PageHelper.startPage(pageNo, pageSize);
+        PageInfo<SystemUserWithoutImportantInformationDto> pageInfo = new PageInfo<>(systemUserService.getSystemUsers(userId, userNickname, userStatus));
+        if (ListUtils.isEmpty(pageInfo.getList())) return ApiResult.buildFailure(ApiConstant.CODE_3, "未获取到用户信息");
+        return ApiResult.buildSuccess(pageInfo);
     }
 
     /**
@@ -51,12 +66,29 @@ public class SystemUserController {
      * @date 2019-12-19 10:25:17
      * @description 插入一条新的[后台用户实体]并返回该[后台用户实体]
      */
-    @PostMapping("/systemUser")
     @ResponseBody
+    @PostMapping("/systemUsers")
     public ApiResult addSystemUser(@RequestBody SystemUserDto systemUserDto) {
         if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
         SystemUserEntity systemUserEntity = systemUserService.addSystemUser(systemUserDto);
         if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_2, "未成功添加用户信息");
+        return ApiResult.buildSuccess(systemUserEntity);
+    }
+
+    /**
+     * 更新[系统用户实体]并返回更新之前的[系统用户实体]
+     *
+     * @param systemUserDto 系统用户数据传输类
+     * @return 返回一个结果集
+     * @author KevenPotter
+     * @date 2021-01-11 14:02:31
+     */
+    @ResponseBody
+    @PutMapping("/systemUsers")
+    public ApiResult updateUser(@RequestBody SystemUserDto systemUserDto) {
+        if (null == systemUserDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        SystemUserEntity systemUserEntity = systemUserService.updateSystemMenu(systemUserDto);
+        if (null == systemUserEntity) return ApiResult.buildFailure(ApiConstant.CODE_3, "未成功更新系统用户信息,系统用户信息可能不存在");
         return ApiResult.buildSuccess(systemUserEntity);
     }
 

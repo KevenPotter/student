@@ -1,10 +1,13 @@
 package com.kevenpotter.student.dao;
 
 import com.github.pagehelper.Page;
+import com.kevenpotter.student.domain.dto.SystemAllRoleDto;
 import com.kevenpotter.student.domain.dto.SystemRoleDto;
 import com.kevenpotter.student.domain.entity.SystemRoleEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 系统角色持久层类
@@ -49,6 +52,16 @@ public interface SystemRoleDao {
      */
     @Select("SELECT * FROM system_role sr WHERE sr.role_name = #{roleName}")
     SystemRoleEntity getRoleByRoleName(@Param("roleName") String roleName);
+
+    /**
+     * 获取所有[全部系统角色数据传输类]
+     *
+     * @return 返回所有[全部系统角色数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-11 14:48:29
+     */
+    @Select("SELECT sr.id AS 'roleId', sr.role_name AS 'roleName' FROM system_role sr")
+    List<SystemAllRoleDto> getAllRoles();
 
     /**
      * 根据[角色编号]查询[系统角色实体]

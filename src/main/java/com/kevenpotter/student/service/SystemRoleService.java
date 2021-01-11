@@ -2,8 +2,12 @@ package com.kevenpotter.student.service;
 
 import com.github.pagehelper.Page;
 import com.kevenpotter.student.dao.SystemRoleDao;
+import com.kevenpotter.student.domain.dto.SystemAllMenuDto;
+import com.kevenpotter.student.domain.dto.SystemAllModuleDto;
+import com.kevenpotter.student.domain.dto.SystemAllRoleDto;
 import com.kevenpotter.student.domain.dto.SystemRoleDto;
 import com.kevenpotter.student.domain.entity.SystemRoleEntity;
+import com.kevenpotter.student.utils.ListUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.*;
 
 /**
  * 系统角色服务层类
@@ -52,6 +57,17 @@ public class SystemRoleService {
     public SystemRoleEntity getRoleByRoleName(String roleName) {
         if (StringUtils.isEmpty(roleName)) return null;
         return systemRoleDao.getRoleByRoleName(roleName);
+    }
+
+    /**
+     * 获取所有[全部系统角色数据传输类]
+     *
+     * @return 返回所有[全部系统角色数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-05 13:30:04
+     */
+    public List<SystemAllRoleDto> getAllRoles() {
+        return systemRoleDao.getAllRoles();
     }
 
     /**

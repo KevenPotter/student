@@ -1,6 +1,8 @@
 package com.kevenpotter.student.dao;
 
+import com.github.pagehelper.Page;
 import com.kevenpotter.student.domain.dto.SystemUserDto;
+import com.kevenpotter.student.domain.dto.SystemUserWithoutImportantInformationDto;
 import com.kevenpotter.student.domain.entity.SystemUserEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,13 +20,30 @@ import org.springframework.stereotype.Repository;
 public interface SystemUserDao {
 
     /**
-     * @param systemUserDto 后台用户数据传输类
-     * @return 根据[后台用户数据传输类]返回[后台用户实体类]
+     * 根据[用户编号]、[用户昵称]和[用户状态]返回[后台用户实体类]
+     *
+     * @param userId       用户编号
+     * @param userNickname 用户昵称
+     * @param userStatus   用户状态
+     * @return 返回根据[用户编号]、[用户昵称]和[用户状态]返回[后台用户实体类]
      * @author KevenPotter
-     * @date 2019-12-11 21:18:43
-     * @description 根据[后台用户数据传输类]返回[后台用户实体类]
+     * @date 2021-01-11 10:11:52
      */
-    SystemUserEntity getSystemUser(@Param("systemUserDto") SystemUserDto systemUserDto);
+    @Select("<script> " +
+            "SELECT su.id,su.user_id,su.user_mobile,su.user_email,su.user_nickname,su.user_status FROM system_user su " +
+            "<where> " +
+            "<if test='userId != null'> " +
+            "AND su.user_id LIKE CONCAT('%',#{userId},'%') " +
+            "</if>" +
+            "<if test='userNickname != null'> " +
+            "AND su.user_nickname LIKE CONCAT('%',#{userNickname},'%') " +
+            "</if>" +
+            "<if test='userStatus != null'> " +
+            "AND su.user_status = #{userStatus}  " +
+            "</if> " +
+            "</where>" +
+            "</script>")
+    Page<SystemUserWithoutImportantInformationDto> getSystemUsers(@Param("userId") Long userId, @Param("userNickname") String userNickname, @Param("userStatus") Integer userStatus);
 
     /**
      * @param systemUserDto 后台用户数据传输类
@@ -88,5 +107,14 @@ public interface SystemUserDao {
      */
     @Select("SELECT COUNT(*) FROM system_user;")
     Long getCount();
+
+    /**
+     * 更新[系统用户实体]
+     *
+     * @param systemUserDto 系统用户数据传输类
+     * @author KevenPotter
+     * @date 2021-01-11 12:21:52
+     */
+    void updateSystemUser(@Param("systemUserDto") SystemUserDto systemUserDto);
 }
 

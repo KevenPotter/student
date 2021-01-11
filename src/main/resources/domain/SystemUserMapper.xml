@@ -2,30 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kevenpotter.student.dao.SystemUserDao">
 
-    <!-- 根据[后台用户数据传输类]返回[后台用户实体类] -->
-    <select id="getSystemUser" resultType="com.kevenpotter.student.domain.entity.SystemUserEntity">
-        SELECT * FROM system_user su
-        <where>
-            <choose>
-                <when test="systemUserDto.userId != null">
-                    su.user_id = #{systemUserDto.userId}
-                </when>
-                <when test="systemUserDto.userMobile != null">
-                    su.user_mobile = #{systemUserDto.userMobile}
-                </when>
-                <when test="systemUserDto.userEmail != null">
-                    su.user_email = #{systemUserDto.userEmail}
-                </when>
-                <when test="systemUserDto.userNickName != null">
-                    su.user_nickname = #{systemUserDto.userNickName}
-                </when>
-                <otherwise>
-                    1 != 1
-                </otherwise>
-            </choose>
-        </where>
-    </select>
-
     <!-- 根据[主键ID]返回[后台用户实体类] -->
     <select id="getSystemUserById" resultType="com.kevenpotter.student.domain.entity.SystemUserEntity">
         SELECT *
@@ -63,8 +39,34 @@
 
     <!-- 插入一条新的[后台用户实体] -->
     <insert id="addSystemUser" parameterType="com.kevenpotter.student.domain.dto.SystemUserDto" keyProperty="systemUserDto.id" keyColumn="id" useGeneratedKeys="true">
-        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`,`salt`)
+        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`, `salt`)
         VALUES (#{systemUserDto.userId}, #{systemUserDto.userMobile}, #{systemUserDto.userEmail}, #{systemUserDto.userNickName}, #{systemUserDto.userPassword}, #{systemUserDto.salt});
     </insert>
+
+    <!-- 更新[系统用户实体] -->
+    <update id="updateSystemUser" parameterType="com.kevenpotter.student.domain.dto.SystemUserDto" useGeneratedKeys="true" keyProperty="systemUserDto.id" keyColumn="1">
+        UPDATE `student`.`system_user`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="systemUserDto.userId != null">
+                `user_id`=#{systemUserDto.userId},
+            </if>
+            <if test="systemUserDto.userMobile != null">
+                `user_mobile`=#{systemUserDto.userMobile},
+            </if>
+            <if test="systemUserDto.userEmail != null">
+                `user_email`=#{systemUserDto.userEmail},
+            </if>
+            <if test="systemUserDto.userNickName != null">
+                `user_nickname`=#{systemUserDto.userNickName},
+            </if>
+            <if test="systemUserDto.userStatus != null">
+                `user_status`=#{systemUserDto.userStatus},
+            </if>
+            <if test="systemUserDto.userUpdateTime != null">
+                `user_update_time`=#{systemUserDto.userUpdateTime}
+            </if>
+        </trim>
+        WHERE (`id`=#{systemUserDto.id})
+    </update>
 
 </mapper>

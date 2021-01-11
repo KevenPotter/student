@@ -1,14 +1,12 @@
 package com.kevenpotter.student.service;
 
 import com.kevenpotter.student.dao.SystemUserRoleDao;
+import com.kevenpotter.student.domain.dto.SystemUserRoleDto;
 import com.kevenpotter.student.domain.entity.SystemUserRoleEntity;
-import com.kevenpotter.student.utils.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author KevenPotter
@@ -26,16 +24,31 @@ public class SystemUserRoleService {
     private SystemUserRoleDao systemUserRoleDao;
 
     /**
+     * 根据[用户编号]返回一个[系统用户-角色实体]
+     *
      * @param userId 用户编号
-     * @return 根据[用户编号]返回[后台用户-角色实体]列表
+     * @return 根据[用户编号]返回一个[系统用户-角色实体]
      * @author KevenPotter
-     * @date 2019-12-12 16:06:17
-     * @description 根据[用户编号]返回[后台用户-角色实体]列表
+     * @date 2021-01-11 15:33:59
      */
-    public List<SystemUserRoleEntity> getSystemUserRoleByUserId(Long userId) {
+    public SystemUserRoleEntity getSystemUserRoleByUserId(String userId) {
         if (null == userId) return null;
-        List<SystemUserRoleEntity> systemUserRoleEntityList = systemUserRoleDao.getSystemUserRoleBy(userId);
-        if (ListUtils.isEmpty(systemUserRoleEntityList)) return null;
-        return systemUserRoleEntityList;
+        return systemUserRoleDao.getSystemUserRoleByUserId(userId);
+    }
+
+    /**
+     * 插入一条新的[系统用户角色实体]并返回该[系统用户角色实体]
+     *
+     * @param systemUserRoleDto 系统用户角色数据传输类
+     * @return 返回插入的[系统用户角色实体]
+     * @author KevenPotter
+     * @date 2021-01-11 16:17:40
+     */
+    public SystemUserRoleEntity addSystemUserRole(SystemUserRoleDto systemUserRoleDto) {
+        if (null == systemUserRoleDto) return null;
+        SystemUserRoleEntity systemUserRoleEntity = this.getSystemUserRoleByUserId(systemUserRoleDto.getSystemUserId());
+        if (null != systemUserRoleEntity) return null;
+        systemUserRoleDao.addUserRole(systemUserRoleDto);
+        return systemUserRoleDao.getSystemUserRoleById(systemUserRoleDto.getId());
     }
 }
