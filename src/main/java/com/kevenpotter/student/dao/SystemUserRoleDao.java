@@ -47,5 +47,14 @@ public interface SystemUserRoleDao {
     @Insert("INSERT INTO `student`.`system_user_role` (`system_user_id`, `system_role_id`, `user_role_status`, `user_role_create_time`, `user_role_update_time`) VALUES (#{systemUserRoleDto.systemUserId}, #{systemUserRoleDto.systemRoleId}, #{systemUserRoleDto.userRoleStatus}, NOW(), NOW());")
     @Options(useGeneratedKeys = true, keyProperty = "systemUserRoleDto.id", keyColumn = "id")
     void addUserRole(@Param("systemUserRoleDto") SystemUserRoleDto systemUserRoleDto);
+
+    /**
+     * 更新[系统用户-角色实体]
+     *
+     * @param systemUserRoleDto 系统用户角色数据传输类
+     * @author KevenPotter
+     * @date 2021-01-12 09:36:43
+     */
+    void updateSystemUserRole(@Param("systemUserRoleDto") SystemUserRoleDto systemUserRoleDto);
 }
 

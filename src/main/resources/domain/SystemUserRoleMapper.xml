@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kevenpotter.student.dao.SystemUserRoleDao">
+
+    <!-- 更新[系统用户-角色实体] -->
+    <update id="updateSystemUserRole" parameterType="com.kevenpotter.student.domain.dto.SystemUserRoleDto" useGeneratedKeys="true" keyProperty="systemUserRoleDto.id" keyColumn="1">
+        UPDATE `student`.`system_user_role`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="systemUserRoleDto.systemUserId != null">
+                `system_user_id`=#{systemUserRoleDto.systemUserId},
+            </if>
+            <if test="systemUserRoleDto.systemRoleId != null">
+                `system_role_id`=#{systemUserRoleDto.systemRoleId},
+            </if>
+            <if test="systemUserRoleDto.userRoleStatus != null">
+                `user_role_status`=#{systemUserRoleDto.userRoleStatus},
+            </if>
+            <if test="systemUserRoleDto.userRoleUpdateTime != null">
+                `user_role_update_time`=#{systemUserRoleDto.userRoleUpdateTime}
+            </if>
+        </trim>
+        WHERE (`system_user_id`=#{systemUserRoleDto.systemUserId})
+    </update>
+
+</mapper>

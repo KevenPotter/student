@@ -47,7 +47,10 @@ public class SystemUserRoleService {
     public SystemUserRoleEntity addSystemUserRole(SystemUserRoleDto systemUserRoleDto) {
         if (null == systemUserRoleDto) return null;
         SystemUserRoleEntity systemUserRoleEntity = this.getSystemUserRoleByUserId(systemUserRoleDto.getSystemUserId());
-        if (null != systemUserRoleEntity) return null;
+        if (null != systemUserRoleEntity) {
+            systemUserRoleDao.updateSystemUserRole(systemUserRoleDto);
+            return systemUserRoleDao.getSystemUserRoleByUserId(systemUserRoleDto.getSystemUserId());
+        }
         systemUserRoleDao.addUserRole(systemUserRoleDto);
         return systemUserRoleDao.getSystemUserRoleById(systemUserRoleDto.getId());
     }

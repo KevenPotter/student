@@ -62,8 +62,11 @@ public class SystemUserRoleController {
     @PostMapping("/userRoles")
     public ApiResult addSystemUserRole(@RequestBody SystemUserRoleDto systemUserRoleDto) {
         if (null == systemUserRoleDto) return ApiResult.buildFailure(ApiConstant.CODE_1, "请求参数为空");
+        SystemUserRoleEntity oldSystemUserRoleEntity = systemUserRoleService.getSystemUserRoleByUserId(systemUserRoleDto.getSystemUserId());
+        if (oldSystemUserRoleEntity != null) {
+            if (oldSystemUserRoleEntity.getSystemRoleId().equals(systemUserRoleDto.getSystemRoleId())) return ApiResult.buildFailure(ApiConstant.CODE_4, "重复的角色信息");
+        }
         SystemUserRoleEntity systemUserRoleEntity = systemUserRoleService.addSystemUserRole(systemUserRoleDto.setUserRoleStatus(1));
-        if (null == systemUserRoleEntity) return ApiResult.buildFailure(ApiConstant.CODE_4, "该用户角色已存在");
         return ApiResult.buildSuccess(systemUserRoleEntity);
     }
 }
