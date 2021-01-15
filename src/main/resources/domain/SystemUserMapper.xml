@@ -39,8 +39,8 @@
 
     <!-- 插入一条新的[后台用户实体] -->
     <insert id="addSystemUser" parameterType="com.kevenpotter.student.domain.dto.SystemUserDto" keyProperty="systemUserDto.id" keyColumn="id" useGeneratedKeys="true">
-        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`, `salt`)
-        VALUES (#{systemUserDto.userId}, #{systemUserDto.userMobile}, #{systemUserDto.userEmail}, #{systemUserDto.userNickName}, #{systemUserDto.userPassword}, #{systemUserDto.salt});
+        INSERT INTO `student`.`system_user` (`user_id`, `user_mobile`, `user_email`, `user_nickname`, `user_password`, `user_status`, `salt`, `user_create_time`, `user_update_time`)
+        VALUES (#{systemUserDto.userId}, #{systemUserDto.userMobile}, #{systemUserDto.userEmail}, #{systemUserDto.userNickName}, #{systemUserDto.userPassword}, 1, #{systemUserDto.salt}, NOW(), NOW())
     </insert>
 
     <!-- 更新[系统用户实体] -->
