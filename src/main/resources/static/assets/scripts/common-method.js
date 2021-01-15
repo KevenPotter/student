@@ -221,7 +221,6 @@ function getFirstElement(data) {
  * @date 2021-01-15 09:49:18
  */
 function getQueryVariable(variable) {
-    debugger;
     let query = window.location.search.substring(1);
     let vars = query.split("&");
     for (let i = 0; i < vars.length; i++) {

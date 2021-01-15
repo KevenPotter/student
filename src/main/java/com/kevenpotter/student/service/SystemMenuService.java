@@ -68,6 +68,17 @@ public class SystemMenuService {
     }
 
     /**
+     * 依据[菜单编号]获取[首页全部系统菜单数据传输类]
+     *
+     * @return 返回依据[菜单编号]获取[首页全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-15 11:04:41
+     */
+    public SystemAllMenuForIndexDto getMenusByMenuId(Long menuId) {
+        return systemMenuDao.getMenusByMenuId(menuId);
+    }
+
+    /**
      * 根据[菜单名称]查询[系统菜单实体]
      *
      * @param menuName 菜单名称

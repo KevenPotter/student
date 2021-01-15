@@ -64,6 +64,16 @@ public interface SystemMenuDao {
     List<SystemAllMenuForIndexDto> getAllMenusForIndex();
 
     /**
+     * 依据[菜单编号]获取[首页全部系统菜单数据传输类]
+     *
+     * @return 返回依据[菜单编号]获取[首页全部系统菜单数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-15 11:03:51
+     */
+    @Select("SELECT sm.id AS 'menuId', sm.menu_name AS 'menuName', sm.menu_link_url AS 'menuLinkUrl', sm.menu_icon AS 'menuIcon', sm.menu_sort_number AS 'menuSortNumber' FROM system_menu sm WHERE sm.id = #{menuId} AND sm.menu_status = 1")
+    SystemAllMenuForIndexDto getMenusByMenuId(@Param("menuId") Long menuId);
+
+    /**
      * 根据[菜单名称]查询[系统菜单实体]
      *
      * @param menuName 菜单名称

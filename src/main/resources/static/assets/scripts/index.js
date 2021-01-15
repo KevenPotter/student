@@ -3,7 +3,19 @@
  */
 $(document).ready(function () {
     log(getQueryVariable("username"))
+    let systemUserId = getQueryVariable("username");
     loadMenus();
+    $.ajax({
+        url: studentManagementSystem + "/index/permissions/" + systemUserId,
+        type: "GET",
+        dataType: "json",
+        async: false,
+        success: function (data) {
+            if (SUCCESS_MARK === data.code) {
+                log(data);
+            }
+        }
+    });
 });
 
 function loadMenus() {

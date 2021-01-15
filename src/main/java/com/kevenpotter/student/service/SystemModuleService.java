@@ -7,6 +7,7 @@ import com.kevenpotter.student.domain.dto.SystemAllModuleDto;
 import com.kevenpotter.student.domain.dto.SystemModuleDto;
 import com.kevenpotter.student.domain.entity.SystemModuleEntity;
 import com.kevenpotter.student.utils.ListUtils;
+import com.kevenpotter.student.utils.NumericUtils;
 import com.kevenpotter.student.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,6 +95,19 @@ public class SystemModuleService {
     public SystemModuleEntity getModuleByModuleName(String moduleName) {
         if (StringUtils.isEmpty(moduleName)) return null;
         return systemModuleDao.getModuleByModuleName(moduleName);
+    }
+
+    /**
+     * 根据[模块编号]查询[系统模块实体]
+     *
+     * @param moduleId 模块编号
+     * @return 返回根据[模块编号]查询[系统模块实体]
+     * @author KevenPotter
+     * @date 2021-01-15 13:45:00
+     */
+    public SystemModuleEntity getModuleByModuleId(Long moduleId) {
+        if (NumericUtils.longIsEmpty(moduleId)) return null;
+        return systemModuleDao.getSystemModuleById(moduleId);
     }
 
     /**

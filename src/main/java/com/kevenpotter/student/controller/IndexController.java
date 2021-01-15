@@ -7,6 +7,7 @@ import com.kevenpotter.student.result.ApiResult;
 import com.kevenpotter.student.service.IndexService;
 import com.kevenpotter.student.service.StudentService;
 import com.kevenpotter.student.service.SystemMenuService;
+import com.kevenpotter.student.service.SystemUserRoleService;
 import com.kevenpotter.student.utils.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,8 @@ public class IndexController {
     private StudentService studentService;
     @Autowired
     private SystemMenuService systemMenuService;
+    @Autowired
+    private SystemUserRoleService systemUserRoleService;
 
     /**
      * @return 返回一个结果集
@@ -92,5 +95,18 @@ public class IndexController {
     @GetMapping("/all/menus")
     public ApiResult getAllMenusForIndex() {
         return ApiResult.buildSuccess(systemMenuService.getAllMenusForIndex());
+    }
+
+    /**
+     * 根据[系统用户编号]获取该用户的[系统用户权限数据传输类]
+     *
+     * @return 根据[系统用户编号]获取该用户的[系统用户权限数据传输类]
+     * @author KevenPotter
+     * @date 2021-01-15 10:31:30
+     */
+    @ResponseBody
+    @GetMapping("/permissions/{systemUserId}")
+    public ApiResult getSystemUserPermissionByUserId(@PathVariable String systemUserId) {
+        return ApiResult.buildSuccess(systemUserRoleService.getSystemUserPermissionByUserId(systemUserId));
     }
 }
